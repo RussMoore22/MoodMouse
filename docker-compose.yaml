@@ -1,5 +1,6 @@
 volumes:
     postgres-data:
+    pg-admin:
         external: true
 services:
     fastapi:
@@ -14,6 +15,16 @@ services:
         user: "1000:1000" # on macOS and Linux, replace this with your real user id and group id
         volumes:
             - ./api:/app
+    pg-admin:
+        image: dpage/pgadmin4
+        volumes:
+            - pg-admin:/var/lib/pgadmin
+        ports:
+            - 8082:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: jenniferperera12@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: CyberMavericks
+            PGADMIN_DISABLE_POSTFIX: 1
 
     ghi:
         image: node:lts-bullseye
