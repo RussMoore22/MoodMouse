@@ -10,9 +10,8 @@ from models import AccountToken, AccountIn, AccountForm
 from queries.accounts import AccountsQueries, DuplicateAccountError
 from authenticator import authenticator
 
-
-
 router = APIRouter()
+
 
 @router.post("/api/accounts", response_model=AccountToken)
 async def create__account(
@@ -21,7 +20,8 @@ async def create__account(
     response: Response,
     repo: AccountsQueries = Depends()
 ):
-    hashed_password = authenticator.hash_password(info.password) # info.password - plain text
+    # info.password - plain text
+    hashed_password = authenticator.hash_password(info.password) 
     try:
         account = repo.create(info=info, hashed_password=hashed_password)
     except DuplicateAccountError:
@@ -31,4 +31,5 @@ async def create__account(
         )
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, repo)
-    return AccountToken(account=account, **token.dict()) # replace with new method!!!
+    # replace with new method!!!
+    return AccountToken(account=account, **token.dict())
