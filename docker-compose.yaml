@@ -26,7 +26,6 @@ services:
             PGADMIN_DEFAULT_EMAIL: CyberMavericks@gmail.com
             PGADMIN_DEFAULT_PASSWORD: CyberMavericks
             PGADMIN_DISABLE_POSTFIX: 1
-
     ghi:
         image: node:lts-bullseye
         command: /bin/bash run.sh
