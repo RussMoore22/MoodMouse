@@ -7,16 +7,16 @@ class AccountIn(BaseModel):
     last_name: str
     email: str
     username: str
-    password: str # plaintext, not to be added to db: "password123"
+    password: str  # plaintext, not to be added to db: "password123"
 
 
-class AccoutOutWithHashedPassword(BaseModel):
+class AccountOutWithHashedPassword(BaseModel):
     id: int
     first_name: str
     last_name: str
     email: str
     username: str
-    hashed_password: str # hashed: "akefni23452l3rnf2p948fghsdjg"
+    hashed_password: str  # hashed: "akefni23452l3rnf2p948fghsdjg"
 
 
 class AccountOut(BaseModel):
