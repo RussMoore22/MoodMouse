@@ -3,7 +3,7 @@ from queries.pool import pool
 # from bson.errors import InvalidId # - for No SQL
 import os
 from pydantic import BaseModel
-from models import AccountIn, AccountOutWithHashedPassword
+from models import AccountIn, AccountOutWithHashedPassword, AccountOut
 
 
 class Error(BaseModel):
@@ -50,4 +50,30 @@ class AccountsQueries:
             return Error(message="Could not get the user data.")
 
     def create(self, info: AccountIn, hashed_password: str):
-        pass
+        try:
+            # connection to database
+            with pool.connection() as conn:
+                # runs sql query
+                with conn.cursor() as db:
+                    # execute sql code and storing it data var
+                    data = db.execute(
+                        """
+                        INSERT INTO accounts
+                        (first_name, last_name, email, username, hashed_password)
+                        VALUES
+                        (%s, %s, %s, %s, %s)
+                        RETURNING id;
+                        """,
+                        [
+                            info.first_name,
+                            info.last_name,
+                            info.email,
+                            info.username,
+                            hashed_password
+                        ]
+                    )
+                    new_user_id = data.fetchone()[0]
+                    dict_info = info.dict()
+                    return AccountOut(id=new_user_id, **dict_info)
+        except Exception:
+            return Error(message="Could not create the user.")

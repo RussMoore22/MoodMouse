@@ -21,7 +21,7 @@ async def create__account(
     repo: AccountsQueries = Depends()
 ):
     # info.password - plain text
-    hashed_password = authenticator.hash_password(info.password) 
+    hashed_password = authenticator.hash_password(info.password)
     try:
         account = repo.create(info=info, hashed_password=hashed_password)
     except DuplicateAccountError:
