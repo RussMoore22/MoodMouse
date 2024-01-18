@@ -1,7 +1,6 @@
 from queries.pool import pool
 # from bson.objectid import ObjectId # - for No SQL
 # from bson.errors import InvalidId # - for No SQL
-import os
 from pydantic import BaseModel
 from models import AccountIn, AccountOutWithHashedPassword, AccountOut
 
@@ -59,7 +58,11 @@ class AccountsQueries:
                     data = db.execute(
                         """
                         INSERT INTO accounts
-                        (first_name, last_name, email, username, hashed_password)
+                        (first_name,
+                        last_name,
+                        email,
+                        username,
+                        hashed_password)
                         VALUES
                         (%s, %s, %s, %s, %s)
                         RETURNING id;
