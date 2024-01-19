@@ -35,11 +35,11 @@ function in the accounts.py file. We also learned that host name when creating.
 
 Today, I worked on:
 
-* Added another .env file and when we ran our docker compose build and up, 
+* Adding another .env file and when we ran our docker compose build and up, 
 the FastAPI container worked and I didn’t need to restart it manually.
-* Deleted sample migration and created accounts table in migrations.py. 
-* Created get method for account queries.
-* Created the "create" method for account queries.
+* Deleting sample migration and created accounts table in migrations.py. 
+* Creating get method for account queries.
+* Creating the "create" method for account queries.
 * Tested database functionality in FastAPI by creating a user, logging in and logging out. 
 
 As the driver for today, it was my responsible to write the code and create the merge requests
@@ -60,3 +60,28 @@ encountered in Docker, specifically related to the SIGNING key not being properl
 insight emphasized the necessity of having more than just one key. We opted to 
 create an additional .env file outside the API directory. This ensured proper 
 identification of the SIGNING key and resolved the issue.
+
+
+## January 19, 2024
+
+Today I worked on:
+
+* Attempting to fix duplicate error.
+* Creating migrations for Questions, Surveys, rorshach_imgs, rorshach_tests, and check_ins. 
+* Working out merge requests questions and concerns. 
+* Updating Excalidraw wireframe and backend design to reflect accurate variable naming in migrations. 
+
+As one of the  navigators for today, I helped direct the driver with researching the PostgreSQL 
+documentation for Foreign Key formatting. We discovered that we could implement a foreign key 
+for each item that we had created before calling the foreign key. We needed to specify the 
+referenced columns by id in the questions table for each foreign key. I also helped with updating 
+our excalidraw documentation to reflect the changes we were making to the variable names. We had to
+abandon the duplicate issue due to being stuck on it for a long time and wanting to move on to 
+something more productive. 
+
+Today I learned that migrations written should be done in order of tables that don’t 
+depend on any other tables THEN tables that depend on tables created in previous migrations. Also
+to connect a foreign key to another table, we had to reference each item independently. In our
+survey, we were trying to reference the questions and we had to 
+make separate foreign keys for each question to reference the id for each question. I also learned
+that the volumes in Docker had to be deleted and rebuilt whenever a migration is changed.
