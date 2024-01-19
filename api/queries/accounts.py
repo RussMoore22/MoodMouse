@@ -14,7 +14,12 @@ class DuplicateAccountError(ValueError):
 
 
 class AccountsQueries:
-    def get(self, username: str):
+    def get(self, username: str=None, email:str=None):
+        condition = "username"
+        target = username
+        if email:
+            condition = "email"
+            target = email
         try:
             # connection to database
             with pool.connection() as conn:
@@ -30,25 +35,32 @@ class AccountsQueries:
                         username,
                         hashed_password
                         FROM accounts
-                        WHERE username=%s;
+                        WHERE %s=%s;
                         """,
-                        [username]
+                        [condition, target]
                     )
                     user = data.fetchone()
                     if user is None:
                         return None
                     return AccountOutWithHashedPassword(
-                                                        id=user[0],
-                                                        first_name=user[1],
-                                                        last_name=user[2],
-                                                        email=user[3],
-                                                        username=user[4],
-                                                        hashed_password=user[5]
-                                                        )
+                        id=user[0],
+                        first_name=user[1],
+                        last_name=user[2],
+                        email=user[3],
+                        username=user[4],
+                        hashed_password=user[5]
+                    )
         except Exception:
             return Error(message="Could not get the user data.")
 
     def create(self, info: AccountIn, hashed_password: str):
+        # check for duplicated account
+        if self.get(username=info.username) is not None:
+            print("***************username duplicated")
+            raise DuplicateAccountError()
+        if self.get(email=info.email) is not None:
+            raise Error(messsage="Email already exists")
+
         try:
             # connection to database
             with pool.connection() as conn:
@@ -79,4 +91,5 @@ class AccountsQueries:
                     dict_info = info.dict()
                     return AccountOut(id=new_user_id, **dict_info)
         except Exception:
+            print("***************username duplicated????")
             return Error(message="Could not create the user.")
