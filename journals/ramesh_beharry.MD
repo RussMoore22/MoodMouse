@@ -7,6 +7,8 @@ Today I helped our team facilitate fine-tuning our project management workflow, 
 I was the navigator today. Our team helped today's driver, Russ, work on
 our FastAPI functions for authentication. We created AccountIn and AccountOut, AccountToken, and account with cookies classes, and we started to create query functions.
 
+I was the assigned note-taker today, so I recorded the key points of our workday.
+
 We created an environment file .env and in that file, we created an
 ENV variable for our hashed password.
 
@@ -106,3 +108,16 @@ My "AHA" moemnt for the day was when we went through our create SQL query functi
 
 
 ## 1/19/24
+
+What I did specifically:
+
+We made 5 migrations today. We set up the SQL tables for our app's check-in feature, survey,
+rorsharch
+
+We worked on trying to create a custom error when a user tries to create an account with an existing username or email. We didn't know why different error messages were showing and where they came from. For example, while the username error looked like what we expected and could spot the line of code where that was happening in our Querying function, we got different error messages for the emails, and we didn't know where that message was coming from. Additionally, we did some troubleshooting by throwing print statstments around different lines of code to see why one of our Exception statement was not returning the error we expected. We went into the console log of our fastapi container to see what showed up. We considered whether to use try, except, and raise commands in our functions. We thought about how to write code that handled multiple exceptions and which functions should handle errors.
+
+AHA moment: when Jen pointed out that we should make the data tables for models that are not foreign keys to another models first, and then create the model with the foreign keys because they will then have the appropriate fields.
+
+Russ found out that there is an ALTER TABLE command in Postgres SQL that creates a new migration instead of changing an existing migration, so there are some instances where deleting our SQL databases is not necessary.
+
+Luna explained pydantic functions to me and the difference between error handling in the the quering function and what can be thought of as our FastAPI view function. Error handling can be brought up in both functions. Russ pointed out that we have more pydantic functions compared to Django models and view functions, but we have greater control on the design and these smaller or specific functions, such as a get_one function, ultimately allow our code to be more modular, since we can use those smaller query functions in more complicated ones.
