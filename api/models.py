@@ -41,7 +41,6 @@ class RorschachImageOut(BaseModel):
 
 
 class RorschachTestIn(BaseModel):
-    id: int
     image: int
     response: str
 

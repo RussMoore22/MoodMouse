@@ -6,15 +6,15 @@ from fastapi import (
     HTTPException,
     status
 )
-from models import RorschachImageOut
-from queries.rorschach import RorschachImageQueries
+from models import RorschachImageOut, RorschachTestIn, RorschachTestOut
+from queries.rorschach import RorschachImageQueries, RorschachTestQueries
 from typing import List
 from authenticator import authenticator
 
 router = APIRouter()
 
 
-@router.get("/api/rorschach", response_model=List[RorschachImageOut])
+@router.get("/api/rorschach_imgs", response_model=List[RorschachImageOut])
 async def get_rorschach_image(
 
     # Curtis didn't put any requests or responses
@@ -24,8 +24,19 @@ async def get_rorschach_image(
     # Response handles error handling and doc writing, which depends on
     # Response parameter
 
-    response: Response,
+    # response: Response,
     repo: RorschachImageQueries = Depends()
 ):
 
     return repo.get_all()
+
+
+@router.post("/api/rorschach_tests", response_model=RorschachTestOut)
+# Include union of error handling. union: {some error model here}
+async def create_rorschach_test(
+    info: RorschachTestIn,
+    # request: Request,
+    # response: Response,
+    repo:  RorschachTestQueries = Depends()
+):
+    return repo.create(info)
