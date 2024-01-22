@@ -34,3 +34,18 @@ class AccountToken(Token):
 class AccountForm(BaseModel):
     username: str
     password: str
+
+class RorschachImageOut(BaseModel):
+    id: int
+    path: str
+
+
+class RorschachTestIn(BaseModel):
+    id: int
+    image: int
+    response: str
+
+class RorschachTestOut(BaseModel):
+    id: int
+    image: RorschachImageOut
+    response: str
