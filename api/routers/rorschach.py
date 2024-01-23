@@ -6,9 +6,9 @@ from fastapi import (
     HTTPException,
     status
 )
-from models import RorschachImageOut, RorschachTestIn, RorschachTestOut
+from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 from queries.rorschach import RorschachImageQueries, RorschachTestQueries
-from typing import List
+from typing import List, Union
 from authenticator import authenticator
 
 router = APIRouter()
@@ -40,3 +40,19 @@ async def create_rorschach_test(
     repo:  RorschachTestQueries = Depends()
 ):
     return repo.create(info)
+
+
+@router.put("api/rorschach_tests/{rorschach_id}", response_model=Union[RorschachTestOut, Error])
+async def update_rorschach_test(
+    rorschach_id: int,
+    info: RorschachTestIn,
+    request: Request,
+    response: Response,
+    repo: RorschachTestQueries = Depends()
+):
+    rorschach_test = repo.create(rorschach_id, info)
+    if isinstance(rorschach_test, Error):
+        response.status_code = 400
+    response.status_code = 200
+    return rorschach_test
+
