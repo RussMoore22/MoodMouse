@@ -10,7 +10,8 @@ from models import (
 
 
 class Check_InQueries:
-    def create(self, info: Check_inIn):
+
+    def get_all(self, info:Check_inOut):
         try:
             # connection to database
             with pool.connection() as conn:
@@ -19,17 +20,12 @@ class Check_InQueries:
                     # execute sql code and storing it data var
                     result = db.execute(
                         """
-                        INSERT INTO check_ins
-                        (account
-                        , date
-                        , updated_date
-                        , happy_level
-                        , journal_entry
-                        , survey
-                        , rorschach_test
-                        )
+                        SELECT account, date, updated_date, happy_level,
+                        journal_entry, survey, rorschach_test
+                        FROM check_ins
+                        ORDER BY date
                         VALUES
-                        ( %s, %s, %s, %s, %s, %s, %s )
+                        ( %s )
                         RETURNING check_in_id;
                         """,
                         [
@@ -39,12 +35,10 @@ class Check_InQueries:
                             info.happy_level,
                             info.journal_entry,
                             info.survey,
-                            info.rorschach_test,
-                            info.survey
+                            info.rorschach_test
                         ]
                     )
-                    check_in_id = result.fetchall()[0]
-
+                    check_in_id = result.fetchone()[0]
                     return Check_inOut(
                         check_in_id=check_in_id,
                         account=info.account,
@@ -58,9 +52,65 @@ class Check_InQueries:
                             image=RorschachImageOut(id=1, path="test"),
                             response="I see my mother"
                         )
-
                     )
-
+        except Exception as e:
+            print("you got an error******:", e)
+    
+    def create(self, info: Check_inIn):
+        try:
+            # connection to database
+            with pool.connection() as conn:
+                # runs sql query
+                with conn.cursor() as db:
+                    # execute sql code and storing it data var
+                    result = db.execute(
+                        """
+                            SELECT *
+                            FROM check_ins
+                            JOIN surveys as s ON
+                            (check_ins.survey=s.survey_id)
+                            JOIN questions as qt1 ON
+                            (s.q1=qt1.id)
+                            JOIN questions as qt2 ON
+                            (s.q2=qt2.id)
+                            JOIN questions as qt3 ON
+                            (s.q3=qt3.id)
+                            JOIN questions as qt4 ON
+                            (s.q4=qt4.id)
+                            JOIN questions as qt5 ON
+                            (s.q5=qt5.id)
+                            JOIN rorschach_tests as rt ON
+                            (check_ins.rorschach_test=rt.rorschach_id)
+                            JOIN rorschach_imgs as ri ON
+                            (rt.image=ri.id)
+                            WHERE check_ins.check_in_id=1
+                            ORDER BY date;
+                        """,
+                        [
+                            info.account,
+                            info.date,
+                            info.updated_date,
+                            info.happy_level,
+                            info.journal_entry,
+                            info.survey,
+                            info.rorschach_test
+                        ]
+                    )
+                    check_in_id = result.fetchone()[0]
+                    return Check_inOut(
+                        check_in_id=check_in_id,
+                        account=info.account,
+                        date=info.date,
+                        updated_date=info.updated_date,
+                        happy_level=info.happy_level,
+                        journal_entry=info.journal_entry,
+                        survey=self.get_one_survey(survey_id=info.survey),
+                        rorschach_test=RorschachTestOut(
+                            id=1,
+                            image=RorschachImageOut(id=1, path="test"),
+                            response="I see my mother"
+                        )
+                    )
         except Exception as e:
             print("you got an error******:", e)
 
@@ -100,7 +150,6 @@ class Check_InQueries:
                                 (s.q4=qt4.id)
                                 JOIN questions as qt5 ON
                                 (s.q5=qt5.id)
-
                                 WHERE survey_id=%s;
                         """,
                         [
