@@ -48,3 +48,33 @@ class RorschachTestOut(BaseModel):
     id: int
     image: RorschachImageOut
     response: str
+
+class QuestionOut(BaseModel):
+    id: int
+    prompt: str
+
+class SurveyIn(BaseModel):
+    q1: int
+    q1_ans: int
+    q2: int
+    q2_ans: int
+    q3: int
+    q3_ans: int
+    q4: int
+    q4_ans: int
+    q5: int
+    q5_ans: int
+
+
+class SurveyOut(BaseModel):
+    survey_id: int
+    q1: QuestionOut
+    q1_ans: int
+    q2: QuestionOut
+    q2_ans: int
+    q3: QuestionOut
+    q3_ans: int
+    q4: QuestionOut
+    q4_ans: int
+    q5: QuestionOut
+    q5_ans: int
