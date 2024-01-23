@@ -58,7 +58,6 @@ class SurveyQueries:
                         q4_ans=info.q4_ans,
                         q5=QuestionOut(id=info.q5, prompt=" "),
                         q5_ans=info.q5_ans
-
                         )
         except Exception as e:
                 print("Some error here ********:",id= e)
