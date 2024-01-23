@@ -42,7 +42,7 @@ async def create_rorschach_test(
     return repo.create(info)
 
 
-@router.put("api/rorschach_tests/{rorschach_id}", response_model=Union[RorschachTestOut, Error])
+@router.put("/api/rorschach_tests/{rorschach_id}", response_model=Union[RorschachTestOut, Error])
 async def update_rorschach_test(
     rorschach_id: int,
     info: RorschachTestIn,
@@ -50,9 +50,9 @@ async def update_rorschach_test(
     response: Response,
     repo: RorschachTestQueries = Depends()
 ):
-    rorschach_test = repo.create(rorschach_id, info)
+    rorschach_test = repo.update(rorschach_id, info)
     if isinstance(rorschach_test, Error):
         response.status_code = 400
-    response.status_code = 200
+    else:
+        response.status_code = 200
     return rorschach_test
-

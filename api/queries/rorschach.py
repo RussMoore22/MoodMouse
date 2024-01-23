@@ -1,10 +1,11 @@
 from queries.pool import pool
 from pydantic import BaseModel
+from typing import List, Union
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 
 
 class RorschachImageQueries:
-    def get_all(self):
+    def get_all(self) -> List[RorschachImageOut]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -20,8 +21,8 @@ class RorschachImageQueries:
                     )
                     # fetchall()
                     return [ RorschachImageOut(id=record[0], path=record[1]) for record in db ]
-        except Exception as e:
-            print("Some error here ********:", e)
+        except Exception:
+            return Error(message="Could not get list of images")
 
     # get_one() here is not for endpoint but for creating foreign key object
     def get_one(self, id: int) -> RorschachImageOut:
@@ -79,6 +80,30 @@ class RorschachTestQueries:
                     return Error(message="rorschach Image does not exist")
         except Exception:
             return Error(message="could not create the rorschach test ")
+
+    def update(self, rorschach_id: int, info:RorschachTestIn) -> Union[RorschachTestOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE rorschach_tests
+                        SET image=%s, response=%s
+                        WHERE rorschach_id=%s;
+                        """,
+                        [info.image, info.response, rorschach_id]
+                    )
+                    rorschach_image = RorschachImageQueries()
+                    return RorschachTestOut(
+                        id=rorschach_id,
+                        image=rorschach_image.get_one(info.image),
+                        response=info.response
+                        )
+        except Exception:
+            return Error(message="could not update Rorschach Test")
+
+
+
 
 # get_one() here is not for endpoint but for creating foreign key object
     def get_one(self, rorschach_test_id: int) -> RorschachTestOut:
