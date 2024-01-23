@@ -1,6 +1,6 @@
 from queries.pool import pool
-from pydantic import BaseModel
 from models import SurveyIn, SurveyOut, QuestionOut, Error
+from typing import Union, List
 
 
 class QuestionQueries:
@@ -88,6 +88,62 @@ class SurveyQueries:
                         return Error(message="could not create the")
         except Exception as e:
             print("Some error here ********:", id=e)
+
+    def update(self, survey_id: int, info: SurveyIn) -> Union[SurveyOut, Error]:
+        try:
+            # connection to database
+            with pool.connection() as conn:
+                # runs sql query
+                with conn.cursor() as db:
+                    # execute sql code and storing it data var
+                    data = db.execute(
+                        """
+                        UPDATE surveys
+                        SET q1 = %s
+                        , q1_ans = %s
+                        , q2 = %s
+                        , q2_ans = %s
+                        , q3 = %s
+                        , q3_ans = %s
+                        , q4 = %s
+                        , q4_ans = %s
+                        , q5 = %s
+                        , q5_ans = %s
+                        WHERE survey_id = %s;
+                        """,
+                        [
+                         info.q1,
+                         info.q1_ans,
+                         info.q2,
+                         info.q2_ans,
+                         info.q3,
+                         info.q3_ans,
+                         info.q4,
+                         info.q4_ans,
+                         info.q5,
+                         info.q5_ans,
+                         survey_id
+                        ]
+                    )
+
+                    question = QuestionQueries()
+                    if question:
+                        return SurveyOut(
+                            survey_id=survey_id,
+                            q1=question.get_one(info.q1),
+                            q1_ans=info.q1_ans,
+                            q2=question.get_one(info.q2),
+                            q2_ans=info.q2_ans,
+                            q3=question.get_one(info.q3),
+                            q3_ans=info.q3_ans,
+                            q4=question.get_one(info.q4),
+                            q4_ans=info.q4_ans,
+                            q5=question.get_one(info.q5),
+                            q5_ans=info.q5_ans
+                        )
+
+        except Exception:
+            return Error(message="could not update the data")
 
 
 # get_one() here is not for endpoint but for creating foreign key object
