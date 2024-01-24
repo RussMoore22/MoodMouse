@@ -115,3 +115,16 @@ We discussed and optimized various aspects of the project:
 3.    For time optimization, we decided to create post requests for all models first and then build put requests for each one.
 
 4.    We chose to eliminate API endpoints for mental questions because questions are always stored in the database, and these are not the things that can be manipulated by users.
+
+## January 23, 2024
+
+Goals:
+
+1. code the create checkin API endpoint
+2. code the get_all/get_mine for check-ins
+
+Worked on the routers and queries for check-in model. I drove while Jenn navigated. While working, a few SEIRs were also helping me with a question I had about big O notation. because of that, I was a little distracted from the work but still managed to accomplish my goal of building the create check-in. I felt really good about getting the project to this point and felt like I was able to teach the navigator about what I was doing while I did it. It is difficult to explain while coding, but I enjoy practicing.
+
+Aha-moment: It is very handy to write SQL queries in the PostgreSQL VSCode extension and testing it before writing into the query method. This allows more experimenting with the SQL before having to test it in Swagger.
+
+Jenn asked me to stay on a little past class to help her with coding the “get_mine” for check-ins and IU . I obliged and I was able to help her code the get_all/get_mine for check-ins. we decided to do one giant SQL query to get all check-ins using table joins to get all data associated with each check-in. It somehow worked with ZERO issues on the first attempt. It was pretty amazing to watch.
