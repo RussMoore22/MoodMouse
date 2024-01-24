@@ -6,7 +6,7 @@ from fastapi import (
     HTTPException,
     status
 )
-from models import QuestionOut, SurveyIn, SurveyOut
+from models import QuestionOut, SurveyIn, SurveyOut, Error
 from queries.surveys import SurveyQueries
 from typing import List
 from authenticator import authenticator
@@ -22,3 +22,17 @@ def create_survey(
 ):
 
     return repo.create(info)
+
+@router.put('/api/surveys/{survey_id}', response_model=SurveyOut)
+def update_survey(
+    survey_id: int,
+    info: SurveyIn,
+    response: Response,
+    repo: SurveyQueries = Depends()
+):
+    survey = repo.update(survey_id, info)
+    if isinstance(survey, Error):
+        response.status_code = 400
+    else:
+        response.status_code = 200
+    return survey

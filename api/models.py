@@ -104,3 +104,8 @@ class Check_inOut(BaseModel):
     journal_entry: str
     survey: SurveyOut
     rorschach_test: RorschachTestOut
+
+
+class Error(BaseModel):
+    message: str
+
