@@ -252,3 +252,18 @@ class Check_InQueries:
                     )
         except Exception:
             return {"message": "Could not update that Check In!"}
+
+    def delete(self, check_in_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM check_ins
+                        WHERE check_in_id = %s;
+                        """,
+                        [check_in_id]
+                    )
+                    return True
+        except Exception:
+            return False

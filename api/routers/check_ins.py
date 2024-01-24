@@ -41,3 +41,11 @@ def update_checkin(
     repo: Check_InQueries = Depends(),
 ) -> Union[Error, Check_inOut]:
     return repo.update_checkin(check_in_id, check_in)
+
+@router.delete("/api/checkins/{check_in_id}", response_model=bool)
+def delete_checkin(
+    check_in_id: int,
+    response: Response,
+    repo: Check_InQueries = Depends()
+) -> Union[bool, Error]:
+    return repo.delete(check_in_id)
