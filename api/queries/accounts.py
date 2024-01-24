@@ -82,14 +82,22 @@ class AccountsQueries:
         except Exception:
             return Error(message="Could not get the user data.")
 
-
     def create(self, info: AccountIn, hashed_password: str):
+
+        # checks to see that username is not already in database
+        result = self.get(username=info.username)
+        if result is not None:
+            if isinstance(result, Error):
+                return Error(message="could not check username")
+            return Error(message="username already exists")
+
+        # checks to see that email is not already in database
         result = self.get_by_email(email=info.email)
         if result is not None:
             if isinstance(result, Error):
-                print("****** got something **********")
                 return Error(message="could not check email")
             return Error(message="email already exists")
+
         try:
             # connection to database
             with pool.connection() as conn:
