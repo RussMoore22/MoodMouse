@@ -3,13 +3,11 @@ from fastapi import (
     Request,
     Response,
     Depends,
-    HTTPException,
-    status
 )
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 from queries.rorschach import RorschachImageQueries, RorschachTestQueries
 from typing import List, Union
-from authenticator import authenticator
+# from authenticator import authenticator
 
 router = APIRouter()
 
@@ -31,7 +29,10 @@ async def get_rorschach_image(
     return repo.get_all()
 
 
-@router.post("/api/rorschach_tests", response_model=Union[RorschachTestOut, Error])
+@router.post(
+        "/api/rorschach_tests",
+        response_model=Union[RorschachTestOut, Error]
+)
 # Include union of error handling. union: {some error model here}
 async def create_rorschach_test(
     info: RorschachTestIn,
@@ -47,7 +48,10 @@ async def create_rorschach_test(
     return rorschach_test
 
 
-@router.put("/api/rorschach_tests/{rorschach_id}", response_model=Union[RorschachTestOut, Error])
+@router.put(
+        "/api/rorschach_tests/{rorschach_id}",
+        response_model=Union[RorschachTestOut, Error]
+)
 async def update_rorschach_test(
     rorschach_id: int,
     info: RorschachTestIn,

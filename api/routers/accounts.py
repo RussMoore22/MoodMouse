@@ -3,8 +3,6 @@ from fastapi import (
     Request,
     Response,
     Depends,
-    HTTPException,
-    status
 )
 from models import AccountToken, AccountIn, AccountForm
 from queries.accounts import AccountsQueries, Error

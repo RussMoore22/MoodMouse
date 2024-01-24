@@ -3,17 +3,16 @@ from fastapi import (
     Request,
     Response,
     Depends,
-    HTTPException,
-    status
 )
-from models import QuestionOut, SurveyIn, SurveyOut, Error
+from models import SurveyIn, SurveyOut, Error
 from queries.surveys import SurveyQueries
-from typing import List
-from authenticator import authenticator
+from typing import Union
+# from authenticator import authenticator
 
 router = APIRouter()
 
-@router.post('/api/surveys', response_model=SurveyOut)
+
+@router.post('/api/surveys', response_model=Union[SurveyOut, Error])
 def create_survey(
     info: SurveyIn,
     request: Request,
@@ -22,12 +21,13 @@ def create_survey(
 ):
     survey = repo.create(info)
     if isinstance(survey, Error):
-        response.status_code=404
+        response.status_code = 404
     else:
-        response.status_code=200
+        response.status_code = 200
     return survey
 
-@router.put('/api/surveys/{survey_id}', response_model=SurveyOut)
+
+@router.put('/api/surveys/{survey_id}', response_model=Union[SurveyOut, Error])
 def update_survey(
     survey_id: int,
     info: SurveyIn,
