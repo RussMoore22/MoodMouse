@@ -121,3 +121,16 @@ AHA moment: when Jen pointed out that we should make the data tables for models 
 Russ found out that there is an ALTER TABLE command in Postgres SQL that creates a new migration instead of changing an existing migration, so there are some instances where deleting our SQL databases is not necessary.
 
 Luna explained pydantic functions to me and the difference between error handling in the the quering function and what can be thought of as our FastAPI view function. Error handling can be brought up in both functions. Russ pointed out that we have more pydantic functions compared to Django models and view functions, but we have greater control on the design and these smaller or specific functions, such as a get_one function, ultimately allow our code to be more modular, since we can use those smaller query functions in more complicated ones.
+
+
+## 1/22/24
+
+What I did specifically:
+
+Today I was the driver, and I worked on creating the pydantic model, query, and route for the create rorschach test model and for the pydantic model, query and route for the GET rorschach image model.
+
+I added some data in our SQL database through query commands. We added data into our rorscharch image, rorschach test.
+
+AHA moment:
+
+My AHA moment was figuring out how the pool function worked. Specifically, how the data variable is capturing the data from the SQL command, given in a string. This variable helps us pull ids and other fields from objects.
