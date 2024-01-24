@@ -8,8 +8,9 @@ app = FastAPI()
 
 app.include_router(authenticator.router, tags=['Auth'])
 app.include_router(accounts.router, tags=['Auth'])
-app.include_router(rorschach.router)
-app.include_router(surveys.router)
+app.include_router(rorschach.router, tags=['Rorschach'])
+app.include_router(surveys.router, tags=['Survey'])
+
 
 app.add_middleware(
     CORSMiddleware,
