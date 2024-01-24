@@ -78,3 +78,6 @@ class SurveyOut(BaseModel):
     q4_ans: int
     q5: QuestionOut
     q5_ans: int
+
+class Error(BaseModel):
+    message: str
