@@ -1,23 +1,23 @@
 from queries.pool import pool
+from typing import Union
 from models import (
     Check_inIn,
     Check_inOut,
     SurveyOut,
     QuestionOut,
     RorschachTestOut,
-    RorschachImageOut
+    RorschachImageOut,
+    Error
 )
 
 
 class Check_InQueries:
 
-    def get_mine(self, account_id: int):
+    def get_all_mine(self, account_id: int):
+    # changed get_mine to get_all_mine
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     db.execute(
                         """
                         SELECT
@@ -109,11 +109,8 @@ class Check_InQueries:
 
     def create(self, info: Check_inIn):
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     result = db.execute(
                         """
                             SELECT account, date, updated_date, happy_level,
@@ -162,11 +159,8 @@ class Check_InQueries:
 
     def get_one_survey(self, survey_id: int):
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     result = db.execute(
                         """
                             SELECT survey_id
@@ -216,6 +210,45 @@ class Check_InQueries:
                         q5=QuestionOut(id=rec[13], prompt=rec[14]),
                         q5_ans=rec[15]
                     )
-
         except Exception as e:
             print("you got an error******:", e)
+
+    def update_checkin(self, check_in_id: int, check_in: Check_inIn) -> Union[
+        Check_inOut,
+        Error
+    ]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE check_ins
+                        SET updated_date  = %s
+                            , happy_level = %s
+                            , journal_entry = %s
+                        WHERE check_in_id = %s
+                        """,
+                        [
+                            check_in.updated_date,
+                            check_in.happy_level,
+                            check_in.journal_entry,
+                            check_in_id
+                        ]
+                    )
+                    return Check_inOut(
+                            check_in_id=check_in_id,
+                            account=check_in.account,
+                            date=check_in.date,
+                            updated_date=check_in.updated_date,
+                            happy_level=check_in.happy_level,
+                            journal_entry=check_in.journal_entry,
+                            survey=self.get_one_survey(check_in.survey),
+                            # Need to work on accessing rorschach
+                            rorschach_test=RorschachTestOut(
+                                id=1,
+                                image=RorschachImageOut(id=1, path="test"),
+                                response="I see my mother"
+                            )
+                    )
+        except Exception:
+            return {"message": "Could not update that Check In!"}
