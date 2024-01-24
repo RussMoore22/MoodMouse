@@ -105,7 +105,7 @@ class Check_InQueries:
                             (s.q4=qt4.id)
                             JOIN questions as qt5 ON
                             (s.q5=qt5.id)
-                            WHERE survey_id=%s;
+                            WHERE survey_id=%s
                             ORDER BY date;
                         """,
                         [
@@ -132,6 +132,7 @@ class Check_InQueries:
                             image=RorschachImageOut(id=1, path="test"),
                             response="I see my mother"
                         )
+                        # self.get_one_rorschach(info.rorschach_test)
                     )
         except Exception as e:
             print("you got an error******:", e)
