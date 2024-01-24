@@ -14,7 +14,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.post("/api/checkins/mine", response_model=Check_inOut)
+@router.post("/api/checkins", response_model=Check_inOut)
 def create_check_in(
     info: Check_inIn,
     request: Request,
@@ -22,3 +22,12 @@ def create_check_in(
     repo: Check_InQueries = Depends()
 ):
     return repo.create(info)
+
+
+@router.get("/api/checkins/mine", response_model=List[Check_inOut])
+def get_mine(
+    request: Request,
+    response: Response,
+    repo: Check_InQueries = Depends()
+):
+    return repo.get_mine(1)
