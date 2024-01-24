@@ -2,14 +2,11 @@ from fastapi import (
     APIRouter,
     Request,
     Response,
-    Depends,
-    HTTPException,
-    status
+    Depends
 )
 from models import Check_inIn, Check_inOut
 from queries.check_ins import Check_InQueries
 from typing import List
-from authenticator import authenticator
 
 router = APIRouter()
 

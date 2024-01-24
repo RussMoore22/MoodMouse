@@ -20,7 +20,7 @@ class Check_InQueries:
                     # execute sql code and storing it data var
                     db.execute(
                         """
-                        SELECT 
+                        SELECT
                         ci.check_in_id,
                         ci.account,
                         ci.date,
