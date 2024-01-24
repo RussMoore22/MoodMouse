@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from jwtdown_fastapi.authentication import Token
+from datetime import datetime
 
 
 class AccountIn(BaseModel):
@@ -35,6 +36,7 @@ class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class RorschachImageOut(BaseModel):
     id: int
     path: str
@@ -44,14 +46,17 @@ class RorschachTestIn(BaseModel):
     image: int
     response: str
 
+
 class RorschachTestOut(BaseModel):
     id: int
     image: RorschachImageOut
     response: str
 
+
 class QuestionOut(BaseModel):
     id: int
     prompt: str
+
 
 class SurveyIn(BaseModel):
     q1: int
@@ -79,5 +84,28 @@ class SurveyOut(BaseModel):
     q5: QuestionOut
     q5_ans: int
 
+
+class Check_inIn(BaseModel):
+    account: int
+    date: datetime
+    updated_date: datetime
+    happy_level: int
+    journal_entry: str
+    survey: int
+    rorschach_test: int
+
+
+class Check_inOut(BaseModel):
+    check_in_id: int
+    account: int
+    date: datetime
+    updated_date: datetime
+    happy_level: int
+    journal_entry: str
+    survey: SurveyOut
+    rorschach_test: RorschachTestOut
+
+
 class Error(BaseModel):
     message: str
+
