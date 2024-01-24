@@ -20,8 +20,12 @@ def create_survey(
     response: Response,
     repo: SurveyQueries = Depends()
 ):
-
-    return repo.create(info)
+    survey = repo.create(info)
+    if isinstance(survey, Error):
+        response.status_code=404
+    else:
+        response.status_code=200
+    return survey
 
 @router.put('/api/surveys/{survey_id}', response_model=SurveyOut)
 def update_survey(
