@@ -71,6 +71,27 @@ class Check_InQueries:
                     )
                     check_ins = []
                     for rec in db:
+                        survey = SurveyOut(
+                                survey_id=rec[6],
+                                q1=QuestionOut(id=rec[7], prompt=rec[8]),
+                                q1_ans=rec[9],
+                                q2=QuestionOut(id=rec[10], prompt=rec[11]),
+                                q2_ans=rec[12],
+                                q3=QuestionOut(id=rec[13], prompt=rec[14]),
+                                q3_ans=rec[15],
+                                q4=QuestionOut(id=rec[16], prompt=rec[17]),
+                                q4_ans=rec[18],
+                                q5=QuestionOut(id=rec[19], prompt=rec[20]),
+                                q5_ans=rec[21]
+                        )
+                        rorschach_test = RorschachTestOut(
+                                id=rec[22],
+                                image=RorschachImageOut(
+                                    id=rec[23],
+                                    path=rec[24]
+                                ),
+                                response=rec[25]
+                        )
                         check_ins.append(Check_inOut(
                             check_in_id=rec[0],
                             account=rec[1],
@@ -78,8 +99,8 @@ class Check_InQueries:
                             updated_date=rec[3],
                             happy_level=rec[4],
                             journal_entry=rec[5],
-                            survey=self.get_one_survey(rec[6]),
-                            rorschach_test=self.get_one_rorschach(rec[22]),
+                            survey=survey,
+                            rorschach_test=rorschach_test,
                         )
                         )
                     return check_ins
