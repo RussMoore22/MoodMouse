@@ -214,7 +214,6 @@ class Check_InQueries:
         except Exception as e:
             print("you got an error******:", e)
 
-
     def update_checkin(self, check_in_id: int, check_in: Check_inIn) -> Union[
         Check_inOut,
         Error
