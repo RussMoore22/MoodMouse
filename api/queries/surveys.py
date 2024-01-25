@@ -115,17 +115,17 @@ class SurveyQueries:
                         WHERE survey_id = %s;
                         """,
                         [
-                         info.q1,
-                         info.q1_ans,
-                         info.q2,
-                         info.q2_ans,
-                         info.q3,
-                         info.q3_ans,
-                         info.q4,
-                         info.q4_ans,
-                         info.q5,
-                         info.q5_ans,
-                         survey_id
+                            info.q1,
+                            info.q1_ans,
+                            info.q2,
+                            info.q2_ans,
+                            info.q3,
+                            info.q3_ans,
+                            info.q4,
+                            info.q4_ans,
+                            info.q5,
+                            info.q5_ans,
+                            survey_id
                         ]
                     )
 

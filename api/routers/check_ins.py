@@ -4,9 +4,9 @@ from fastapi import (
     Response,
     Depends
 )
-from models import Check_inIn, Check_inOut
+from models import Check_inIn, Check_inOut, Error
 from queries.check_ins import Check_InQueries
-from typing import List
+from typing import List, Union
 
 router = APIRouter()
 
@@ -27,4 +27,25 @@ def get_mine(
     response: Response,
     repo: Check_InQueries = Depends()
 ):
-    return repo.get_mine(1)
+    return repo.get_all_mine(1)
+
+
+@router.put("/api/checkins/{check_in_id}", response_model=Union[
+    Check_inOut,
+    Error
+])
+def update_checkin(
+    check_in_id: int,
+    check_in: Check_inIn,
+    response: Response,
+    repo: Check_InQueries = Depends(),
+) -> Union[Error, Check_inOut]:
+    return repo.update_checkin(check_in_id, check_in)
+
+@router.delete("/api/checkins/{check_in_id}", response_model=bool)
+def delete_checkin(
+    check_in_id: int,
+    response: Response,
+    repo: Check_InQueries = Depends()
+) -> Union[bool, Error]:
+    return repo.delete(check_in_id)
