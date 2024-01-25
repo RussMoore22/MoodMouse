@@ -2,18 +2,20 @@ from queries.pool import pool
 from typing import Union
 from models import (
     Check_inIn,
-    Check_inOut,
+    Check_inOutList,
+    Check_inOutDetail,
     SurveyOut,
     QuestionOut,
     RorschachTestOut,
     RorschachImageOut,
-    Error
+    Error,
+    AccountOut
 )
 
 
 class Check_InQueries:
 
-    def get_all_mine(self, account_id: int):
+    def get_all_mine(self, account: dict):
         # changed get_mine to get_all_mine
         try:
             with pool.connection() as conn:
@@ -67,7 +69,7 @@ class Check_InQueries:
                         WHERE ci.account=%s
                         ORDER BY date;
                         """,
-                        [account_id]
+                        [account["id"]]
                     )
                     check_ins = []
                     for rec in db:
@@ -92,9 +94,9 @@ class Check_InQueries:
                                 ),
                                 response=rec[25]
                         )
-                        check_ins.append(Check_inOut(
+                        check_ins.append(Check_inOutList(
                             check_in_id=rec[0],
-                            account=rec[1],
+                            account=account["id"],
                             date=rec[2],
                             updated_date=rec[3],
                             happy_level=rec[4],
@@ -107,7 +109,7 @@ class Check_InQueries:
         except Exception as e:
             print("you got an error******:", e)
 
-    def create(self, info: Check_inIn):
+    def create(self, info: Check_inIn, account: dict):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -127,7 +129,7 @@ class Check_InQueries:
                         RETURNING check_in_id;
                         """,
                         [
-                            info.account,
+                            account["id"],
                             info.date,
                             info.updated_date,
                             info.happy_level,
@@ -137,9 +139,9 @@ class Check_InQueries:
                         ]
                     )
                     check_in_id = result.fetchone()[0]
-                    return Check_inOut(
+                    return Check_inOutDetail(
                         check_in_id=check_in_id,
-                        account=info.account,
+                        account=AccountOut(**account),
                         date=info.date,
                         updated_date=info.updated_date,
                         happy_level=info.happy_level,
@@ -235,8 +237,8 @@ class Check_InQueries:
         except Exception as e:
             print("you got an error******:", e)
 
-    def update_checkin(self, check_in_id: int, check_in: Check_inIn) -> Union[
-        Check_inOut,
+    def update_checkin(self, check_in_id: int, check_in: Check_inIn, account: dict) -> Union[
+        Check_inOutDetail,
         Error
     ]:
         try:
@@ -257,9 +259,9 @@ class Check_InQueries:
                             check_in_id
                         ]
                     )
-                    return Check_inOut(
+                    return Check_inOutDetail(
                             check_in_id=check_in_id,
-                            account=check_in.account,
+                            account=AccountOut(**account),
                             date=check_in.date,
                             updated_date=check_in.updated_date,
                             happy_level=check_in.happy_level,
