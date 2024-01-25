@@ -246,11 +246,7 @@ class Check_InQueries:
                             journal_entry=check_in.journal_entry,
                             survey=self.get_one_survey(check_in.survey),
                             # Need to work on accessing rorschach
-                            rorschach_test=RorschachTestOut(
-                                id=1,
-                                image=RorschachImageOut(id=1, path="test"),
-                                response="I see my mother"
-                            )
+                            rorschach_test=self.get_one_rorschach(check_in.rorschach_test)
                     )
         except Exception:
             return {"message": "Could not update that Check In!"}
