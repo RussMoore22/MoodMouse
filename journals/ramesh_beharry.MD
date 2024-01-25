@@ -144,3 +144,14 @@ What we worked on together: Today we worked in teams. I worked with Luna today a
 Blockers: My blockers are related to git. I had trouble pulling changes and merging updated changes to my local branch. We spent 2 hours but it appears all I needed to do was restart my VSCode for the migrated changed to appear.
 
 An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
+
+
+
+
+## 1/24/24
+* AHA moment: type command shows our object local path, useful for when we need to troubleshoot.
+* For our RorschachTestQueries, we added error handling on our create method that displays an error if a request is made to an image id that does not exist.
+* For our Account model, we added error handling that would show one message if a POST request is made with a username that already exists
+* For our Account model, we added error handling that would show one message if a POST request is made with an email that already exists
+* We updated our Rorschach test route to include Error handling.
+* In our survey router create function, we added Error handling by including if-else conditional statements: 400=unsuccessful, 200=successful.
