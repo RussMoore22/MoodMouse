@@ -92,21 +92,18 @@ class Check_InQueries:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                            SELECT account, date, updated_date, happy_level,
-                            journal_entry, survey, rorschach_test
-                            FROM check_ins
-                            JOIN questions as qt1 ON
-                            (s.q1=qt1.id)
-                            JOIN questions as qt2 ON
-                            (s.q2=qt2.id)
-                            JOIN questions as qt3 ON
-                            (s.q3=qt3.id)
-                            JOIN questions as qt4 ON
-                            (s.q4=qt4.id)
-                            JOIN questions as qt5 ON
-                            (s.q5=qt5.id)
-                            WHERE survey_id=%s
-                            ORDER BY date;
+                        INSERT INTO check_ins
+                        (account
+                        , date
+                        , updated_date
+                        , happy_level
+                        , journal_entry
+                        , survey
+                        , rorschach_test
+                        )
+                        VALUES
+                        ( %s, %s, %s, %s, %s, %s, %s )
+                        RETURNING check_in_id;
                         """,
                         [
                             info.account,
@@ -127,12 +124,7 @@ class Check_InQueries:
                         happy_level=info.happy_level,
                         journal_entry=info.journal_entry,
                         survey=self.get_one_survey(survey_id=info.survey),
-                        rorschach_test=RorschachTestOut(
-                            id=1,
-                            image=RorschachImageOut(id=1, path="test"),
-                            response="I see my mother"
-                        )
-                        # self.get_one_rorschach(info.rorschach_test)
+                        rorschach_test=self.get_one_rorschach(info.rorschach_test)
                     )
         except Exception as e:
             print("you got an error******:", e)
