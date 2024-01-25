@@ -51,6 +51,9 @@ class RorschachImageQueries:
 
 class RorschachTestQueries:
     def create(self, info: RorschachTestIn):
+        rorschachimg = RorschachImageQueries()
+        if rorschachimg.get_one(info.image) is None:
+            return Error(message="rorschach Image does not exist")
         try:
             # connection to database
             with pool.connection() as conn:
@@ -70,16 +73,13 @@ class RorschachTestQueries:
                     )
                     rorschach_id = data.fetchone()[0]
 
-                    rorschachimg = RorschachImageQueries()
 
-                    if rorschachimg.get_one(info.image):
-                        return RorschachTestOut(
+                    return RorschachTestOut(
                             id=rorschach_id,
                             image=rorschachimg.get_one(info.image),
                             response=info.response)
-                    return Error(message="rorschach Image does not exist")
         except Exception:
-            return Error(message="could not create the rorschach test ")
+            return Error(message="could not create the rorschach test")
 
     def update(self, rorschach_id: int, info:RorschachTestIn) -> Union[RorschachTestOut, Error]:
         try:
