@@ -7,7 +7,7 @@ from fastapi import (
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 from queries.rorschach import RorschachImageQueries, RorschachTestQueries
 from typing import List, Union
-# from authenticator import authenticator
+from authenticator import authenticator
 
 router = APIRouter()
 
@@ -23,6 +23,7 @@ async def get_rorschach_image(
     # Response parameter
 
     # response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachImageQueries = Depends()
 ):
 
@@ -38,6 +39,7 @@ async def create_rorschach_test(
     info: RorschachTestIn,
     request: Request,
     response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo:  RorschachTestQueries = Depends()
 ):
     rorschach_test = repo.create(info)
@@ -57,6 +59,7 @@ async def update_rorschach_test(
     info: RorschachTestIn,
     request: Request,
     response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachTestQueries = Depends()
 ):
     rorschach_test = repo.update(rorschach_id, info)
