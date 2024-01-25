@@ -90,3 +90,24 @@ We discussed and optimized various aspects of the application
 2. We opted not to implement get_one for Rorschach_test and survey because we can use join operations to achieve that.
 3. For time optimization, we decided to create post requests for all models first and then build put requests for each one.
 4. We chose to eliminate API endpoints for mental questions because questions are always stored in the database, and these are not the things that can be manipulated by users.
+
+### Jan 23, 2024
+
+Today, I worked on:
+
+-   Building the put method for surveys api endpoint and also help my partner to build the put method to rorschach tests api endpoint - Navigator and Driver
+
+Features that our team build for today:
+
+1. We created Rorshach_tests PUT
+2. We also created Surveys PUT
+   /api/surveys/{survey_id}
+   /api/rorschach_tests/{rorschach_id}
+
+Today, our team decided to split into two groups to work on different endpoints for our backend. Ramesh and I were assigned the tasks of building the PUT methods for updating both Rorschach tests and surveys. We worked seamlessly, creating routers and queries to handle the PUT requests and generate responses. We also addressed issues related to yesterday's code, where we couldn't create a foreign key object and store that object in the property of the ModelOut class.
+
+What I worked on was updating the survey's data and returning a response that includes the survey_id and all questions associated with that survey. I also collaborated with Ramesh on fixing issues with foreign key objects. Together, we created another method (get_one()) in the Queries class, which we used to create a new object based on the provided ID, serving as the foreign key object. This method is exclusively for creating foreign key objects and is not associated with the router since it doesn't serve as an API endpoint.
+
+A-Ha moments:
+
+-   Learned that if the remote repository in GitLab shows updated changes but the local repository doesn't seem to catch those changes even after pulling changes from the remote, the possible reason might be local. We had this issue today, and to solve it, we found that we basically just needed to restart VSCode.
