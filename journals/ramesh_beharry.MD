@@ -146,6 +146,17 @@ Blockers: My blockers are related to git. I had trouble pulling changes and merg
 An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
 
 
+## 1/23/24 Journal
+
+What I worked on directly: Today, we worked on creating the PUT request endpoint by creating the update query function for Rorschach_Test query model and added a router for the Rorschach_test router.
+
+What we worked on together: Today we worked in teams. I worked with Luna today and Luna created the PUT request endpoint for the survey query model and create the route for it. She additionally fixed the return statement for the Rorschach Test. She
+
+Blockers: My blockers are related to git. I had trouble pulling changes and merging updated changes to my local branch. We spent 2 hours but it appears all I needed to do was restart my VSCode for the migrated changed to appear.
+
+An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
+
+
 
 
 ## 1/24/24
