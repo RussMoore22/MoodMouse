@@ -157,8 +157,6 @@ Blockers: My blockers are related to git. I had trouble pulling changes and merg
 An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
 
 
-
-
 ## 1/24/24
 * AHA moment: type command shows our object local path, useful for when we need to troubleshoot.
 * For our RorschachTestQueries, we added error handling on our create method that displays an error if a request is made to an image id that does not exist.
