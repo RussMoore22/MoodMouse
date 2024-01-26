@@ -1,11 +1,10 @@
 from queries.pool import pool
-from pydantic import BaseModel
 from typing import List, Union
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 
 
 class RorschachImageQueries:
-    def get_all(self) -> List[RorschachImageOut]:
+    def get_all(self) -> Union[List[RorschachImageOut], Error]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -19,13 +18,12 @@ class RorschachImageQueries:
                         FROM rorschach_imgs;
                         """
                     )
-                    # fetchall()
                     return [ RorschachImageOut(id=record[0], path=record[1]) for record in db ]
         except Exception:
             return Error(message="Could not get list of images")
 
     # get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, id: int) -> RorschachImageOut:
+    def get_one(self, id: int) -> Union[RorschachImageOut, None]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -50,7 +48,10 @@ class RorschachImageQueries:
 
 
 class RorschachTestQueries:
-    def create(self, info: RorschachTestIn):
+
+    def create(
+            self,
+            info: RorschachTestIn) -> Union[RorschachTestOut, Error]:
         rorschachimg = RorschachImageQueries()
         if rorschachimg.get_one(info.image) is None:
             return Error(message="rorschach Image does not exist")
@@ -81,7 +82,11 @@ class RorschachTestQueries:
         except Exception:
             return Error(message="could not create the rorschach test")
 
-    def update(self, rorschach_id: int, info:RorschachTestIn) -> Union[RorschachTestOut, Error]:
+    def update(
+            self,
+            rorschach_id: int,
+            info: RorschachTestIn
+    ) -> Union[RorschachTestOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -98,6 +103,9 @@ class RorschachTestQueries:
                         id=rorschach_id,
                         image=rorschach_image.get_one(info.image),
                         response=info.response
-                        )
+                    )
         except Exception:
-            return Error(message="could not update Rorschach Test")
+            return Error(
+                message=f"""could not update
+                  Rorschach Test with id {rorschach_id}"""
+            )
