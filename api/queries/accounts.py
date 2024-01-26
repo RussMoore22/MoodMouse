@@ -1,15 +1,10 @@
 from queries.pool import pool
-# from bson.objectid import ObjectId # - for No SQL
-# from bson.errors import InvalidId # - for No SQL
-from pydantic import BaseModel
-from models import AccountIn, AccountOutWithHashedPassword, AccountOut, Error, DuplicateAccountError
-
-
-
+from models import AccountIn, AccountOutWithHashedPassword, AccountOut, Error
+from typing import Union
 
 
 class AccountsQueries:
-    def get(self, username: str):
+    def get(self, username: str) -> Union[AccountOutWithHashedPassword, Error]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -43,7 +38,10 @@ class AccountsQueries:
         except Exception:
             return Error(message="Could not get the user data.")
 
-    def get_by_email(self, email: str):
+    def get_by_email(
+            self,
+            email: str
+    ) -> Union[AccountOutWithHashedPassword, Error]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -77,7 +75,11 @@ class AccountsQueries:
         except Exception:
             return Error(message="Could not get the user data.")
 
-    def create(self, info: AccountIn, hashed_password: str):
+    def create(
+            self,
+            info: AccountIn,
+            hashed_password: str
+            ) -> Union[AccountOut, Error]:
 
         # checks to see that username is not already in database
         result = self.get(username=info.username)
