@@ -19,7 +19,7 @@ def create_survey(
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: SurveyQueries = Depends()
-):
+) -> Union[SurveyOut, Error]:
     survey = repo.create(info)
     if isinstance(survey, Error):
         response.status_code = 404
@@ -35,7 +35,7 @@ def update_survey(
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: SurveyQueries = Depends()
-):
+) -> Union[SurveyOut, Error]:
     survey = repo.update(survey_id, info)
     if isinstance(survey, Error):
         response.status_code = 400

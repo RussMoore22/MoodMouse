@@ -5,7 +5,10 @@ from typing import Union
 
 class QuestionQueries:
     # get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, question_id: int) -> QuestionOut:
+    def get_one(
+            self,
+            question_id: int
+    ) -> Union[QuestionOut, None]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -29,7 +32,7 @@ class QuestionQueries:
 
 
 class SurveyQueries:
-    def create(self, info: SurveyIn) -> SurveyOut:
+    def create(self, info: SurveyIn) -> Union[SurveyOut, Error]:
 
         try:
             # connection to database
