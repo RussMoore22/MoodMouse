@@ -2,15 +2,10 @@ from queries.pool import pool
 # from bson.objectid import ObjectId # - for No SQL
 # from bson.errors import InvalidId # - for No SQL
 from pydantic import BaseModel
-from models import AccountIn, AccountOutWithHashedPassword, AccountOut
+from models import AccountIn, AccountOutWithHashedPassword, AccountOut, Error, DuplicateAccountError
 
 
-class Error(BaseModel):
-    message: str
 
-
-class DuplicateAccountError(ValueError):
-    pass
 
 
 class AccountsQueries:
