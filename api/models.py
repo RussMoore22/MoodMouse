@@ -117,3 +117,7 @@ class Check_inOutDetail(BaseModel):
 
 class Error(BaseModel):
     message: str
+
+
+class DuplicateAccountError(ValueError):
+    pass

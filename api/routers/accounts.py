@@ -4,8 +4,8 @@ from fastapi import (
     Response,
     Depends,
 )
-from models import AccountToken, AccountIn, AccountForm, AccountOut
-from queries.accounts import AccountsQueries, Error
+from models import AccountToken, AccountIn, AccountForm, AccountOut, Error
+from queries.accounts import AccountsQueries
 from authenticator import authenticator
 from typing import Union
 

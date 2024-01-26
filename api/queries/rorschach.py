@@ -101,31 +101,3 @@ class RorschachTestQueries:
                         )
         except Exception:
             return Error(message="could not update Rorschach Test")
-
-
-
-
-# get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, rorschach_test_id: int) -> RorschachTestOut:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT rorschach_id, image, response
-                        FROM rorschach_tests
-                        WHERE rorschach_id = %s;
-                        """,
-                        [rorschach_test_id]
-                    )
-                    record = db.fetchone()
-                    rorschachimg = RorschachImageQueries()
-                    if record is None:
-                        return None
-                    else:
-                        if rorschachimg.get_one(record[1]):
-                            return RorschachTestOut(id=record[0], image=rorschachimg.get_one(record[1]), response=record[2])
-                        else:
-                            return None
-        except Exception:
-            return None
