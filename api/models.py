@@ -86,7 +86,6 @@ class SurveyOut(BaseModel):
 
 
 class Check_inIn(BaseModel):
-    account: int
     date: datetime
     updated_date: datetime
     happy_level: int
@@ -95,9 +94,19 @@ class Check_inIn(BaseModel):
     rorschach_test: int
 
 
-class Check_inOut(BaseModel):
+class Check_inOutList(BaseModel):
     check_in_id: int
     account: int
+    date: datetime
+    updated_date: datetime
+    happy_level: int
+    journal_entry: str
+    survey: SurveyOut
+    rorschach_test: RorschachTestOut
+
+class Check_inOutDetail(BaseModel):
+    check_in_id: int
+    account: AccountOut
     date: datetime
     updated_date: datetime
     happy_level: int
@@ -109,3 +118,6 @@ class Check_inOut(BaseModel):
 class Error(BaseModel):
     message: str
 
+
+class DuplicateAccountError(ValueError):
+    pass

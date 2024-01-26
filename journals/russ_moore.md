@@ -128,3 +128,14 @@ Worked on the routers and queries for check-in model. I drove while Jenn navigat
 Aha-moment: It is very handy to write SQL queries in the PostgreSQL VSCode extension and testing it before writing into the query method. This allows more experimenting with the SQL before having to test it in Swagger.
 
 Jenn asked me to stay on a little past class to help her with coding the “get_mine” for check-ins and IU . I obliged and I was able to help her code the get_all/get_mine for check-ins. we decided to do one giant SQL query to get all check-ins using table joins to get all data associated with each check-in. It somehow worked with ZERO issues on the first attempt. It was pretty amazing to watch.
+
+## January 24, 2024
+
+Goals:
+1. Error handling for all routes (excluding check-ins)
+2. create a get_by_email method for accountQueries
+3. close other issues on GitLab.
+
+first two goals were accomplished. Ramesh Drove while I navigated. I felt a bit burnt out from the day before and all the new material we had learned that day (sorting algorthms).
+
+Aha-moment: when debugging an issue (conditional isinstance to catch returned Error models for a route was true as expected), a print statement using the type function on the return revealed that the type was an Error class of a different module. the correction was to import the Error class of the correct module. there was more than one, which caused the problem. I wrote an issue to remove the Error class definition.

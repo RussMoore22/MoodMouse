@@ -1,23 +1,28 @@
 from queries.pool import pool
+from typing import Union, List
 from models import (
     Check_inIn,
-    Check_inOut,
+    Check_inOutList,
+    Check_inOutDetail,
     SurveyOut,
     QuestionOut,
     RorschachTestOut,
-    RorschachImageOut
+    RorschachImageOut,
+    Error,
+    AccountOut
 )
 
 
 class Check_InQueries:
 
-    def get_mine(self, account_id: int):
+    def get_all_mine(
+            self,
+            account: dict
+    ) -> Union[List[Check_inOutList], Error]:
+        # changed get_mine to get_all_mine
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     db.execute(
                         """
                         SELECT
@@ -64,10 +69,10 @@ class Check_InQueries:
                         (ci.rorschach_test=rt.rorschach_id)
                         JOIN rorschach_imgs as ri ON
                         (rt.image=ri.id)
-                        WHERE ci.check_in_id=%s
+                        WHERE ci.account=%s
                         ORDER BY date;
-                    """,
-                        [account_id]
+                        """,
+                        [account["id"]]
                     )
                     check_ins = []
                     for rec in db:
@@ -92,9 +97,9 @@ class Check_InQueries:
                                 ),
                                 response=rec[25]
                         )
-                        check_ins.append(Check_inOut(
+                        check_ins.append(Check_inOutList(
                             check_in_id=rec[0],
-                            account=rec[1],
+                            account=account["id"],
                             date=rec[2],
                             updated_date=rec[3],
                             happy_level=rec[4],
@@ -107,33 +112,31 @@ class Check_InQueries:
         except Exception as e:
             print("you got an error******:", e)
 
-    def create(self, info: Check_inIn):
+    def create(
+            self,
+            info: Check_inIn,
+            account: dict
+    ) -> Union[Check_inOutDetail, Error]:
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     result = db.execute(
                         """
-                            SELECT account, date, updated_date, happy_level,
-                            journal_entry, survey, rorschach_test
-                            FROM check_ins
-                            JOIN questions as qt1 ON
-                            (s.q1=qt1.id)
-                            JOIN questions as qt2 ON
-                            (s.q2=qt2.id)
-                            JOIN questions as qt3 ON
-                            (s.q3=qt3.id)
-                            JOIN questions as qt4 ON
-                            (s.q4=qt4.id)
-                            JOIN questions as qt5 ON
-                            (s.q5=qt5.id)
-                            WHERE survey_id=%s;
-                            ORDER BY date;
+                        INSERT INTO check_ins
+                        (account
+                        , date
+                        , updated_date
+                        , happy_level
+                        , journal_entry
+                        , survey
+                        , rorschach_test
+                        )
+                        VALUES
+                        ( %s, %s, %s, %s, %s, %s, %s )
+                        RETURNING check_in_id;
                         """,
                         [
-                            info.account,
+                            account["id"],
                             info.date,
                             info.updated_date,
                             info.happy_level,
@@ -143,30 +146,28 @@ class Check_InQueries:
                         ]
                     )
                     check_in_id = result.fetchone()[0]
-                    return Check_inOut(
+                    return Check_inOutDetail(
                         check_in_id=check_in_id,
-                        account=info.account,
+                        account=AccountOut(**account),
                         date=info.date,
                         updated_date=info.updated_date,
                         happy_level=info.happy_level,
                         journal_entry=info.journal_entry,
                         survey=self.get_one_survey(survey_id=info.survey),
-                        rorschach_test=RorschachTestOut(
-                            id=1,
-                            image=RorschachImageOut(id=1, path="test"),
-                            response="I see my mother"
-                        )
+                        rorschach_test=self.get_one_rorschach(info.rorschach_test)
                     )
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(
+                message=f"Could not get account with id {account['id']}"
+            )
 
-    def get_one_survey(self, survey_id: int):
+    def get_one_survey(
+            self,
+            survey_id: int
+    ) -> Union[SurveyOut, Error]:
         try:
-            # connection to database
             with pool.connection() as conn:
-                # runs sql query
                 with conn.cursor() as db:
-                    # execute sql code and storing it data var
                     result = db.execute(
                         """
                             SELECT survey_id
@@ -216,6 +217,89 @@ class Check_InQueries:
                         q5=QuestionOut(id=rec[13], prompt=rec[14]),
                         q5_ans=rec[15]
                     )
+        except Exception:
+            return Error(message=f"Could not get survey with id {survey_id}")
 
-        except Exception as e:
-            print("you got an error******:", e)
+    def get_one_rorschach(self, rorschach_id: int):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT
+                            r.rorschach_id,
+                            ri.id,
+                            ri.path,
+                            r.response
+                        FROM rorschach_tests as r
+                        JOIN rorschach_imgs as ri ON
+                        (r.image=ri.id)
+                        WHERE rorschach_id=%s;
+                        """,
+                        [
+                            rorschach_id
+                        ]
+                    )
+                    rec = result.fetchone()
+                    return RorschachTestOut(
+                        id=rec[0],
+                        image=RorschachImageOut(id=rec[1], path=rec[2]),
+                        response=rec[3]
+                    )
+        except Exception:
+            return Error(
+                message=f"Could not get rorschach test with id {rorschach_id}"
+            )
+
+    def update_checkin(
+            self,
+            check_in_id: int,
+            check_in: Check_inIn,
+            account: dict
+    ) -> Union[Check_inOutDetail, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE check_ins
+                        SET updated_date  = %s
+                            , happy_level = %s
+                            , journal_entry = %s
+                        WHERE check_in_id = %s
+                        """,
+                        [
+                            check_in.updated_date,
+                            check_in.happy_level,
+                            check_in.journal_entry,
+                            check_in_id
+                        ]
+                    )
+                    return Check_inOutDetail(
+                            check_in_id=check_in_id,
+                            account=AccountOut(**account),
+                            date=check_in.date,
+                            updated_date=check_in.updated_date,
+                            happy_level=check_in.happy_level,
+                            journal_entry=check_in.journal_entry,
+                            survey=self.get_one_survey(check_in.survey),
+                            # Need to work on accessing rorschach
+                            rorschach_test=self.get_one_rorschach(check_in.rorschach_test)
+                    )
+        except Exception:
+            return {"message": "Could not update that Check In!"}
+
+    def delete(self, check_in_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM check_ins
+                        WHERE check_in_id = %s;
+                        """,
+                        [check_in_id]
+                    )
+                    return True
+        except Exception:
+            return False

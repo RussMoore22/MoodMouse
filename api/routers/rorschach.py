@@ -7,24 +7,16 @@ from fastapi import (
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 from queries.rorschach import RorschachImageQueries, RorschachTestQueries
 from typing import List, Union
-# from authenticator import authenticator
+from authenticator import authenticator
 
 router = APIRouter()
 
 
 @router.get("/api/rorschach_imgs", response_model=List[RorschachImageOut])
 async def get_rorschach_image(
-
-    # Curtis didn't put any requests or responses
-    # Response is not needed, and error code will still be handled by FastAPI
-    # A list object doesn't need a response in this instances.
-
-    # Response handles error handling and doc writing, which depends on
-    # Response parameter
-
-    # response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachImageQueries = Depends()
-):
+) -> Union[List[RorschachImageOut], Error]:
 
     return repo.get_all()
 
@@ -38,8 +30,9 @@ async def create_rorschach_test(
     info: RorschachTestIn,
     request: Request,
     response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo:  RorschachTestQueries = Depends()
-):
+) -> Union[RorschachTestOut, Error]:
     rorschach_test = repo.create(info)
     if isinstance(rorschach_test, Error):
         response.status_code = 404
@@ -57,8 +50,9 @@ async def update_rorschach_test(
     info: RorschachTestIn,
     request: Request,
     response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachTestQueries = Depends()
-):
+) -> Union[RorschachTestOut, Error]:
     rorschach_test = repo.update(rorschach_id, info)
     if isinstance(rorschach_test, Error):
         response.status_code = 400
