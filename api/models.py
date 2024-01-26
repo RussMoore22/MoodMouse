@@ -104,6 +104,7 @@ class Check_inOutList(BaseModel):
     survey: SurveyOut
     rorschach_test: RorschachTestOut
 
+
 class Check_inOutDetail(BaseModel):
     check_in_id: int
     account: AccountOut
