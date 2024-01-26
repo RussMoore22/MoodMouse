@@ -158,20 +158,28 @@ Today I learned so much about GitLab. As I encountered a merge conflict at the e
 
 Today I worked on:
 
-* Created the Authentication for the check-in.
-* Constructing a GET request for the Rorschach_img API endpoint to retrieve Rorschach images from the 
-database and return them as a list. Each image includes its ID and URL.
-* Developing a POST request for the Rorschach_test API endpoint to create a new Rorschach test with responses from the users.
-* Creating a POST request for the Survey API endpoint to generate a new survey with answers users made for each question. 
+* Creating the Authentication for the check-in.
+* Creating the get_one function on the check_in feature. 
+* Creating the check_in error authentication get_one function on the check_in feature. 
 
 
-Today we 
+Ramesh and I were stuck working on the get_one function for the check-in feature
 
 
-We decided to not pursue the get_one api endpoint for the rorschach image because it would take unnecessary time and it 
-wasn't going to affect us during that moment so we are planning to come back to it as an issue on gitlab.
+Today I learned how authentication works and 
 
 
-Today I learned how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute 
-for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return 
-statement when I wanted to return an updated image id number and updated response.
+
+## January 26, 2024
+
+Today I worked on:
+
+* Creating the Authentication for the check-in.
+* Creating the get_one function on the check_in feature. 
+* Creating the check_in error authentication get_one function on the check_in feature. 
+
+
+Ramesh and I were stuck working on the get_one function for the check-in feature
+
+
+Today I learned how authentication works and 
