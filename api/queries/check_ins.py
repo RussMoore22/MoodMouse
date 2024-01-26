@@ -306,6 +306,7 @@ class Check_InQueries:
             return False
 
     def get_one(self, check_in_id: int, account_data: dict):
+        print(account_data)
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -355,10 +356,10 @@ class Check_InQueries:
                         (ci.rorschach_test=rt.rorschach_id)
                         JOIN rorschach_imgs as ri ON
                         (rt.image=ri.id)
-                        WHERE ci.check_in_id=%s
+                        WHERE ci.check_in_id=%s AND ci.account=%s
                         ORDER BY date;
                         """,
-                        [check_in_id]
+                        [check_in_id, account_data["id"]]
                     )
                     rec = result.fetchone()
                     return Check_inOutDetail(
