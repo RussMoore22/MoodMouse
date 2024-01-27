@@ -174,12 +174,11 @@ Today I learned how authentication works and
 
 Today I worked on:
 
-* Creating the Authentication for the check-in.
-* Creating the get_one function on the check_in feature. 
-* Creating the check_in error authentication get_one function on the check_in feature. 
+* Troubleshooting errors for . 
+* Completing the get_one function for the check in feature.
+* Creating SQL queries, wrote print statements to . 
 
-
-Ramesh and I were stuck working on the get_one function for the check-in feature
+Today ramesg anf I continued to work on creating the get_one feature for the check-in feature and we were hitting so many road blocks along the way. At first we thought it would be just simple inetegers for the rorscahch image and the sruvey but as we We were following the example of the get_all_mine and update function but as we progressed  
 
 
 Today I learned how authentication works and 
