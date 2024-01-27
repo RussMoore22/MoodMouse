@@ -164,3 +164,20 @@ An AHA moment: Luna explained how the info attribute we created in the router is
 * For our Account model, we added error handling that would show one message if a POST request is made with an email that already exists
 * We updated our Rorschach test route to include Error handling.
 * In our survey router create function, we added Error handling by including if-else conditional statements: 400=unsuccessful, 200=successful.
+
+## 1/25/24
+
+* I started drafting the get_one function for the check-in query model
+* I also started drafting the get_one router for the check-in.
+* API endpoint testing: We realized I wiped my database at some point, so I did not have any test data; therefore, I couldn’t create a check-in model––so I can eventually get a check-in instance––and I also needed to create the instances of all the foreign keys, so I can successfully create a check-in, such as Rorschach image, Rorschach test, and survey instances.  During this process, we hit a roadblock because I couldn’t successfully create a check-in instance. We believed it might be something in my SQL database that is causing the error. During earlier testing, we created SQL query functions that had errors, so our object_ids started at 11 from the first record. To avoid confusion, and to make testing simpler, I wiped the data on my database, but I kept the migrations related to database structure, so I didn’t need to recreate the whole database columns. After restarting, it was easy to create all objects through Fast API Swagger.
+* This process also involved some other troubleshooting. We put print statements in our create check-in model, went into our fast API container console to check for errors. We saw 500 errors, which then became “less wrong” with some 422 validation errors, (which is why we wiped the database to reset the ids to get the objects easier), and re-ran our code until it was completed.
+* For tomorrow, Jenn and I set a goal to finish the get_one query function and route, test it in Swagger, and after that, we will work on adding the authentication. After all of that is done, we will merge that working feature into testing.
+
+
+## 1/26/24
+
+## Issues
+* Fix create query function to add functionality so that an account where
+* fix error handling for error handling,
+
+A logged in user should be able to access the check -ins, through check-in IDs, that are associated with their account, defined by the account number.
