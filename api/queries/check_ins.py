@@ -1,5 +1,5 @@
 from queries.pool import pool
-from typing import Union
+from typing import Union, List
 from models import (
     Check_inIn,
     Check_inOutList,
@@ -15,7 +15,10 @@ from models import (
 
 class Check_InQueries:
 
-    def get_all_mine(self, account: dict):
+    def get_all_mine(
+            self,
+            account: dict
+    ) -> Union[List[Check_inOutList], Error]:
         # changed get_mine to get_all_mine
         try:
             with pool.connection() as conn:
@@ -109,7 +112,11 @@ class Check_InQueries:
         except Exception as e:
             print("you got an error******:", e)
 
-    def create(self, info: Check_inIn, account: dict):
+    def create(
+            self,
+            info: Check_inIn,
+            account: dict
+    ) -> Union[Check_inOutDetail, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -149,10 +156,15 @@ class Check_InQueries:
                         survey=self.get_one_survey(survey_id=info.survey),
                         rorschach_test=self.get_one_rorschach(info.rorschach_test)
                     )
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(
+                message=f"Could not get account with id {account['id']}"
+            )
 
-    def get_one_survey(self, survey_id: int):
+    def get_one_survey(
+            self,
+            survey_id: int
+    ) -> Union[SurveyOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -205,8 +217,8 @@ class Check_InQueries:
                         q5=QuestionOut(id=rec[13], prompt=rec[14]),
                         q5_ans=rec[15]
                     )
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(message=f"Could not get survey with id {survey_id}")
 
     def get_one_rorschach(self, rorschach_id: int):
         try:
@@ -234,13 +246,17 @@ class Check_InQueries:
                         image=RorschachImageOut(id=rec[1], path=rec[2]),
                         response=rec[3]
                     )
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(
+                message=f"Could not get rorschach test with id {rorschach_id}"
+            )
 
-    def update_checkin(self, check_in_id: int, check_in: Check_inIn, account: dict) -> Union[
-        Check_inOutDetail,
-        Error
-    ]:
+    def update_checkin(
+            self,
+            check_in_id: int,
+            check_in: Check_inIn,
+            account: dict
+    ) -> Union[Check_inOutDetail, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

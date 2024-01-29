@@ -5,7 +5,10 @@ from typing import Union
 
 class QuestionQueries:
     # get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, question_id: int) -> QuestionOut:
+    def get_one(
+            self,
+            question_id: int
+    ) -> Union[QuestionOut, None]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -29,7 +32,7 @@ class QuestionQueries:
 
 
 class SurveyQueries:
-    def create(self, info: SurveyIn) -> SurveyOut:
+    def create(self, info: SurveyIn) -> Union[SurveyOut, Error]:
 
         try:
             # connection to database
@@ -147,62 +150,3 @@ class SurveyQueries:
 
         except Exception:
             return Error(message="could not update the data")
-
-# get_one() here is not for endpoint but for creating foreign key object
-# this is for checkin
-
-    def get_one(self, survey_id: int):
-        try:
-            # connection to database
-            with pool.connection() as conn:
-                # runs sql query
-                with conn.cursor() as db:
-                    # execute sql code and storing it data var
-                    db.execute(
-                        """
-                        SELECT survey_id
-                        , q1
-                        , q1_ans
-                        , q2
-                        , q2_ans
-                        , q3
-                        , q3_ans
-                        , q4
-                        , q4_ans
-                        , q5
-                        , q5_ans
-                        FROM surveys
-                        WHERE survey_id = %s;
-                        """,
-                        [survey_id]
-                    )
-                    record = db.fetchone()
-                    question = QuestionQueries()
-                    if record is None:
-                        return None
-                    else:
-                        if (
-                            question.get_one(record[1])
-                            and question.get_one(record[3])
-                            and question.get_one(record[5])
-                            and question.get_one(record[7])
-                            and question.get_one(record[9])
-                        ):
-                            return SurveyOut(
-                                survey_id=survey_id,
-                                q1=question.get_one(record[1]),
-                                q1_ans=record[2],
-                                q2=question.get_one(record[3]),
-                                q2_ans=record[4],
-                                q3=question.get_one(record[5]),
-                                q3_ans=record[6],
-                                q4=question.get_one(record[7]),
-                                q4_ans=record[8],
-                                q5=question.get_one(record[9]),
-                                q5_ans=record[10]
-                            )
-                        else:
-                            return None
-
-        except Exception:
-            return None
