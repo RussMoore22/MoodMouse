@@ -57,7 +57,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            {/* <Nav /> */}
+            <Nav />
 
             <div>
                 <ErrorNotification error={error} />
