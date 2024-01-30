@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './Home'
 import LoginForm from './LoginForm'
-import SignupForm from './SignupForm'
+import SignupForm from './SignUpForm'
 
 const router = createBrowserRouter([
     {

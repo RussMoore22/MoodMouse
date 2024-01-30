@@ -44,10 +44,16 @@ export const moodmouseApi = createApi({
                 formData.append('email', info.email)
                 formData.append('username', info.username)
                 formData.append('password', info.password)
+
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
                 return {
                     url: '/api/accounts',
                     method: 'POST',
-                    body: formData,
+                    body: data,
                     credentials: 'include',
                 }
             },

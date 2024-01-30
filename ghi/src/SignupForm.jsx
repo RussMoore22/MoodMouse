@@ -13,7 +13,7 @@ function SignupForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log('Sumbit button clicked')
+        console.log('Submit button clicked')
 
         signup({
             firstName,
