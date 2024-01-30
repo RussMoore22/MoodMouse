@@ -179,3 +179,18 @@ got up to the "accomplish a get token" in vite. We had a lot of struggles but we
 
 Aha-moment: the VITE_HOST_URL .env file must be saved in ghi folder or else it cannot be found by Vite. this caused a lot of issues and fortunately a message popped up to show us that "src/.env" was changed when it should have said "ghi".
 
+## January 30, 2024
+
+Goals:
+
+1. create Login
+2. create Log-out
+3. create sign-up
+
+The team finished all our goals for the day working in mob programming. I like when we work on mob programming since I feel more a part of each piece of the code. We planned on breaking out into pairs in the afternoon but decided we were making good progress and should continue to finish the sign-up form.
+
+We had hiccups along the way for each goal, but worked through them as a team. I sometimes feel that when we are in a group of four, it can make one or two teammates feel left out and they wont end up contributing as much as they would in pair programming.
+
+for the create log-out and log-out, we didn’t have much difficulty, but were figuring little things out about react-redux. With Sign-up, we had an issue with the react-router: we forgot to put an Outlet tag into the root directory, App.
+
+Aha moment: formData is only set as the body value when it being used for log-in. when sign up post request is made, the body needs to be in the form of a dictionary since it is expecting JSON unlike the log-in.
