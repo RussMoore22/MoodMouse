@@ -1,11 +1,36 @@
-//@ts-check
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import ReactDOM from 'react-dom'
 import './index.css'
+import App from './App'
+import { store } from './app/store'
+import { Provider } from 'react-redux'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Home from './Home'
+import LoginForm from './LoginForm'
+import SignupForm from './SignUpForm'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            {
+                path: "/login",
+                element: <LoginForm />
+            },
+            {
+                path: "/signup",
+                element: <SignupForm />
+            },
+        ]
+    },
+
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <App />
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
-)
+);

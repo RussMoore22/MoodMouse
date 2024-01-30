@@ -121,3 +121,63 @@ AHA moment: when Jen pointed out that we should make the data tables for models 
 Russ found out that there is an ALTER TABLE command in Postgres SQL that creates a new migration instead of changing an existing migration, so there are some instances where deleting our SQL databases is not necessary.
 
 Luna explained pydantic functions to me and the difference between error handling in the the quering function and what can be thought of as our FastAPI view function. Error handling can be brought up in both functions. Russ pointed out that we have more pydantic functions compared to Django models and view functions, but we have greater control on the design and these smaller or specific functions, such as a get_one function, ultimately allow our code to be more modular, since we can use those smaller query functions in more complicated ones.
+
+
+## 1/22/24
+
+What I did specifically:
+
+Today I was the driver, and I worked on creating the pydantic model, query, and route for the create rorschach test model and for the pydantic model, query and route for the GET rorschach image model.
+
+I added some data in our SQL database through query commands. We added data into our rorscharch image, rorschach test.
+
+AHA moment:
+
+My AHA moment was figuring out how the pool function worked. Specifically, how the data variable is capturing the data from the SQL command, given in a string. This variable helps us pull ids and other fields from objects.
+
+1/23/24 Journal
+
+What I worked on directly: Today, we worked on creating the PUT request endpoint by creating the update query function for Rorschach_Test query model and added a router for the Rorschach_test router.
+
+What we worked on together: Today we worked in teams. I worked with Luna today and Luna created the PUT request endpoint for the survey query model and create the route for it. She additionally fixed the return statement for the Rorschach Test. She
+
+Blockers: My blockers are related to git. I had trouble pulling changes and merging updated changes to my local branch. We spent 2 hours but it appears all I needed to do was restart my VSCode for the migrated changed to appear.
+
+An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
+
+
+## 1/23/24 Journal
+
+What I worked on directly: Today, we worked on creating the PUT request endpoint by creating the update query function for Rorschach_Test query model and added a router for the Rorschach_test router.
+
+What we worked on together: Today we worked in teams. I worked with Luna today and Luna created the PUT request endpoint for the survey query model and create the route for it. She additionally fixed the return statement for the Rorschach Test. She
+
+Blockers: My blockers are related to git. I had trouble pulling changes and merging updated changes to my local branch. We spent 2 hours but it appears all I needed to do was restart my VSCode for the migrated changed to appear.
+
+An AHA moment: Luna explained how the info attribute we created in the router is connected when we return it in our Query. Info is an attribute for the function we put in there and can access the methods and attributes we create inside that function. I used this in my return statement when I wanted to return an updated image id number and updated response.
+
+
+## 1/24/24
+* AHA moment: type command shows our object local path, useful for when we need to troubleshoot.
+* For our RorschachTestQueries, we added error handling on our create method that displays an error if a request is made to an image id that does not exist.
+* For our Account model, we added error handling that would show one message if a POST request is made with a username that already exists
+* For our Account model, we added error handling that would show one message if a POST request is made with an email that already exists
+* We updated our Rorschach test route to include Error handling.
+* In our survey router create function, we added Error handling by including if-else conditional statements: 400=unsuccessful, 200=successful.
+
+## 1/25/24
+
+* I started drafting the get_one function for the check-in query model
+* I also started drafting the get_one router for the check-in.
+* API endpoint testing: We realized I wiped my database at some point, so I did not have any test data; therefore, I couldn’t create a check-in model––so I can eventually get a check-in instance––and I also needed to create the instances of all the foreign keys, so I can successfully create a check-in, such as Rorschach image, Rorschach test, and survey instances.  During this process, we hit a roadblock because I couldn’t successfully create a check-in instance. We believed it might be something in my SQL database that is causing the error. During earlier testing, we created SQL query functions that had errors, so our object_ids started at 11 from the first record. To avoid confusion, and to make testing simpler, I wiped the data on my database, but I kept the migrations related to database structure, so I didn’t need to recreate the whole database columns. After restarting, it was easy to create all objects through Fast API Swagger.
+* This process also involved some other troubleshooting. We put print statements in our create check-in model, went into our fast API container console to check for errors. We saw 500 errors, which then became “less wrong” with some 422 validation errors, (which is why we wiped the database to reset the ids to get the objects easier), and re-ran our code until it was completed.
+* For tomorrow, Jenn and I set a goal to finish the get_one query function and route, test it in Swagger, and after that, we will work on adding the authentication. After all of that is done, we will merge that working feature into testing.
+
+
+## 1/26/24
+
+## Issues
+* Fix create query function to add functionality so that an account where
+* fix error handling for error handling,
+
+A logged in user should be able to access the check -ins, through check-in IDs, that are associated with their account, defined by the account number.
