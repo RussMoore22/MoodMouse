@@ -187,7 +187,6 @@ Today I learned how important it is to understand where things are coming from. 
 encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
 
 
-
 ## January 30, 2024
 
 Today I worked on:
@@ -196,5 +195,6 @@ Today I worked on:
 * Helping Luna create the Login.jsx page.
 * Changing the .env file from 127.0.0.1 to localhost.
 * Helping Russ create the Sign-up.jsx page.
+* Setting up the SignupForm.jsx and completing the apiSlice.jsx for signup mutation.
 
-As a team, we worked together to create the logout, login and sign up page. The new concept of the front end is still very new to us but we are starting to carve the design and understanding how things work. One ah-ha moment for today was  
+As a team, we worked together to create the logout, login and sign up page. The new concept of the front end is still very new to us but we are starting to carve the design and understanding how things work. One ah-ha moment for today was when we discovered that when we were creating the new account, we needed to store that data in a dictionary in the apiSlice.jsx . I would say today was a really productive day and during the time I was sharing my screen and driving, I was able to get a lot of good experience on redux and vite. 
