@@ -152,3 +152,66 @@ I worked on adding an authentication router for getting a token and outputting t
 A-Ha moments:
 
 -   I learnd that git pull combines two things: one is git fetch and the other is git merge.
+
+### Jan 26, 2024
+
+Today, I worked on:
+
+-   Completed the unit testing- Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the GET one API endpoint for check-in
+-   Completed two unit tests for both PUT and POST endpoints for check-in
+
+Today, I am paired with Russ, and the other team is working on the GET one API endpoint for check-in. We completed two unit tests for check-in. Russ made a POST unit test, and I made a PUT unit test. Later on, we helped the other team figure out and fix the potential error for the GET one check-in endpoint.
+
+Since there is a social hack hour, we haven't done many things today. What I did is write the unit test for the PUT endpoint for check-in. I created different fake foreign key objects and fake JSON responses to test if the endpoint works as expected. I made sure that the authentication and queries are overridden to make the unit test completely isolated. Finally, I cleaned up the overrides to prevent potential errors that may happen in other unit tests.
+
+A-Ha moments:
+
+-   I learned that python -m pytest should be run in the Docker container, not in the terminal
+-   I learned that in unit tests, the fake request body should be in dictionary format rather than in an object or JSON
+-   I learned that using \*args to create a function can allow the function to be called with an unlimited number of parameters passed in
+
+### Jan 29, 2024
+
+Today, I worked on:
+
+-   Fixed errors in frontend authentication getToken and helped my partner in building unit test 003 - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed getToken using Redux
+-   Created unit test 003 to test the get_all endpoint
+-   Finished error handling for check-ins
+
+Today, I was paired with Jenn, but we initially worked on creating getToken using Redux as a group of four. We encountered several issues while configuring Redux, which were ultimately resolved with help from the team. Especially, Russ fixed an issue where Vite continued showing an error message related to "react-redux". It turned out to be an issue with our baseURL and also index.html. We changed the name of index.jsx to main.jsx but forgot to update "<script type="module" src="/src/main.jsx"></script>" to link to main.jsx.
+
+During the Redux session, I drove for the part where we tried to debug react-redux for about 1.5 hours. I attempted to fix the bug in the group but couldn't figure it out. However, with continued testing and attempts, we eventually resolved it, and I learned a lot from that experience! While pairing with Jenn, my main contribution was helping her build unit test 003 whenever she needed clarification on certain aspects. We haven't finished everything and plan to complete it tomorrow.
+
+A-Ha moments:
+
+-   I learned that for Redux, if we've checked everything and are sure that the code is correct but there still seems to be an error, one way to solve it is by trying to rebuild the Docker container because sometimes it might not be recognized if some environmental variables or dependencies have changed.
+
+### Jan 30, 2024
+
+Today, I worked on:
+
+-   Completed the login page for the frontend authentication - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed login page
+-   Completed signup page
+-   Completed logout page
+-   Created a new router to store all our routers there
+
+Today, our team engaged in mob programming, switching off every hour. We successfully completed the login, signup, and logout pages for our frontend authentication. Additionally, we created a new router to manage all of our child routers.
+
+My contributions for today included creating a login page based on the recording and assisting other team members with debugging when needed. I designed a new login form page, established new states to store usernames and passwords, and passed this data into our API function in the apiSlice. The data was stored in an info object, from which I created a formData. This formData was then sent to the endpoint to log in the user, resulting in a successful operation. I also made several discoveries while other team members were driving.
+
+A-Ha moments:
+
+-   I learned that when sending a request body in the apiSlice, the data needs to be in dictionary format, not as an instance from the FormData object
+-   I learned that to use child routers, we need to add <Outlet /> in our App.jsx as a parent router.
