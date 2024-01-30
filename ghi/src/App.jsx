@@ -6,6 +6,7 @@ import Construct from './Construct'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Nav from './nav'
+import LoginForm from './LoginForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -60,8 +61,9 @@ function App() {
             <Nav />
 
             <div>
-                <ErrorNotification error={error} />
-                <Construct info={launchInfo} />
+                <LoginForm />
+                {/* <ErrorNotification error={error} />
+                <Construct info={launchInfo} /> */}
             </div>
         </BrowserRouter>
     )
