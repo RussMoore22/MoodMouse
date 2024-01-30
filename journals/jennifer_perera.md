@@ -150,7 +150,7 @@ Today I worked on:
 
 Today Luna and I worked together to create the PUT and DELETE endpoints for the check-in feature. We referenced the update and delete function from Curtis' code and found it very helpful. 
 
-Today I learned so much about GitLab. As I encountered a merge conflict at the end of the day, we had to do some research on what command to use to show all the branches and we recurired the help of the SEIRS because we were afraid of messing up the testing branch. After the SEIRS came over and instructed us on what commands to use, we were able to commit and push all the changes successfully.  
+Today I learned so much about GitLab. As I encountered a merge conflict at the end of the day, we had to do some research on what command to use to show all the branches and we required the help of the SEIRS because we were afraid of messing up the testing branch. After the SEIRS came over and instructed us on what commands to use, we were able to commit and push all the changes successfully.  
 
 
 ## January 25, 2024
@@ -172,7 +172,7 @@ Today I worked on:
 * Completing the get_one function for the check in feature.
 * Creating SQL queries, wrote print statements to check code. 
 
-Today Ramesh anf I finished working on creating the get_one feature for the check-in feature and we were hitting so many road blocks along the way. At first, we thought it would be just simple integers for the rorschach image and the survey when returning the Check_inOutDetails but as we continued on, we realized it was more complicated than that. We were following the example of the get_all_mine and update function and similar to that, we needed to assign rorschachTest and SurveyOut to the rorschach and survey variables in the return and make sure to assign it correctly. This process helped us understand where things where coming from and where things would go.
+Today Ramesh and I finished working on creating the get_one feature for the check-in feature and we were hitting so many road blocks along the way. At first, we thought it would be just simple integers for the rorschach image and the survey when returning the Check_inOutDetails but as we continued on, we realized it was more complicated than that. We were following the example of the get_all_mine and update function and similar to that, we needed to assign rorschachTest and SurveyOut to the rorschach and survey variables in the return and make sure to assign it correctly. This process helped us understand where things where coming from and where things would go.
 
 
 ## January 29, 2024
@@ -187,13 +187,14 @@ Today I learned how important it is to understand where things are coming from. 
 encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
 
 
-
-## January 29, 2024
+## January 30, 2024
 
 Today I worked on:
 
-* Researching Redux configurations with Vite and React.
-* Starting to work on Unit testing for get_all_mine function with Luna.
+* Helping Ramesh create the Logout.jsx page.
+* Helping Luna create the Login.jsx page.
+* Changing the .env file from 127.0.0.1 to localhost.
+* Helping Russ create the Sign-up.jsx page.
+* Setting up the SignupForm.jsx and completing the apiSlice.jsx for signup mutation.
 
-Today I learned how important it is to understand where things are coming from. As a team, we worked on setting up redux for the front-end and during our mob programming time, we
-encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
+As a team, we worked together to create the logout, login and sign up page. The new concept of the front end is still very new to us but we are starting to carve the design and understanding how things work. One ah-ha moment for today was when we discovered that when we were creating the new account, we needed to store that data in a dictionary in the apiSlice.jsx . I would say today was a really productive day and during the time I was sharing my screen and driving, I was able to get a lot of good experience on redux and vite. 
