@@ -38,17 +38,12 @@ export const moodmouseApi = createApi({
         }),
         signup: builder.mutation({
             query: (info) => {
-                const formData = new FormData()
-                formData.append('first_name', info.firstName)
-                formData.append('last_name', info.lastName)
-                formData.append('email', info.email)
-                formData.append('username', info.username)
-                formData.append('password', info.password)
-
-                const data = {};
-                formData.forEach((value, key) => {
-                    data[key] = value;
-                });
+                const data = {}
+                data['first_name'] = info.firstName
+                data['last_name'] = info.lastName
+                data['email'] = info.email
+                data['username'] = info.username
+                data['password'] = info.password
 
                 return {
                     url: '/api/accounts',
