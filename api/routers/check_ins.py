@@ -55,3 +55,13 @@ def delete_checkin(
     repo: Check_InQueries = Depends()
 ) -> Union[bool, Error]:
     return repo.delete(check_in_id)
+
+@router.get("/api/checkins/{check_in_id}", response_model=Union[Check_inOutDetail, Error])
+def get_one_check_in(
+    check_in_id: int,
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: Check_InQueries = Depends()
+) -> Union[Check_inOutDetail, Error]:
+
+    return repo.get_one_check_in(check_in_id, account_data)
