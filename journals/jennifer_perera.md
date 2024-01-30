@@ -188,7 +188,7 @@ encountered many roadblocks along the way. One of those roadblocks was a Provide
 
 
 
-## January 29, 2024
+## January 23, 2024
 
 Today I worked on:
 
