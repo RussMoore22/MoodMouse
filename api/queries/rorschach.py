@@ -54,7 +54,7 @@ class RorschachTestQueries:
             info: RorschachTestIn) -> Union[RorschachTestOut, Error]:
         rorschachimg = RorschachImageQueries()
         if rorschachimg.get_one(info.image) is None:
-            return Error(message="rorschach Image does not exist")
+            return Error(message="rorschach image does not exist")
         try:
             # connection to database
             with pool.connection() as conn:
@@ -73,8 +73,6 @@ class RorschachTestQueries:
                         [info.image, info.response]
                     )
                     rorschach_id = data.fetchone()[0]
-
-
                     return RorschachTestOut(
                             id=rorschach_id,
                             image=rorschachimg.get_one(info.image),
