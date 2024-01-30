@@ -150,7 +150,6 @@ Today I worked on:
 
 Today Luna and I worked together to create the PUT and DELETE endpoints for the check-in feature. We referenced the update and delete function from Curtis' code and found it very helpful. 
 
-
 Today I learned so much about GitLab. As I encountered a merge conflict at the end of the day, we had to do some research on what command to use to show all the branches and we recurired the help of the SEIRS because we were afraid of messing up the testing branch. After the SEIRS came over and instructed us on what commands to use, we were able to commit and push all the changes successfully.  
 
 
@@ -160,14 +159,9 @@ Today I worked on:
 
 * Creating the Authentication for the check-in.
 * Creating the get_one function on the check_in feature. 
-* Creating the check_in error authentication get_one function on the check_in feature. 
+* Creating the check_in error authentication get_one function on the check_in feature.
 
-
-Ramesh and I were stuck working on the get_one function for the check-in feature
-
-
-Today I learned how authentication works and 
-
+Ramesh and I were stuck working on the get_one function for the check-in feature for most of our pair programming time. We spent most of our time researching and trying to figure out how to move forward from not being able to create a check-in. With that roadblock, we learned that we needed to wipe Ramesh's database since we had new migrations and then after creating new data, the error went away. As we tested were v=creating the get_one function, we seem to be getting more comfortable with SQL and the SQL Explorer from VSC. I feel more comfortable using SQL in the backend than I did when we started the project. Tomorrow Ramesh and I plan to finish the get_one query function and route, test it in Swagger, and work on adding the authentication. After all of that is done, we will merge that working feature into testing.
 
 
 ## January 26, 2024
@@ -176,9 +170,30 @@ Today I worked on:
 
 * Troubleshooting errors for . 
 * Completing the get_one function for the check in feature.
-* Creating SQL queries, wrote print statements to . 
+* Creating SQL queries, wrote print statements to check code. 
 
-Today ramesg anf I continued to work on creating the get_one feature for the check-in feature and we were hitting so many road blocks along the way. At first we thought it would be just simple inetegers for the rorscahch image and the sruvey but as we We were following the example of the get_all_mine and update function but as we progressed  
+Today Ramesh anf I finished working on creating the get_one feature for the check-in feature and we were hitting so many road blocks along the way. At first, we thought it would be just simple integers for the rorschach image and the survey when returning the Check_inOutDetails but as we continued on, we realized it was more complicated than that. We were following the example of the get_all_mine and update function and similar to that, we needed to assign rorschachTest and SurveyOut to the rorschach and survey variables in the return and make sure to assign it correctly. This process helped us understand where things where coming from and where things would go.
 
 
-Today I learned how authentication works and 
+## January 29, 2024
+
+Today I worked on:
+
+* Researching Redux configurations with Vite and React.
+* Starting to work on Unit testing for get_all_mine function with Luna.
+
+
+Today I learned how important it is to understand where things are coming from. As a team, we worked on setting up redux for the front-end and during our mob programming time, we
+encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
+
+
+
+## January 29, 2024
+
+Today I worked on:
+
+* Researching Redux configurations with Vite and React.
+* Starting to work on Unit testing for get_all_mine function with Luna.
+
+Today I learned how important it is to understand where things are coming from. As a team, we worked on setting up redux for the front-end and during our mob programming time, we
+encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
