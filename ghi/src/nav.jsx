@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { useGetTokenQuery, useLogoutMutation  } from './app/apiSlice'
+import { useGetTokenQuery, useLogoutMutation, useSignupMutation  } from './app/apiSlice'
 
 
 function Nav() {
@@ -7,15 +7,18 @@ function Nav() {
     console.log({ account })
 
     const [logout] = useLogoutMutation()
-    // console.log(logout, useLogoutMutation)
-
-
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/">
                     MoodMouse!
+                </NavLink>
+                <NavLink className="navbar-brand" to="/login">
+                    Log In
+                </NavLink>
+                <NavLink className="navbar-brand" to="/signup">
+                    Sign up
                 </NavLink>
                 <button
                     onClick={logout}
@@ -31,36 +34,11 @@ function Nav() {
                 </button>
                 <div
                     className="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item dropdown">
-                            <a
-                                className="nav-link dropdown-toggle"
-                                data-bs-toggle="dropdown"
-                                role="button"
-                                aria-expanded="false"
-                            >
-                                Inventory
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li className="nav-item">
-                                    <NavLink
-                                        className="dropdown-item"
-                                        to="/"
-                                        end
-                                        style={{ fontWeight: 'bold' }}
-                                    >
-                                        Home Page
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    id="navbarSupportedContent">
                 </div>
             </div>
         </nav>
     )
 }
 
-export default Nav
+export default Nav;

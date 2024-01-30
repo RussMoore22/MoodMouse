@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Construct from './Construct'
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Nav from './nav'
+import LoginForm from './LoginForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -56,14 +57,12 @@ function App() {
     }, [])
 
     return (
-        <BrowserRouter>
+        <div className="container">
             <Nav />
-
-            <div>
-                <ErrorNotification error={error} />
-                <Construct info={launchInfo} />
+            <div className="mt-5">
+                <Outlet />
             </div>
-        </BrowserRouter>
+        </div>
     )
 }
 
