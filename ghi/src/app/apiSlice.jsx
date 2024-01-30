@@ -12,7 +12,7 @@ export const moodmouseApi = createApi({
                 url: '/token',
                 credentials: 'include', // send the cookies along along with request
             }),
-            providesTags: ['Account']
+            providesTags: ['Account'],
         }),
         logout: builder.mutation({
             query: () => ({
@@ -20,9 +20,24 @@ export const moodmouseApi = createApi({
                 method: 'DELETE',
                 credentials: 'include',
             }),
-            invalidatesTags: ['Account']
-        })
+            invalidatesTags: ['Account'],
+        }),
+        login: builder.mutation({
+            query: (info) => {
+                const formData = new FormData()
+                formData.append('username', info.username)
+                formData.append('password', info.password)
+                return {
+                    url: '/token',
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include',
+                }
+            },
+            invalidatesTags: ['Account'],
+        }),
     }),
 })
 
-export const { useGetTokenQuery, useLogoutMutation } = moodmouseApi
+export const { useGetTokenQuery, useLogoutMutation, useLoginMutation } =
+    moodmouseApi
