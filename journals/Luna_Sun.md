@@ -111,3 +111,44 @@ What I worked on was updating the survey's data and returning a response that in
 A-Ha moments:
 
 -   Learned that if the remote repository in GitLab shows updated changes but the local repository doesn't seem to catch those changes even after pulling changes from the remote, the possible reason might be local. We had this issue today, and to solve it, we found that we basically just needed to restart VSCode.
+
+### Jan 24, 2024
+
+Today, I worked on:
+
+-   Building the delete method for the check-in API endpoint and also helped my partner, Jenn, to build the put method for the check-in API endpoint - Navigator and Driver.
+
+Features that our team build for today:
+
+-   We built Delete endpoint for Checkin
+-   We built Put endpoint for Checkin
+-   We also built a function that can handle the foreign key object for checkin
+
+Today, I am paired with Jenn, and we are working on building the delete and put functionality for our check-in model. Our team decided that Jenn and I would work on the check-in related files, while Russ and Ramesh would work on error handling for all the endpoints that we have built for other files, to reduce the likelihood of merge conflicts.
+
+What I worked on is building the delete endpoint for check-in, and I finished it very quickly. Then, I worked on building the function to create a Rorschach test foreign key object by using SQL joins to return a Rorschach test object, and used this object to create the check-in object. I also helped my teammate, Jenn, in building the put endpoint for check-in. I assisted her in figuring out what needs to be updated and what does not, discussing and ensuring what the request body would look like.
+
+A-Ha moments:
+
+-   I learned that when building the foreign key object, using JOINs to build a more complex foreign key object would be more beneficial in terms of performance. What I used to do was create a function to connect to the database and then get the object without using JOIN, and in case I need information from two tables, I would create two functions to call each table, get the data I want, and then create the foreign key object. However, this way seems inefficient because it means that every time I want to create a complex object, I may need to connect to the database multiple times. If I use JOINs, I may only need to connect to the database once so that all the information I want can be extracted. This may not affect the application when it's small, but it would seem to have more potential performance issues if the application grows large. I really appreciate having learned this from Russ, and I never thought about this before. I am glad I have learned something new today.
+
+### Jan 25, 2024
+
+Today, I worked on:
+
+-   Completed the issues account_data_authentication and removed the duplicated functions - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the issue account_data_authentication
+-   Removed the duplicated functions
+-   Removed redundant Error classes
+-   Made migrations to store some data needed for the application
+
+Today, I am paired with Russ, and since the other team is working on the last endpoint, we decided to fix some remaining issues on the issue board. Russ drove the process of making migrations to store the data needed for the application, removed redundant Error classes, and fixed most of the Pydantic issues that we hadn't addressed in our application.
+
+I worked on adding an authentication router for getting a token and outputting the user object with the user's information. I also drove the effort to ensure that all endpoints can only be accessed by the logged-in user. Additionally, I made some modifications to the existing endpoint functions to include the account_data. Afterward, I removed the functions I had written earlier, which were different from Russ's but functioned the same. We discussed which approach was better, and with Russ's help, I realized that mine might cause potential performance issues as the application grows larger. Therefore, I decided to keep the one Russ made, as it is more efficient, and removed the one I had created to avoid having two functions doing the same thing.
+
+A-Ha moments:
+
+-   I learnd that git pull combines two things: one is git fetch and the other is git merge.
