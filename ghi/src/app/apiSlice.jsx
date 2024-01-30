@@ -12,8 +12,17 @@ export const moodmouseApi = createApi({
                 url: '/token',
                 credentials: 'include', // send the cookies along along with request
             }),
+            providesTags: ['Account']
         }),
+        logout: builder.mutation({
+            query: () => ({
+                url: '/token',
+                method: 'DELETE',
+                credentials: 'include',
+            }),
+            invalidatesTags: ['Account']
+        })
     }),
 })
 
-export const { useGetTokenQuery } = moodmouseApi
+export const { useGetTokenQuery, useLogoutMutation } = moodmouseApi
