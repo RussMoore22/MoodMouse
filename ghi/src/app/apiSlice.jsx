@@ -4,7 +4,7 @@ export const moodmouseApi = createApi({
     reducerPath: 'moodmouseApi',
     baseQuery: fetchBaseQuery({
         // baseUrl: process.env.VITE_API_HOST
-        baseUrl: 'http://127.0.0.1:8000'
+        baseUrl: 'http://localhost:8000',
     }),
     endpoints: (builder) => ({
         getToken: builder.query({
@@ -16,6 +16,4 @@ export const moodmouseApi = createApi({
     }),
 })
 
-export const {
-    useGetTokenQuery
-} = moodmouseApi
+export const { useGetTokenQuery } = moodmouseApi

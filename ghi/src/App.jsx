@@ -57,12 +57,12 @@ function App() {
 
     return (
         <BrowserRouter>
-        <Nav />
+            <Nav />
 
-        <div>
-            <ErrorNotification error={error} />
-            <Construct info={launchInfo} />
-        </div>
+            <div>
+                <ErrorNotification error={error} />
+                <Construct info={launchInfo} />
+            </div>
         </BrowserRouter>
     )
 }
