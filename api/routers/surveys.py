@@ -4,12 +4,24 @@ from fastapi import (
     Response,
     Depends,
 )
-from models import SurveyIn, SurveyOut, Error
-from queries.surveys import SurveyQueries
+from models import SurveyIn, SurveyOut, QuestionOut, Error
+from queries.surveys import SurveyQueries, QuestionQueries
 from typing import Union
 from authenticator import authenticator
 
 router = APIRouter()
+
+
+@router.get('/api/questions/{question_id}', response_model=Union[
+    QuestionOut, None])
+def get_questions(
+    question_id: int,
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: QuestionQueries = Depends(),
+):
+    question = repo.get_one(question_id)
+    return question
 
 
 @router.post('/api/surveys', response_model=Union[SurveyOut, Error])
