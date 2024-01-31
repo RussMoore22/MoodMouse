@@ -18,13 +18,13 @@ export const moodmouseApi = createApi({
             query: () => ({
                 url: '/api/rorschach_imgs',
                 credentials: 'include',
-            })
+            }),
         }),
         getQuestion: builder.query({
             query: (question_id) => ({
-                url: '/api/questions/{question_id}',
+                url: `/api/questions/${question_id}`,
                 credentials: 'include',
-            })
+            }),
         }),
         logout: builder.mutation({
             query: () => ({
@@ -80,7 +80,7 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            }
+            },
         }),
         createSurvey: builder.mutation({
             query: (info) => {
@@ -101,7 +101,7 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            }
+            },
         }),
         createRorschachTest: builder.mutation({
             query: (info) => {
@@ -114,9 +114,9 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            }
+            },
         }),
-    })
+    }),
 })
 
 export const {
