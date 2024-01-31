@@ -26,7 +26,6 @@ export const moodmouseApi = createApi({
                 credentials: 'include',
             })
         }),
-
         logout: builder.mutation({
             query: () => ({
                 url: '/token',
@@ -57,7 +56,6 @@ export const moodmouseApi = createApi({
                 data['email'] = info.email
                 data['username'] = info.username
                 data['password'] = info.password
-
                 return {
                     url: '/api/accounts',
                     method: 'POST',
@@ -75,8 +73,7 @@ export const moodmouseApi = createApi({
                 data['happy_level'] = info.happyLevel
                 data['journal_entry'] = info.journalEntry
                 data['survey'] = info.survey
-                data['rorscach_test'] = info.rorscachTest
-
+                data['rorschach_test'] = info.rorschachTest
                 return {
                     url: '/api/checkins',
                     method: 'POST',
@@ -98,7 +95,6 @@ export const moodmouseApi = createApi({
                 data['q4_ans'] = info.q4Ans
                 data['q5'] = info.q5
                 data['q5_ans'] = info.q5Ans
-
                 return {
                     url: '/api/surveys',
                     method: 'POST',
@@ -112,7 +108,6 @@ export const moodmouseApi = createApi({
                 const data = {}
                 data['image'] = info.image
                 data['response'] = info.response
-
                 return {
                     url: '/api/rorschach_tests',
                     method: 'POST',
@@ -121,7 +116,6 @@ export const moodmouseApi = createApi({
                 }
             }
         }),
-
     })
 })
 

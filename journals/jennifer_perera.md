@@ -198,3 +198,13 @@ Today I worked on:
 * Setting up the SignupForm.jsx and completing the apiSlice.jsx for signup mutation.
 
 As a team, we worked together to create the logout, login and sign up page. The new concept of the front end is still very new to us but we are starting to carve the design and understanding how things work. One ah-ha moment for today was when we discovered that when we were creating the new account, we needed to store that data in a dictionary in the apiSlice.jsx . I would say today was a really productive day and during the time I was sharing my screen and driving, I was able to get a lot of good experience on redux and vite. 
+
+
+## January 31, 2024
+
+Today I worked on:
+
+* Assisting Russ create the endpoints in apiSlice.jsx.
+* Helping Ramesh 
+
+As a team, we worked together to create the endpoint for  

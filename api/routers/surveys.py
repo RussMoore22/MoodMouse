@@ -11,7 +11,9 @@ from authenticator import authenticator
 
 router = APIRouter()
 
-@router.get('/api/questions/{question_id}', response_model=Union[QuestionOut, None])
+
+@router.get('/api/questions/{question_id}', response_model=Union[
+    QuestionOut, None])
 def get_questions(
     question_id: int,
     response: Response,
@@ -19,9 +21,7 @@ def get_questions(
     repo: QuestionQueries = Depends(),
 ):
     question = repo.get_one(question_id)
-
     return question
-
 
 
 @router.post('/api/surveys', response_model=Union[SurveyOut, Error])

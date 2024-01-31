@@ -20,6 +20,9 @@ function Nav() {
                 <NavLink className="navbar-brand" to="/signup">
                     Sign up
                 </NavLink>
+                <NavLink className="navbar-brand" to="/create">
+                    Create a Check In
+                </NavLink>
                 <button
                     onClick={logout}
                     className="navbar-toggler"
