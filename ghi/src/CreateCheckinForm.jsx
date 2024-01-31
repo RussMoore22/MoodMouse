@@ -4,7 +4,7 @@ import {
     useCreateRorschachTestMutation,
     useCreateSurveyMutation,
     useGetImagesQuery,
-    useGetQuestionQuery
+    useGetQuestionQuery,
 } from './app/apiSlice'
 
 function CreateCheckinForm() {
@@ -37,12 +37,13 @@ function CreateCheckinForm() {
     const [createCheckin] = useCreateCheckinMutation()
     const [createSurvey] = useCreateSurveyMutation()
     const [createRorschachTest] = useCreateRorschachTestMutation()
-
+    const { data: rorschach_imgs, isLoading: r_isLoading } = useGetImagesQuery()
+    const { data: question, isLoading: q_isLoading } = useGetQuestionQuery()
 
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('Submit button clicked')
-        createRorschachTest({image, response})
+        createRorschachTest({ image, response })
     }
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -56,27 +57,46 @@ function CreateCheckinForm() {
     const handleQ1Ans = (event) => {
         setQ1Ans(event.target.value)
     }
-    const {data: rorschach_imgs} = useGetImagesQuery()
-    
+
     function getRandomRorschachImg() {
-        const randomIndex = Math.floor(Math.random() * rorschach_imgs.length);
-        setRorschachImage(rorschach_imgs[randomIndex]);
+        if (!r_isLoading) {
+            const randomIndex = Math.floor(
+                Math.random() * rorschach_imgs.length
+            )
+            console.log(rorschach_imgs[randomIndex])
+            setRorschachImage(rorschach_imgs[randomIndex])
+        }
     }
 
-    useEffect (() => {
-        getRandomRorschachImg();
-    }, [rorschach_imgs]);
+    useEffect(() => {
+        getRandomRorschachImg()
+    }, [rorschach_imgs])
 
-
-    console.log(rorschach_imgs);
-
+    console.log(rorschach_imgs)
 
     return (
         <>
-        <div>
-            {!rorschachImg.id ? <p> Image does not exist </p>:
-            <p>Image does exist! {rorschachImg.path} </p>}
-        </div>
+            <div>
+                {rorschachImg.id ? (
+                    <div>
+                        <p> Image does exist </p>
+                        <img src={rorschachImg.path} width="500" height="600" />
+                        <button onClick={getRandomRorschachImg}>
+                            {' '}
+                            generate{' '}
+                        </button>
+                    </div>
+                ) : (
+                    <p>
+                        Image does not exist! {rorschachImg.path}
+                        <button onClick={getRandomRorschachImg}>
+                            {' '}
+                            generate{' '}
+                        </button>
+                    </p>
+                )}
+            </div>
+
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
@@ -119,7 +139,9 @@ function CreateCheckinForm() {
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">Submit Check-in</button>
+                            <button type="submit" className="btn btn-primary">
+                                Submit Check-in
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -128,4 +150,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm;
+export default CreateCheckinForm
