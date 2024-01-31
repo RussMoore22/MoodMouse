@@ -14,6 +14,19 @@ export const moodmouseApi = createApi({
             }),
             providesTags: ['Account'],
         }),
+        getImages: builder.query({
+            query: () => ({
+                url: '/api/rorschach_imgs',
+                credentials: 'include',
+            })
+        }),
+        getQuestion: builder.query({
+            query: (question_id) => ({
+                url: '/api/questions/{question_id}',
+                credentials: 'include',
+            })
+        }),
+
         logout: builder.mutation({
             query: () => ({
                 url: '/token',
@@ -119,5 +132,7 @@ export const {
     useSignupMutation,
     useCreateCheckinMutation,
     useCreateRorschachTestMutation,
-    useCreateSurveyMutation
+    useCreateSurveyMutation,
+    useGetImagesQuery,
+    useGetQuestionQuery,
 } = moodmouseApi

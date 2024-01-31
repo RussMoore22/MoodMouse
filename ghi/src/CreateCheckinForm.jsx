@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import {
     useCreateCheckinMutation,
     useCreateRorschachTestMutation,
-    useCreateSurveyMutation
+    useCreateSurveyMutation,
+    useGetImagesQuery,
+    useGetQuestionQuery
 } from './app/apiSlice'
 
 function CreateCheckinForm() {
@@ -35,6 +37,7 @@ function CreateCheckinForm() {
     const [createSurvey] = useCreateSurveyMutation()
     const [createRorschachTest] = useCreateRorschachTestMutation()
 
+    const [rorschachImg, setRorschachImage] = useState({})
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -46,8 +49,22 @@ function CreateCheckinForm() {
         setHappyLevel(event.target.value)
     }
 
+    const {data: rorschach_imgs} = useGetImagesQuery()
+    function getRandomRorschachImg() {
+        const randomIndex = Math.random() * rorschach_imgs.length
+        setRorschachImage(rorschach_imgs[randomIndex])
+
+    }
+    console.log(rorschach_imgs)
+
+
     return (
         <>
+        <div>
+            {!rorschachImg.id ? <p> Image does not exist </p>:
+            <p>Image does exist! {rorschachImg.path} </p>}
+
+        </div>
             <div className="row">
                 <form id="user-signup-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
