@@ -15,22 +15,16 @@ function CreateCheckinForm() {
     const [journalEntry, setJournalEntry] = useState('')
     const [rorschachTest, setRorschachTest] = useState(0)
 
-    const [q1, setQ1] = useState('')
     const [q1Ans, setQ1Ans] = useState('')
 
-    const [q2, setQ2] = useState('')
     const [q2Ans, setQ2Ans] = useState('')
 
-    const [q3, setQ3] = useState('')
     const [q3Ans, setQ3Ans] = useState('')
 
-    const [q4, setQ4] = useState('')
     const [q4Ans, setQ4Ans] = useState('')
 
-    const [q5, setQ5] = useState('')
     const [q5Ans, setQ5Ans] = useState('')
 
-    const [image, setImage] = useState('')
     const [response, setResponse] = useState('')
     const [rorschachImg, setRorschachImage] = useState({})
     const [questions, setQuestions] = useState([])
@@ -63,13 +57,15 @@ function CreateCheckinForm() {
     const handleQ5 = (event) => {
         setQ5Ans(event.target.value)
     }
+    const handleRorschachResponse = (event) => {
+        setResponse(event.target.value)
+    }
 
     function getRandomRorschachImg() {
         if (!r_isLoading) {
             const randomIndex = Math.floor(
                 Math.random() * rorschach_imgs.length
             )
-            console.log(rorschach_imgs[randomIndex])
             setRorschachImage(rorschach_imgs[randomIndex])
         }
     }
@@ -83,8 +79,11 @@ function CreateCheckinForm() {
     const handleSubmit = (event) => {
     event.preventDefault()
     console.log('Submit button clicked')
-    const image_id = 1
-    createRorschachTest({ image_id, response })
+    
+    const image = 1
+    // const response = 
+    createRorschachTest({ image, response })
+    
     const q1q = +question1.id
     const q2q = +question2.id
     const q3q = +question3.id
@@ -101,8 +100,7 @@ function CreateCheckinForm() {
         q4Ans,
         q5q,
         q5Ans,
-         })
-
+        })
         }
 
     if (!surveyStatus.isLoading && !rorschachStatus.isLoading && checkinStatus.isUninitialized){
@@ -124,67 +122,49 @@ function CreateCheckinForm() {
                     rorschachTest
             })
 
+    useEffect(() => {
+        ()
+        // getQuestions()
+    }, [
+        rorschach_imgs,
+        question1,
+        question2,
+        question3,
+        question4,
+        question5,
+    ])
+
+
     if (checkinStatus.isError){
         console.log(checkinStatus)
         }
         }
     }
 
-    function getQuestions() {
-        // if (
-        //     !(
-        //         q1_isLoading &&
-        //         q2_isLoading &&
-        //         q3_isLoading &&
-        //         q4_isLoading &&
-        //         q5_isLoading
-        //     )
-        // ) {
-        //     const arr = [question1, question2, question3, question4, question5]
-        //     setQuestions(arr)
-        // }
-        const arr = []
-        if (!q1_isLoading) {
-            arr.push({question: question1, ans: q1Ans})
-            if (!q2_isLoading) {
-                arr.push(question2)
-                if (!q3_isLoading) {
-                    arr.push(question3)
-                    if (!q4_isLoading) {
-                        arr.push(question4)
-                        if (!q5_isLoading) {
-                            arr.push(question5)
-                        }
-                    }
-                }
-            }
-        }
-        setQuestions(arr)
-
-    }
-
-    // questions state contains 5 question objects
-    // const { data: question, isLoading: q_isLoading } = useGetQuestionQuery()
     // function getQuestions() {
-    //     const question_ids = [1, 2, 3, 4, 5]
     //     const arr = []
-    //     for (const question_id of question_ids) {
-    //         const { data: question, isLoading: q_isLoading } =
-    //             useGetQuestionQuery(question_id)
-    //         // console.log(question)
-    //         if (!q_isLoading) {
-    //             arr.push(question)
+    //     if (!q1_isLoading) {
+    //         arr.push({question: question1, ans: q1Ans})
+    //         if (!q2_isLoading) {
+    //             arr.push(question2)
+    //             if (!q3_isLoading) {
+    //                 arr.push(question3)
+    //                 if (!q4_isLoading) {
+    //                     arr.push(question4)
+    //                     if (!q5_isLoading) {
+    //                         arr.push(question5)
+    //                     }
+    //                 }
+    //             }
     //         }
-    //         setQuestions(arr)
     //     }
+    //     setQuestions(arr)
     // }
+
     useEffect(() => {
         getRandomRorschachImg()
-        getQuestions()
+        // getQuestions()
     }, [rorschach_imgs, question1, question2, question3, question4, question5])
-
-    console.log(rorschach_imgs)
-    console.log(questions)
 
     return (
         <>
@@ -208,9 +188,6 @@ function CreateCheckinForm() {
                     </p>
                 )}
             </div>
-            {/* <div>
-                {questions.map((question) => <p>{question.prompt}</p>)}
-            </div> */}
 
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
@@ -218,6 +195,17 @@ function CreateCheckinForm() {
                         Create a Check In
                     </div>
                     <div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="response">What do you see?</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="response"
+                                placeholder="Response"
+                                onChange={handleRorschachResponse}
+                                value={response}
+                            />
+                        </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="happyLevel">Happy Level </label>
                             <input
@@ -233,23 +221,23 @@ function CreateCheckinForm() {
                         </div>
 
                         <div>
-                            <label for="question1">{ q1_isLoading ? 'loading...' : question1.prompt } </label>
+                            <label htmlFor="question1">{ q1_isLoading ? 'loading...' : question1.prompt } </label>
                             <input type="number" name="question1" id="question1" min="0" max="4" onChange={handleQ1} value={q1Ans} />
                         </div>
                         <div>
-                            <label for="question2">{ q2_isLoading ? 'loading...' : question2.prompt } </label>
+                            <label htmlFor="question2">{ q2_isLoading ? 'loading...' : question2.prompt } </label>
                             <input type="number" name="question1" id="question2" min="0" max="4" onChange={handleQ2} value={q2Ans} />
                         </div>
                         <div>
-                            <label for="question3">{ q2_isLoading ? 'loading...' : question3.prompt } </label>
+                            <label htmlFor="question3">{ q3_isLoading ? 'loading...' : question3.prompt } </label>
                             <input type="number" name="question1" id="question3" min="0" max="4" onChange={handleQ3} value={q3Ans} />
                         </div>
                         <div>
-                            <label for="question4">{ q2_isLoading ? 'loading...' : question4.prompt } </label>
+                            <label htmlFor="question4">{ q4_isLoading ? 'loading...' : question4.prompt } </label>
                             <input type="number" name="question1" id="question4" min="0" max="4" onChange={handleQ4} value={q4Ans} />
                         </div>
                         <div>
-                            <label for="question5">{ q2_isLoading ? 'loading...' : question5.prompt } </label>
+                            <label htmlFor="question5">{ q5_isLoading ? 'loading...' : question5.prompt } </label>
                             <input type="number" name="question1" id="question5" min="0" max="4" onChange={handleQ5} value={q5Ans} />
                         </div>
 
@@ -278,4 +266,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm
+export default CreateCheckinForm;

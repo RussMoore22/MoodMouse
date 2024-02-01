@@ -85,15 +85,16 @@ export const moodmouseApi = createApi({
         createSurvey: builder.mutation({
             query: (info) => {
                 const data = {}
-                data['q1'] = info.q1
+                data['q1'] = info.q1q
+                console.log(info.q1q)
                 data['q1_ans'] = info.q1Ans
-                data['q2'] = info.q2
+                data['q2'] = info.q2q
                 data['q2_ans'] = info.q2Ans
-                data['q3'] = info.q3
+                data['q3'] = info.q3q
                 data['q3_ans'] = info.q3Ans
-                data['q4'] = info.q4
+                data['q4'] = info.q4q
                 data['q4_ans'] = info.q4Ans
-                data['q5'] = info.q5
+                data['q5'] = info.q5q
                 data['q5_ans'] = info.q5Ans
                 return {
                     url: '/api/surveys',
