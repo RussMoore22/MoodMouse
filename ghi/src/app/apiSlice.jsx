@@ -68,8 +68,6 @@ export const moodmouseApi = createApi({
         createCheckin: builder.mutation({
             query: (info) => {
                 const data = {}
-                data['date'] = info.date
-                data['updated_date'] = info.updatedDate
                 data['happy_level'] = info.happyLevel
                 data['journal_entry'] = info.journalEntry
                 data['survey'] = info.survey
