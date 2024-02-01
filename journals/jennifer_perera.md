@@ -204,7 +204,11 @@ As a team, we worked together to create the logout, login and sign up page. The 
 
 Today I worked on:
 
-* Assisting Russ create the endpoints in apiSlice.jsx.
-* Helping Ramesh 
+* Assisting Russ create the createCheckin, createSurvey and createRorschach endpoints in apiSlice.jsx .
+* Helping Ramesh create the createCheckinForm.jsx and input all the code.
+* Wrote code for the journey entry and part of the questions as well as fixed some typos and linting issues in the apiSlice,jsx and createCheckinPage.jsx .
+* Helping Luna write code to troubleshoot generating the rorschach images and showing the questions of the main page. 
 
-As a team, we worked together to create the endpoint for  
+As a team, we worked together to create the endpoints for all the things we needed for the check in page. We are finding the CheckinForm to be very challenging due to having so many foreign keys and figuring out what ways we were going to write the questions for the survey because everyone had different ideas. Our questions were hard coded and we needed to show the answers after the questions so we spent some time working through that with Russ and Ramesh as the drivers.
+
+I don't think I had an ah-ha moment today because I am still trying to understand everything that is happening with the check-in page but tomorrow, as a team, we will take another stab at completing the Check-in Form. Mob programming makes the learning process very difficult due to switching off every hour and not coding something through to the end as the driver. There are a lot of learning gaps that are still yet to be filled but for time sake, we have to keep moving forward.
