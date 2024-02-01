@@ -213,3 +213,16 @@ Today I worked on:
 As a team, we worked together to create the endpoints for all the things we needed for the check in page. We are finding the CheckinForm to be very challenging due to having so many foreign keys and figuring out what ways we were going to write the questions for the survey because everyone had different ideas. Our questions were hard coded and we needed to show the answers after the questions so we spent some time working through that with Russ and Ramesh as the drivers.
 
 I don't think I had an ah-ha moment today because I am still trying to understand everything that is happening with the check-in page but tomorrow, as a team, we will take another stab at completing the Check-in Form. Mob programming makes the learning process very difficult due to switching off every hour and not coding something through to the end as the driver. There are a lot of learning gaps that are still yet to be filled but for time sake, we have to keep moving forward.
+
+
+## January 31, 2024
+
+Today I worked on:
+
+* Helping Ramesh by doing research on how to restart git 
+* Removing the code extra code in CreateCheckinForm that was not needed or functional.
+* 
+
+As a team, we worked on completing the CreateCheckinForm.jsx. 
+
+One ah-ha moment today was when the team was guiding me through fixing the survey and rorschach test required fields missing error. They showed me where I could find the payload and how great of a tool that can be when it comes to error handling. Luna walked me through how the Form pulls from the apiSlice and how you can see in the developer tools that both of the fields we were getting errors on were missing required fields. For the survey, the naming convention in the apiSlice was incorrect because we 
