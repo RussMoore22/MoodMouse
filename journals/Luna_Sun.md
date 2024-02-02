@@ -215,3 +215,43 @@ A-Ha moments:
 
 -   I learned that when sending a request body in the apiSlice, the data needs to be in dictionary format, not as an instance from the FormData object
 -   I learned that to use child routers, we need to add <Outlet /> in our App.jsx as a parent router.
+
+### Jan 31, 2024
+
+Today, I worked on:
+
+-   Built part of the createCheckinForm and helped my teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the majority of createCheckinForm, including displaying Rorschach images and questions when the user first loads the page and creating the form that allows the user to submit the form, which then sends the data to the POST endpoint to create the corresponding object
+
+Today, our team is working on creating the createCheckinForm to collect the required data from the user and send it to the POST endpoint to create the object and return the JSON response for future use. Since we are using apiSlice to handle all API calls, we first created the queries in the apiSlice, including a mutation to create a survey object, a mutation to create a Rorschach test, and a mutation to finally create a checkin with survey and Rorschach test objects as foreign key objects. We also created two get queries for displaying the Rorschach images and survey questions for users to look at and answer. We have successfully created the survey and Rorschach test objects using custom hooks and action functions from the custom hooks. However, we were unable to get the checkin created using the same method. We have tried to debug for over one and a half hours but still could not fix it, and we finally decided to take a break and continue debugging tomorrow.
+
+My contribution, with the help of the group, for today was to call the custom hook created in apiSlice to display the survey questions. I checked the data to display it after it was successfully loaded, and I also helped with debugging. Previously, we encountered a problem that we were unable to display the Rorschach images when the user first loaded the page. We built a button that was used to generate different images after the user clicked the button, but we wanted to also display a random image when the user first loaded the page. I tried to use the useEffect() to display the image and also set the dependency of the useEffect() to be Rorschach images data that we received from the custom get hook to ensure that the initial image will only be loaded once and will only be re-rendered when we have changes in our Rorschach images tables in the database.
+
+A-Ha moments:
+
+-   I learned that although the date format is displayed like a string on the backend, it is actually a date object rather than just a string and might not be accepted if we simply pass that date as a string to the backend to create the data.
+-   I felt that everything about Redux is starting to click, and I finally can get more sense of why Redux is complicated in configurations but will be very powerful and easy to use in displaying data and manipulating data.
+
+### Feb 1, 2024
+
+-   fixed the issues related to checkin object creation and helped teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+1.  We fixed the issue related to creating the survey object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+2.  We addressed the issue related to creating the Rorschach tests object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+3.  We resolved the issue related to creating the check-in object by using useEffect() to create the object only when the foreign key objects are successfully created.
+4.  We have completed the basic functionality for our Create Check-in Form page.
+5.  We modified the backend queries to exclude the date and updated_date from our request body; it is now automatically created whenever the user creates or updates the data
+
+What I particularly worked on today, with the assistance of my best team members, was fixing the issues related to check-in creation. Previously, we used if-statements to test whether the state of our foreign key objects was successfully created. If the objects were successfully created, we would then create our core and final check-in object. However, we discovered that if we updated the states of the survey and Rorschach tests within the if-statements and created the check-in object right after updating those states, we would likely encounter an error. This was because the state wasn't instantly updated, and we would miss data needed to create the check-in.
+
+With help from Russ, we resolved this issue by using useEffect() instead of if-statements. useEffect() allows us to create our check-in object only when the survey and Rorschach objects are successfully created, meaning their states are successfully updated. Ultimately, we successfully created the check-in object! I wouldn't have been able to solve this issue without the help of my teammates. I am truly proud of our team and thankful for all the help from them!
+
+A-Ha moments:
+
+-   Hooks and custom hooks are not allowed to be used in conditional statements, loops, or nested functions. This restriction exists because hooks rely on the order of execution to maintain state between renders, and placing them inside conditional statements or loops can result in unexpected behavior.
+-   It is allowed to have multiple useEffects in one functional component, and each will be executed independently of the others.
