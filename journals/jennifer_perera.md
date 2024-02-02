@@ -204,7 +204,25 @@ As a team, we worked together to create the logout, login and sign up page. The 
 
 Today I worked on:
 
-* Assisting Russ create the endpoints in apiSlice.jsx.
-* Helping Ramesh 
+* Assisting Russ create the createCheckin, createSurvey and createRorschach endpoints in apiSlice.jsx .
+* Helping Ramesh create the createCheckinForm.jsx and input all the code.
+* Wrote code for the journey entry and part of the questions as well as fixed some typos and linting issues in the apiSlice,jsx and createCheckinPage.jsx .
+* Helping Luna write code to troubleshoot generating the rorschach images and showing the questions of the main page. 
+* Wrote issue for README.md
 
-As a team, we worked together to create the endpoint for  
+As a team, we worked together to create the endpoints for all the things we needed for the check in page. We are finding the CheckinForm to be very challenging due to having so many foreign keys and figuring out what ways we were going to write the questions for the survey because everyone had different ideas. Our questions were hard coded and we needed to show the answers after the questions so we spent some time working through that with Russ and Ramesh as the drivers.
+
+I don't think I had an ah-ha moment today because I am still trying to understand everything that is happening with the check-in page but tomorrow, as a team, we will take another stab at completing the Check-in Form. Mob programming makes the learning process very difficult due to switching off every hour and not coding something through to the end as the driver. There are a lot of learning gaps that are still yet to be filled but for time sake, we have to keep moving forward.
+
+
+## February 1, 2024
+
+Today I worked on:
+
+* Removing the code extra code in CreateCheckinForm that was not needed or functional and implementing the handleRorschachResponse state to the code along with the jsx for it.
+* Assisted Luna with fixing the date and updated_date issues in the backend for sql to pull them automatically instead of them being hard coded.
+* Helping Ramesh troubleshoot GitLab and VSC errors by doing research on how to troubleshoot and hard restart his local git repository.
+
+As a group, we worked together to complete the CreateCheckinForm.jsx. Users should now have the ability to create a full check-in from the form. We made changes to the create check-in endpoint in the backend to fetch all the data and then distributed that data accordingly to whatever index it belonged to in the return statement. We also gain some valuable experience with GitLab by helping Ramesh troubleshoot some VSC and Gitlab pulling issues. Everyday seems to be challenging but as we continue pushing forward, we are learning more and more how to communicate and work together as a team. 
+
+One ah-ha moment today was when the team was guiding me through a required fields missing error in the survey and rorschach test. Luna and Russ showed me where I could find the payload and how great of a tool the developer tools can be when it comes to error handling. Luna walked me through how the Form pulls from the apiSlice and how you can see in the dev tools that both of the fields we were getting errors from were just missing required fields. After that the error stopped being intimidating because I could see what it was. For the survey, the naming convention in the apiSlice was incorrect because we were calling the variables q1q and in the CreateCheckinForm we were calling the variables q1 so it was not understanding where q1 was.
