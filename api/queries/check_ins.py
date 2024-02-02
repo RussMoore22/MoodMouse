@@ -143,16 +143,13 @@ class Check_InQueries:
                             info.rorschach_test
                         ]
                     )
-                    check_in_id = result.fetchone()[0]
-                    print("**************", result.fetchone()[1])
-                    # date = result.fetchone()[1]
-                    # updated_date = result.fetchone()[2]
-
+                    data = result.fetchall()[0]
+                    print("******************", data)
                     return Check_inOutDetail(
-                        check_in_id=check_in_id,
+                        check_in_id=data[0],
                         account=AccountOut(**account),
-                        date="2024-02-01T23:27:55.494Z",
-                        updated_date="2024-02-01T23:27:55.494Z",
+                        date=data[1],
+                        updated_date=data[2],
                         happy_level=info.happy_level,
                         journal_entry=info.journal_entry,
                         survey=self.get_one_survey(survey_id=info.survey),
