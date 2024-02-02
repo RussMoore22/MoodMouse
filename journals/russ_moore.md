@@ -194,3 +194,24 @@ We had hiccups along the way for each goal, but worked through them as a team. I
 for the create log-out and log-out, we didn’t have much difficulty, but were figuring little things out about react-redux. With Sign-up, we had an issue with the react-router: we forgot to put an Outlet tag into the root directory, App.
 
 Aha moment: formData is only set as the body value when it being used for log-in. when sign up post request is made, the body needs to be in the form of a dictionary since it is expecting JSON unlike the log-in.
+
+## January 31, 2024
+
+Goals:
+1. create checkin page
+
+we were not able to finish the checkin page in a day, but We faced many challenges that were great learning opportunities: useEffect, state in general, capturing status of the requests from the redux mutation hooks, and correcting some schema in postgreSQL. Luna and I were making really great progress that we kept working on the code later than what our group planned. After the zoom room closed, we both continued to look into our issue without making any changes to the repository so that we didnt leave our other teammates behind. The issues we were having stemmed from a few mistakes in our schema relating to foreign keys. These issues did not present themselves in any of our backend testing done since the issue was only apparent when an id was referenced that did not exsist, and since we never had too much data in our database, we never ran into the issue. another problem was caused by a lack of understanding of how the useEffect worked. It should be used so that an event only occurs as many times as you need it to (usually once). we were putting state changes inside if statements which would run the rerender many times due to the conditional being true for many frames. After a few hours of relearning useEffect, I was able to get the check in to create. I felt great about being able to finish and started thinking of how I would teach the rest of the group without giving away the answers.
+
+Aha-Moment: useEffect occurs when a change is made in one of the parameters passed into its array argument.
+
+
+## February 01, 2024
+
+Goals:
+1. Finish the check-in page
+2. Correct the schema issue
+3. get date from within SQL query
+
+We finished all of our goals for the day, since I was able to look into the issues we were having the night before. I was able to allow my teammates to drive while I gently guided them. I didn't want them to miss out on the learning opportunity of sdolving the useState for themselves, so I tried my best not to interject much. I was periodically asking questions of those not participating as much and tried to keep engagement high. Once we got the schema corrected, everyone rebuilt their volumes at the same time for time efficiency.
+
+Aha-Moment: VS-Code sometimes will not refresh to the files that currectly exist in its directory. check using another text application such as nano. this will ensure that it is not a git issue.
