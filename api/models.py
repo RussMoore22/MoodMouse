@@ -86,8 +86,6 @@ class SurveyOut(BaseModel):
 
 
 class Check_inIn(BaseModel):
-    date: datetime
-    updated_date: datetime
     happy_level: int
     journal_entry: str
     survey: int
