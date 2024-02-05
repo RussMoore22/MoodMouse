@@ -1,8 +1,12 @@
+import React, { useState, useEffect } from 'react'
 import { useGetAllCheckinsQuery } from './app/apiSlice'
 
 function CheckinsList() {
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
     console.log(checkins)
+    const [startDate, setStartDate] = useState(new Date('02-01-2024'))
+    const [endDate, setEndDate] = useState(new Date('02-29-2024'))
+
     if (isLoading) return <div>Loading...</div>
 
     return (
@@ -11,32 +15,22 @@ function CheckinsList() {
                 <thead>
                     <tr>
                         <th className="col-1" scope="col">
-                            id
-                        </th>
-                        <th className="col-1" scope="col">
-                            User id
-                        </th>
-                        <th className="col-1" scope="col">
                             date
                         </th>
                         <th className="col-1" scope="col">
-                            updated date
-                        </th>
-                        <th className="col-1" scope="col">
                             happy_level
-                        </th>
-                        <th className="col-1" scope="col">
-                            journal
-                        </th>
-                        <th className="col-1" scope="col">
-                            question
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {checkins
-                        .filter(function (i) {
-                            return i.bin.location.room.room_id == room
+                        .filter(function (checkin) {
+                            {
+                                return (
+                                    new Date(checkin.date) >= startDate &&
+                                    new Date(checkin.date) < endDate
+                                )
+                            }
                         })
                         .map((checkin) => {
                             return (
@@ -44,22 +38,8 @@ function CheckinsList() {
                                     className="table-secondary"
                                     key={checkin.check_in_id}
                                 >
-                                    <td> {checkin.account} </td>
                                     <td> {checkin.date}</td>
-                                    <td>
-                                        {checkin.updated_date}
-                                        {/* <button
-                                        onClick={() =>
-                                            handleDelete(checkin.check_in_id)
-                                        }
-                                        className="btn btn-danger"
-                                    >
-                                        Delete
-                                    </button> */}
-                                    </td>
                                     <td> {checkin.happy_level}</td>
-                                    <td> {checkin.journal_entry}</td>
-                                    <td> {checkin.survey.q1.prompt}</td>
                                 </tr>
                             )
                         })}

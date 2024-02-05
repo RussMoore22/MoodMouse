@@ -1,6 +1,9 @@
 import { Link, NavLink } from 'react-router-dom'
-import { useGetTokenQuery, useLogoutMutation, useSignupMutation  } from './app/apiSlice'
-
+import {
+    useGetTokenQuery,
+    useLogoutMutation,
+    useSignupMutation,
+} from './app/apiSlice'
 
 function Nav() {
     const { data: account } = useGetTokenQuery()
@@ -23,7 +26,9 @@ function Nav() {
                 <NavLink className="navbar-brand" to="/create">
                     Create a Check In
                 </NavLink>
-                
+                <NavLink className="navbar-brand" to="/calendar">
+                    Check In Calendar
+                </NavLink>
                 <button
                     onClick={logout}
                     className="navbar-toggler"
@@ -33,16 +38,18 @@ function Nav() {
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
-                > Logout
+                >
+                    {' '}
+                    Logout
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div
                     className="collapse navbar-collapse"
-                    id="navbarSupportedContent">
-                </div>
+                    id="navbarSupportedContent"
+                ></div>
             </div>
         </nav>
     )
 }
 
-export default Nav;
+export default Nav
