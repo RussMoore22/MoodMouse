@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useGetAllCheckinsQuery } from './app/apiSlice'
 
 function CheckinsList() {
-    const { data: checkins, isLoading } = useGetAllCheckinsQuery()
-    console.log(checkins)
-    const [startDate, setStartDate] = useState(new Date('02-01-2024'))
-    const [endDate, setEndDate] = useState(new Date('02-29-2024'))
-    const [selectDate, setSelectDate] = useState(new Date(Date.now()))
+    const { data: checkins, isLoading } = useGetAllCheckinsQuery();
+    console.log(checkins);
+    const [startDate, setStartDate] = useState(new Date('02-01-2024'));
+    const [endDate, setEndDate] = useState(new Date('02-29-2024'));
+    const [selectDate, setSelectDate] = useState(new Date(Date.now()));
 
     const handleIncrement = (event) => {
         if (selectDate.getMonth() === 11) {
@@ -22,8 +22,21 @@ function CheckinsList() {
             setSelectDate(new Date(selectDate.setMonth(selectDate.getMonth() - 1)))
         }
     }
+    const getMonthYearName = (selectDate) => {
+            const month = selectDate.toLocaleString('default', {month: 'long'});
+            const year = selectDate.getFullYear();
+            return (`${month} ${year}`);
+    };
 
-    console.log(selectDate)
+    useEffect(() => {
+        //first + last day of the selectDate month
+        const currentMonth = selectDate.getMonth()
+        const currentYear = selectDate.getFullYear()
+        setStartDate(new Date(currentYear, currentMonth, 1))
+        setEndDate(new Date(currentYear, currentMonth+1, 1))
+    }, [selectDate])
+
+    console.log("select date: ", selectDate, "...start date: ", startDate, "...end Date: ", endDate)
 
     const score = (checkin) => {
         return (checkin.happy_level +
@@ -38,11 +51,12 @@ function CheckinsList() {
 
     return (
         <>
-        <button onClick={handleIncrement}>
-            Increment
-        </button>
         <button onClick={handleDecrement}>
             Decrement
+        </button>
+        <span>{getMonthYearName(selectDate)}</span>
+        <button onClick={handleIncrement}>
+            Increment
         </button>
             <table className="table">
                 <thead>
