@@ -77,25 +77,25 @@ class Check_InQueries:
                     check_ins = []
                     for rec in db:
                         survey = SurveyOut(
-                                survey_id=rec[6],
-                                q1=QuestionOut(id=rec[7], prompt=rec[8]),
-                                q1_ans=rec[9],
-                                q2=QuestionOut(id=rec[10], prompt=rec[11]),
-                                q2_ans=rec[12],
-                                q3=QuestionOut(id=rec[13], prompt=rec[14]),
-                                q3_ans=rec[15],
-                                q4=QuestionOut(id=rec[16], prompt=rec[17]),
-                                q4_ans=rec[18],
-                                q5=QuestionOut(id=rec[19], prompt=rec[20]),
-                                q5_ans=rec[21]
+                            survey_id=rec[6],
+                            q1=QuestionOut(id=rec[7], prompt=rec[8]),
+                            q1_ans=rec[9],
+                            q2=QuestionOut(id=rec[10], prompt=rec[11]),
+                            q2_ans=rec[12],
+                            q3=QuestionOut(id=rec[13], prompt=rec[14]),
+                            q3_ans=rec[15],
+                            q4=QuestionOut(id=rec[16], prompt=rec[17]),
+                            q4_ans=rec[18],
+                            q5=QuestionOut(id=rec[19], prompt=rec[20]),
+                            q5_ans=rec[21]
                         )
                         rorschach_test = RorschachTestOut(
-                                id=rec[22],
-                                image=RorschachImageOut(
-                                    id=rec[23],
-                                    path=rec[24]
-                                ),
-                                response=rec[25]
+                            id=rec[22],
+                            image=RorschachImageOut(
+                                id=rec[23],
+                                path=rec[24]
+                            ),
+                            response=rec[25]
                         )
                         check_ins.append(Check_inOutList(
                             check_in_id=rec[0],
@@ -132,29 +132,29 @@ class Check_InQueries:
                         , rorschach_test
                         )
                         VALUES
-                        ( %s, %s, %s, %s, %s, %s, %s )
-                        RETURNING check_in_id;
+                        ( %s, NOW(), NOW(), %s, %s, %s, %s )
+                        RETURNING check_in_id, date, updated_date;
                         """,
                         [
                             account["id"],
-                            info.date,
-                            info.updated_date,
                             info.happy_level,
                             info.journal_entry,
                             info.survey,
                             info.rorschach_test
                         ]
                     )
-                    check_in_id = result.fetchone()[0]
+                    data = result.fetchall()[0]
+                    print("******************", data)
                     return Check_inOutDetail(
-                        check_in_id=check_in_id,
+                        check_in_id=data[0],
                         account=AccountOut(**account),
-                        date=info.date,
-                        updated_date=info.updated_date,
+                        date=data[1],
+                        updated_date=data[2],
                         happy_level=info.happy_level,
                         journal_entry=info.journal_entry,
                         survey=self.get_one_survey(survey_id=info.survey),
-                        rorschach_test=self.get_one_rorschach(info.rorschach_test)
+                        rorschach_test=self.get_one_rorschach(
+                            info.rorschach_test)
                     )
         except Exception:
             return Error(
@@ -263,29 +263,28 @@ class Check_InQueries:
                     db.execute(
                         """
                         UPDATE check_ins
-                        SET updated_date  = %s
+                        SET updated_date  = NOW()
                             , happy_level = %s
                             , journal_entry = %s
                         WHERE check_in_id = %s
                         """,
                         [
-                            check_in.updated_date,
                             check_in.happy_level,
                             check_in.journal_entry,
                             check_in_id
                         ]
                     )
                     return Check_inOutDetail(
-                            check_in_id=check_in_id,
-                            account=AccountOut(**account),
-                            date=check_in.date,
-                            updated_date=check_in.updated_date,
-                            happy_level=check_in.happy_level,
-                            journal_entry=check_in.journal_entry,
-                            survey=self.get_one_survey(check_in.survey),
-                            # Need to work on accessing rorschach
-                            rorschach_test=self.get_one_rorschach(
-                                check_in.rorschach_test)
+                        check_in_id=check_in_id,
+                        account=AccountOut(**account),
+                        date=check_in.date,
+                        updated_date=check_in.updated_date,
+                        happy_level=check_in.happy_level,
+                        journal_entry=check_in.journal_entry,
+                        survey=self.get_one_survey(check_in.survey),
+                        # Need to work on accessing rorschach
+                        rorschach_test=self.get_one_rorschach(
+                            check_in.rorschach_test)
                     )
         except Exception:
             return {"message": "Could not update that Check In!"}
@@ -367,28 +366,26 @@ class Check_InQueries:
                     if account_data["id"] != rec[1]:
                         return Error(message="check-in does not belong to currently logged in user.")
 
-
-
                     survey = SurveyOut(
-                            survey_id=rec[6],
-                            q1=QuestionOut(id=rec[7], prompt=rec[8]),
-                            q1_ans=rec[9],
-                            q2=QuestionOut(id=rec[10], prompt=rec[11]),
-                            q2_ans=rec[12],
-                            q3=QuestionOut(id=rec[13], prompt=rec[14]),
-                            q3_ans=rec[15],
-                            q4=QuestionOut(id=rec[16], prompt=rec[17]),
-                            q4_ans=rec[18],
-                            q5=QuestionOut(id=rec[19], prompt=rec[20]),
-                            q5_ans=rec[21]
+                        survey_id=rec[6],
+                        q1=QuestionOut(id=rec[7], prompt=rec[8]),
+                        q1_ans=rec[9],
+                        q2=QuestionOut(id=rec[10], prompt=rec[11]),
+                        q2_ans=rec[12],
+                        q3=QuestionOut(id=rec[13], prompt=rec[14]),
+                        q3_ans=rec[15],
+                        q4=QuestionOut(id=rec[16], prompt=rec[17]),
+                        q4_ans=rec[18],
+                        q5=QuestionOut(id=rec[19], prompt=rec[20]),
+                        q5_ans=rec[21]
                     )
                     rorschach_test = RorschachTestOut(
-                            id=rec[22],
-                            image=RorschachImageOut(
-                                id=rec[23],
-                                path=rec[24]
-                            ),
-                            response=rec[25]
+                        id=rec[22],
+                        image=RorschachImageOut(
+                            id=rec[23],
+                            path=rec[24]
+                        ),
+                        response=rec[25]
                     )
                     check_in = Check_inOutDetail(
                         check_in_id=rec[0],
