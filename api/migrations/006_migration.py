@@ -12,8 +12,8 @@ steps = [
         survey INT NOT NULL,
         rorschach_test INT NOT NULL,
         FOREIGN KEY (account) REFERENCES accounts(id),
-        FOREIGN KEY (survey) REFERENCES questions(id),
-        FOREIGN KEY (rorschach_test) REFERENCES rorschach_imgs(id)
+        FOREIGN KEY (survey) REFERENCES surveys(survey_id),
+        FOREIGN KEY (rorschach_test) REFERENCES rorschach_tests(rorschach_id)
         );
         """,
         # Drop the table

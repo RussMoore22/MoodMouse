@@ -139,3 +139,79 @@ Goals:
 first two goals were accomplished. Ramesh Drove while I navigated. I felt a bit burnt out from the day before and all the new material we had learned that day (sorting algorthms).
 
 Aha-moment: when debugging an issue (conditional isinstance to catch returned Error models for a route was true as expected), a print statement using the type function on the return revealed that the type was an Error class of a different module. the correction was to import the Error class of the correct module. there was more than one, which caused the problem. I wrote an issue to remove the Error class definition.
+
+## January 25, 2024
+
+Goals:
+
+the team brought up a few concerns:
+1. Jenn mentioned that the group is not spreading around GitLab merges enough and there is a concern that those who have few merge requests will receive a bad grade. I Spoke up about how it is more about the commits than the merge requests but that we can seek clarification on grading from the instructors.
+2. I brought up my concern about the team not using a project management tool- This has been a long standing issue of mine: I had told the group I was worried we were not following the rubric early in the project when I noticed that Jenn was writing our goals for each day into Microsoft Word. I didn't feel like my concerns were being heard at the time since the team could not decide on a project management software to use instead of Word. I started writing as many issues into GitLab as I could as a way of tracking work. Now that an instructor has worded that a project management tracker is part of grading, we have finally agreed to all start writing issues into the issues board and making that part of our daily stand-up. I was really glad we were finally taking action on this concern.
+3. Jenn brought up a concern that I am being used as a resource too much when it comes to git related issues and that it is not allowing others in the team to learn git on their own. She wants each member of the team to try and figure out the issue for themselves first and then go to a SEIR since they have better experience with teaching than I do. I agreed to hold myself back and allow the team to go through issues that arise without getting too involved. I expressed my concern that the main branch must be protected but I want them to explore git and get more experience. Ramesh brought up the idea of creating a seperate "practice" branch or even a seperate project to get more familiar.
+4. When reviewing a merge request from Luna and Jenn, I noticed that some code that I wrote had been changed. I was suprised to see this, as it was not in scope of the tasks Luna and Jenn were supposed to work on the day before. I brought up the change and explained why I had originally designed it the way I did and how the refactor that was made was less efficient. Additionally, I was not aware when going over the goals on the day they did this that my code would be changed. I brought this up to the team and we started to list out issues to write in. It went very well and I felt like we were starting to get organized.
+
+Aha Moment:
+
+
+
+## January 26, 2024
+
+Goals:
+1. Work on issues for error handling in the back-end
+2. Work on Unit testing for create check-in
+3. Work on Unit testing for edit checkin
+4. remove redundant functions
+
+All goals were complete. I worked with Luna today and had a really excellent experience. I felt like we were comlimenting eachother very well, and were able to be very productive and learn a lot together. Unit testing was very tricky, but we were able to figure out unit tests for both edit check-in and create check-in.
+
+Aha-Moment - the unit test does not work from the terminal on our local computer, but rather in the docker container.
+
+Had a 1 on 1 with Jenn to go over how we will ensure our communication is more effective. it was very productive and I felt like we got on much better terms.
+
+## January 29, 2024
+
+Goals:
+1. Work on the front-end (at least get it started)
+2. accomplish a get token
+3. create a log-in
+
+got up to the "accomplish a get token" in vite. We had a lot of struggles but we all worked together and put our brains together to get through it. although we did not get to create a log-in page, we still had a great deal of learning on how react-redux works.
+
+Aha-moment: the VITE_HOST_URL .env file must be saved in ghi folder or else it cannot be found by Vite. this caused a lot of issues and fortunately a message popped up to show us that "src/.env" was changed when it should have said "ghi".
+
+## January 30, 2024
+
+Goals:
+
+1. create Login
+2. create Log-out
+3. create sign-up
+
+The team finished all our goals for the day working in mob programming. I like when we work on mob programming since I feel more a part of each piece of the code. We planned on breaking out into pairs in the afternoon but decided we were making good progress and should continue to finish the sign-up form.
+
+We had hiccups along the way for each goal, but worked through them as a team. I sometimes feel that when we are in a group of four, it can make one or two teammates feel left out and they wont end up contributing as much as they would in pair programming.
+
+for the create log-out and log-out, we didn’t have much difficulty, but were figuring little things out about react-redux. With Sign-up, we had an issue with the react-router: we forgot to put an Outlet tag into the root directory, App.
+
+Aha moment: formData is only set as the body value when it being used for log-in. when sign up post request is made, the body needs to be in the form of a dictionary since it is expecting JSON unlike the log-in.
+
+## January 31, 2024
+
+Goals:
+1. create checkin page
+
+we were not able to finish the checkin page in a day, but We faced many challenges that were great learning opportunities: useEffect, state in general, capturing status of the requests from the redux mutation hooks, and correcting some schema in postgreSQL. Luna and I were making really great progress that we kept working on the code later than what our group planned. After the zoom room closed, we both continued to look into our issue without making any changes to the repository so that we didnt leave our other teammates behind. The issues we were having stemmed from a few mistakes in our schema relating to foreign keys. These issues did not present themselves in any of our backend testing done since the issue was only apparent when an id was referenced that did not exsist, and since we never had too much data in our database, we never ran into the issue. another problem was caused by a lack of understanding of how the useEffect worked. It should be used so that an event only occurs as many times as you need it to (usually once). we were putting state changes inside if statements which would run the rerender many times due to the conditional being true for many frames. After a few hours of relearning useEffect, I was able to get the check in to create. I felt great about being able to finish and started thinking of how I would teach the rest of the group without giving away the answers.
+
+Aha-Moment: useEffect occurs when a change is made in one of the parameters passed into its array argument.
+
+
+## February 01, 2024
+
+Goals:
+1. Finish the check-in page
+2. Correct the schema issue
+3. get date from within SQL query
+
+We finished all of our goals for the day, since I was able to look into the issues we were having the night before. I was able to allow my teammates to drive while I gently guided them. I didn't want them to miss out on the learning opportunity of sdolving the useState for themselves, so I tried my best not to interject much. I was periodically asking questions of those not participating as much and tried to keep engagement high. Once we got the schema corrected, everyone rebuilt their volumes at the same time for time efficiency.
+
+Aha-Moment: VS-Code sometimes will not refresh to the files that currectly exist in its directory. check using another text application such as nano. this will ensure that it is not a git issue.

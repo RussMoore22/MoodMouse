@@ -86,8 +86,6 @@ class SurveyOut(BaseModel):
 
 
 class Check_inIn(BaseModel):
-    date: datetime
-    updated_date: datetime
     happy_level: int
     journal_entry: str
     survey: int
@@ -103,6 +101,7 @@ class Check_inOutList(BaseModel):
     journal_entry: str
     survey: SurveyOut
     rorschach_test: RorschachTestOut
+
 
 class Check_inOutDetail(BaseModel):
     check_in_id: int
