@@ -152,3 +152,106 @@ I worked on adding an authentication router for getting a token and outputting t
 A-Ha moments:
 
 -   I learnd that git pull combines two things: one is git fetch and the other is git merge.
+
+### Jan 26, 2024
+
+Today, I worked on:
+
+-   Completed the unit testing- Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the GET one API endpoint for check-in
+-   Completed two unit tests for both PUT and POST endpoints for check-in
+
+Today, I am paired with Russ, and the other team is working on the GET one API endpoint for check-in. We completed two unit tests for check-in. Russ made a POST unit test, and I made a PUT unit test. Later on, we helped the other team figure out and fix the potential error for the GET one check-in endpoint.
+
+Since there is a social hack hour, we haven't done many things today. What I did is write the unit test for the PUT endpoint for check-in. I created different fake foreign key objects and fake JSON responses to test if the endpoint works as expected. I made sure that the authentication and queries are overridden to make the unit test completely isolated. Finally, I cleaned up the overrides to prevent potential errors that may happen in other unit tests.
+
+A-Ha moments:
+
+-   I learned that python -m pytest should be run in the Docker container, not in the terminal
+-   I learned that in unit tests, the fake request body should be in dictionary format rather than in an object or JSON
+-   I learned that using \*args to create a function can allow the function to be called with an unlimited number of parameters passed in
+
+### Jan 29, 2024
+
+Today, I worked on:
+
+-   Fixed errors in frontend authentication getToken and helped my partner in building unit test 003 - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed getToken using Redux
+-   Created unit test 003 to test the get_all endpoint
+-   Finished error handling for check-ins
+
+Today, I was paired with Jenn, but we initially worked on creating getToken using Redux as a group of four. We encountered several issues while configuring Redux, which were ultimately resolved with help from the team. Especially, Russ fixed an issue where Vite continued showing an error message related to "react-redux". It turned out to be an issue with our baseURL and also index.html. We changed the name of index.jsx to main.jsx but forgot to update "<script type="module" src="/src/main.jsx"></script>" to link to main.jsx.
+
+During the Redux session, I drove for the part where we tried to debug react-redux for about 1.5 hours. I attempted to fix the bug in the group but couldn't figure it out. However, with continued testing and attempts, we eventually resolved it, and I learned a lot from that experience! While pairing with Jenn, my main contribution was helping her build unit test 003 whenever she needed clarification on certain aspects. We haven't finished everything and plan to complete it tomorrow.
+
+A-Ha moments:
+
+-   I learned that for Redux, if we've checked everything and are sure that the code is correct but there still seems to be an error, one way to solve it is by trying to rebuild the Docker container because sometimes it might not be recognized if some environmental variables or dependencies have changed.
+
+### Jan 30, 2024
+
+Today, I worked on:
+
+-   Completed the login page for the frontend authentication - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed login page
+-   Completed signup page
+-   Completed logout page
+-   Created a new router to store all our routers there
+
+Today, our team engaged in mob programming, switching off every hour. We successfully completed the login, signup, and logout pages for our frontend authentication. Additionally, we created a new router to manage all of our child routers.
+
+My contributions for today included creating a login page based on the recording and assisting other team members with debugging when needed. I designed a new login form page, established new states to store usernames and passwords, and passed this data into our API function in the apiSlice. The data was stored in an info object, from which I created a formData. This formData was then sent to the endpoint to log in the user, resulting in a successful operation. I also made several discoveries while other team members were driving.
+
+A-Ha moments:
+
+-   I learned that when sending a request body in the apiSlice, the data needs to be in dictionary format, not as an instance from the FormData object
+-   I learned that to use child routers, we need to add <Outlet /> in our App.jsx as a parent router.
+
+### Jan 31, 2024
+
+Today, I worked on:
+
+-   Built part of the createCheckinForm and helped my teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the majority of createCheckinForm, including displaying Rorschach images and questions when the user first loads the page and creating the form that allows the user to submit the form, which then sends the data to the POST endpoint to create the corresponding object
+
+Today, our team is working on creating the createCheckinForm to collect the required data from the user and send it to the POST endpoint to create the object and return the JSON response for future use. Since we are using apiSlice to handle all API calls, we first created the queries in the apiSlice, including a mutation to create a survey object, a mutation to create a Rorschach test, and a mutation to finally create a checkin with survey and Rorschach test objects as foreign key objects. We also created two get queries for displaying the Rorschach images and survey questions for users to look at and answer. We have successfully created the survey and Rorschach test objects using custom hooks and action functions from the custom hooks. However, we were unable to get the checkin created using the same method. We have tried to debug for over one and a half hours but still could not fix it, and we finally decided to take a break and continue debugging tomorrow.
+
+My contribution, with the help of the group, for today was to call the custom hook created in apiSlice to display the survey questions. I checked the data to display it after it was successfully loaded, and I also helped with debugging. Previously, we encountered a problem that we were unable to display the Rorschach images when the user first loaded the page. We built a button that was used to generate different images after the user clicked the button, but we wanted to also display a random image when the user first loaded the page. I tried to use the useEffect() to display the image and also set the dependency of the useEffect() to be Rorschach images data that we received from the custom get hook to ensure that the initial image will only be loaded once and will only be re-rendered when we have changes in our Rorschach images tables in the database.
+
+A-Ha moments:
+
+-   I learned that although the date format is displayed like a string on the backend, it is actually a date object rather than just a string and might not be accepted if we simply pass that date as a string to the backend to create the data.
+-   I felt that everything about Redux is starting to click, and I finally can get more sense of why Redux is complicated in configurations but will be very powerful and easy to use in displaying data and manipulating data.
+
+### Feb 1, 2024
+
+-   fixed the issues related to checkin object creation and helped teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+1.  We fixed the issue related to creating the survey object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+2.  We addressed the issue related to creating the Rorschach tests object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+3.  We resolved the issue related to creating the check-in object by using useEffect() to create the object only when the foreign key objects are successfully created.
+4.  We have completed the basic functionality for our Create Check-in Form page.
+5.  We modified the backend queries to exclude the date and updated_date from our request body; it is now automatically created whenever the user creates or updates the data
+
+What I particularly worked on today, with the assistance of my best team members, was fixing the issues related to check-in creation. Previously, we used if-statements to test whether the state of our foreign key objects was successfully created. If the objects were successfully created, we would then create our core and final check-in object. However, we discovered that if we updated the states of the survey and Rorschach tests within the if-statements and created the check-in object right after updating those states, we would likely encounter an error. This was because the state wasn't instantly updated, and we would miss data needed to create the check-in.
+
+With help from Russ, we resolved this issue by using useEffect() instead of if-statements. useEffect() allows us to create our check-in object only when the survey and Rorschach objects are successfully created, meaning their states are successfully updated. Ultimately, we successfully created the check-in object! I wouldn't have been able to solve this issue without the help of my teammates. I am truly proud of our team and thankful for all the help from them!
+
+A-Ha moments:
+
+-   Hooks and custom hooks are not allowed to be used in conditional statements, loops, or nested functions. This restriction exists because hooks rely on the order of execution to maintain state between renders, and placing them inside conditional statements or loops can result in unexpected behavior.
+-   It is allowed to have multiple useEffects in one functional component, and each will be executed independently of the others.
