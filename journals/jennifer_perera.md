@@ -226,3 +226,17 @@ Today I worked on:
 As a group, we worked together to complete the CreateCheckinForm.jsx. Users should now have the ability to create a full check-in from the form. We made changes to the create check-in endpoint in the backend to fetch all the data and then distributed that data accordingly to whatever index it belonged to in the return statement. We also gain some valuable experience with GitLab by helping Ramesh troubleshoot some VSC and Gitlab pulling issues. Everyday seems to be challenging but as we continue pushing forward, we are learning more and more how to communicate and work together as a team. 
 
 One ah-ha moment today was when the team was guiding me through a required fields missing error in the survey and rorschach test. Luna and Russ showed me where I could find the payload and how great of a tool the developer tools can be when it comes to error handling. Luna walked me through how the Form pulls from the apiSlice and how you can see in the dev tools that both of the fields we were getting errors from were just missing required fields. After that the error stopped being intimidating because I could see what it was. For the survey, the naming convention in the apiSlice was incorrect because we were calling the variables q1q and in the CreateCheckinForm we were calling the variables q1 so it was not understanding where q1 was.
+
+
+## February 5, 2024
+
+Today I worked on:
+
+* Assisting Luna with starting and writing out the basic Check-In Calendar features.
+* Adding score count total, increment and decrement features to the Check-In Calendar Page.
+* Helping Russ with starting to create and writing out the basic features in the Check-In Details Page.
+* Helping Ramesh troubleshoot GitLab and VSC errors, create volumes and database again and complete code for the Check-In Details Page.
+
+As a group, we worked together to complete the Check-In Calendar Page. Our day consisted of writing the CheckinList.jsx function. We did lots of research on Date Constructors, how to combine the check-ins scores to show a total of the survey question answers and the happy level score. As we get close to completing the project, all the functions are suddenly making a lot more sense and I am enjoying mob programming with my team. The stress starts dialing down a bit. I feel the job-seeking stress sneaking up on me but I won't let it affect me right now. I still have 3 weeks but oh man, 3 WEEKS!! 
+
+I had so many ah-ha moments today but the most memorable one was when Russ showed me that I could select text and wrap it all into parenthesis. That blew my mind. It felt like it was such an obvious thing but so efficient. It helped me save so much time from that time I started using it until I had to get off the screen. 
