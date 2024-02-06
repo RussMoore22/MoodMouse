@@ -174,12 +174,13 @@ export const moodmouseApi = createApi({
         }),
 
         editOneRorschachTest: builder.mutation({
-            query: (rorschach_id) => {
+            query: (info) => {
                 const data = {}
                 data['image'] = info.image
                 data['response'] = info.response
+
                 return {
-                    url: `/api/rorschach_tests/${rorschach_id}`,
+                    url: `/api/rorschach_tests/${info.rorschach_id}`,
                     method: 'PUT',
                     body: data,
                     credentials: 'include',

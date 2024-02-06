@@ -7,6 +7,7 @@ import {
     useGetOneCheckinQuery
 } from './app/apiSlice'
 
+
 function EditCheckinForm() {
 
     const params = useParams()
@@ -77,57 +78,48 @@ function EditCheckinForm() {
         setRorschachDeploy(true)
         setResponse(event.target.value)
     }
-    
 
-    function getRandomRorschachImg() {
-        if (!r_isLoading) {
-            const randomIndex = Math.floor(
-                Math.random() * rorschach_imgs.length
-                )
-                setRorschachImage(rorschach_imgs[randomIndex])
-            }
+
+    const handleSubmit = (event) => {
+
+        event.preventDefault()
+        console.log('Submit button clicked')
+        if (rorschachDeploy) {
+            const image = 1
+            editRorschachTest({image:checkinData.rorschach_test.image.id, response: response, rorschach_id: 2})
         }
 
-        const handleSubmit = (event) => {
-
-            event.preventDefault()
-            console.log('Submit button clicked')
-            if (rorschachDeploy) {
-                const image = 1
-                editRorschachTest({ image, response })
-            }
-
-            if (surveyDeploy) {
-                const q1q = +question1.id
-                const q2q = +question2.id
-                const q3q = +question3.id
-                const q4q = +question4.id
-                const q5q = +question5.id
-                editSurvey({
-                    q1q,
-                    q1Ans,
-                    q2q,
-                    q2Ans,
-                    q3q,
-                    q3Ans,
-                    q4q,
-                    q4Ans,
-                    q5q,
-                    q5Ans,
-                })
-            }
-
-            if (checkinDeploy) {
-                editCheckin({
-
-
-                })
-            }
+        if (surveyDeploy) {
+            const q1q = +question1.id
+            const q2q = +question2.id
+            const q3q = +question3.id
+            const q4q = +question4.id
+            const q5q = +question5.id
+            editSurvey({
+                q1q,
+                q1Ans,
+                q2q,
+                q2Ans,
+                q3q,
+                q3Ans,
+                q4q,
+                q4Ans,
+                q5q,
+                q5Ans,
+            })
         }
 
-        if (checkinLoading) {return <div>Loading...</div>}
+        if (checkinDeploy) {
+            editCheckin({
 
-        return (
+
+            })
+        }
+    }
+
+    if (checkinLoading) {return <div>Loading...</div>}
+
+    return (
             <>
             <div>
             </div>
