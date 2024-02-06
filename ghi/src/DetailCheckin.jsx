@@ -5,6 +5,9 @@ import {
 
 } from './app/apiSlice'
 
+
+
+
 function DetailCheckin() {
     const params = useParams()
     const { data: checkin, isLoading: checkinIsLoading } = useGetOneCheckinQuery(params.checkin_id)
@@ -14,12 +17,20 @@ function DetailCheckin() {
 
     if (checkinIsLoading) { return <div> Loading...</div>}
     const checkinDate = new Date(checkin.date)
+    const score = (checkin) => {
+        return (checkin.happy_level +
+                checkin.survey.q1_ans +
+                checkin.survey.q2_ans +
+                checkin.survey.q3_ans +
+                checkin.survey.q4_ans +
+                checkin.survey.q5_ans)
+    }
     console.log(checkin)
     return (
         <>
             <div>{checkinDate.toLocaleDateString(undefined, {weekday:"long", month: "long", year: "numeric", day: "numeric"})}</div>
 
-            <div>Mood score:
+            <div>Mood score: {score(checkin)}
                 <p> Put image here </p>
             </div>
             <div>
@@ -41,10 +52,7 @@ function DetailCheckin() {
                 <h3>What you saw</h3>
                 <img src={checkin.rorschach_test.image.path}/>
                 <p>{checkin.rorschach_test.response}</p>
-
             </div>
-
-
         </>
     )
 }
