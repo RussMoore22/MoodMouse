@@ -240,3 +240,17 @@ Today I worked on:
 As a group, we worked together to complete the Check-In Calendar Page. Our day consisted of writing the CheckinList.jsx function. We did lots of research on Date Constructors, how to combine the check-ins scores to show a total of the survey question answers and the happy level score. As we get close to completing the project, all the functions are suddenly making a lot more sense and I am enjoying mob programming with my team. The stress starts dialing down a bit. I feel the job-seeking stress sneaking up on me but I won't let it affect me right now. I still have 3 weeks but oh man, 3 WEEKS!! 
 
 I had so many ah-ha moments today but the most memorable one was when Russ showed me that I could select text and wrap it all into parenthesis. That blew my mind. It felt like it was such an obvious thing but so efficient. It helped me save so much time from that time I started using it until I had to get off the screen. 
+
+
+## February 6, 2024
+
+Today I worked on:
+
+* Assisting Luna with starting and writing out the basic Check-In Calendar features.
+* Adding score count total, increment and decrement features to the Check-In Calendar Page.
+* Helping Russ with starting to create and writing out the basic features in the Check-In Details Page.
+* Helping Ramesh troubleshoot GitLab and VSC errors, create volumes and database again and complete code for the Check-In Details Page.
+
+As a group, we worked together to complete the Check-In Calendar Page. Our day consisted of writing the CheckinList.jsx function. We did lots of research on Date Constructors, how to combine the check-ins scores to show a total of the survey question answers and the happy level score. As we get close to completing the project, all the functions are suddenly making a lot more sense and I am enjoying mob programming with my team. The stress starts dialing down a bit. I feel the job-seeking stress sneaking up on me but I won't let it affect me right now. I still have 3 weeks but oh man, 3 WEEKS!! 
+
+I had so many ah-ha moments today but the most memorable one was when Russ showed me that I could select text and wrap it all into parenthesis. That blew my mind. It felt like it was such an obvious thing but so efficient. It helped me save so much time from that time I started using it until I had to get off the screen.
