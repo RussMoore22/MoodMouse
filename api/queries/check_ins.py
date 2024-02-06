@@ -144,7 +144,6 @@ class Check_InQueries:
                         ]
                     )
                     data = result.fetchall()[0]
-                    print("******************", data)
                     return Check_inOutDetail(
                         check_in_id=data[0],
                         account=AccountOut(**account),
@@ -267,6 +266,7 @@ class Check_InQueries:
                             , happy_level = %s
                             , journal_entry = %s
                         WHERE check_in_id = %s
+                        RETURNING date, updated_date
                         """,
                         [
                             check_in.happy_level,
@@ -274,11 +274,12 @@ class Check_InQueries:
                             check_in_id
                         ]
                     )
+                    data = db.fetchall()[0]
                     return Check_inOutDetail(
                         check_in_id=check_in_id,
                         account=AccountOut(**account),
-                        date=check_in.date,
-                        updated_date=check_in.updated_date,
+                        date=data[0],
+                        updated_date=data[1],
                         happy_level=check_in.happy_level,
                         journal_entry=check_in.journal_entry,
                         survey=self.get_one_survey(check_in.survey),
