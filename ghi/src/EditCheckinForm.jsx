@@ -4,35 +4,33 @@ import {
     useEditOneCheckinMutation,
     useEditOneSurveyMutation,
     useEditOneRorschachTestMutation,
-    useGetOneCheckinQuery
+    useGetOneCheckinQuery,
 } from './app/apiSlice'
 
-
 function EditCheckinForm() {
-
     const params = useParams()
-    const { data: checkinData, isLoading: checkinLoading } = useGetOneCheckinQuery(params.checkin_id);
+    const { data: checkinData, isLoading: checkinLoading } =
+        useGetOneCheckinQuery(params.checkin_id)
 
-    const [happyLevel, setHappyLevel] = useState('')
+    const [happyLevel, setHappyLevel] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
-    const [q1Ans, setQ1Ans] = useState('')
-    const [q2Ans, setQ2Ans] = useState('')
-    const [q3Ans, setQ3Ans] = useState('')
-    const [q4Ans, setQ4Ans] = useState('')
-    const [q5Ans, setQ5Ans] = useState('')
+    const [q1Ans, setQ1Ans] = useState(0)
+    const [q2Ans, setQ2Ans] = useState(0)
+    const [q3Ans, setQ3Ans] = useState(0)
+    const [q4Ans, setQ4Ans] = useState(0)
+    const [q5Ans, setQ5Ans] = useState(0)
     const [response, setResponse] = useState('')
     const [surveyDeploy, setSurveyDeploy] = useState(false)
     const [rorschachDeploy, setRorschachDeploy] = useState(false)
     const [checkinDeploy, setCheckinDeploy] = useState(false)
 
-
     const [editCheckin, checkinStatus] = useEditOneCheckinMutation()
     const [editSurvey, surveyStatus] = useEditOneSurveyMutation()
     const [editRorschachTest, rorschachStatus] =
-    useEditOneRorschachTestMutation()
+        useEditOneRorschachTestMutation()
 
     useEffect(() => {
-        if (!checkinLoading){
+        if (!checkinLoading) {
             setHappyLevel(checkinData.happy_level)
             setJournalEntry(checkinData.journal_entry)
             setQ1Ans(checkinData.survey.q1_ans)
@@ -41,10 +39,8 @@ function EditCheckinForm() {
             setQ4Ans(checkinData.survey.q4_ans)
             setQ5Ans(checkinData.survey.q5_ans)
             setResponse(checkinData.rorschach_test.response)
-
         }
     }, [checkinLoading])
-
 
     const handleHappyLevel = (event) => {
         setCheckinDeploy(true)
@@ -79,50 +75,51 @@ function EditCheckinForm() {
         setResponse(event.target.value)
     }
 
-
     const handleSubmit = (event) => {
-
         event.preventDefault()
         console.log('Submit button clicked')
         if (rorschachDeploy) {
-            const image = 1
-            editRorschachTest({image:checkinData.rorschach_test.image.id, response: response, rorschach_id: 2})
+            editRorschachTest({
+                image: checkinData.rorschach_test.image.id,
+                response: response,
+                rorschach_id: checkinData.rorschach_test.id,
+            })
         }
 
         if (surveyDeploy) {
-            const q1q = +question1.id
-            const q2q = +question2.id
-            const q3q = +question3.id
-            const q4q = +question4.id
-            const q5q = +question5.id
             editSurvey({
-                q1q,
+                q1: checkinData.survey.q1.id,
                 q1Ans,
-                q2q,
+                q2: checkinData.survey.q2.id,
                 q2Ans,
-                q3q,
+                q3: checkinData.survey.q3.id,
                 q3Ans,
-                q4q,
+                q4: checkinData.survey.q4.id,
                 q4Ans,
-                q5q,
+                q5: checkinData.survey.q5.id,
                 q5Ans,
+                survey_id: checkinData.survey.survey_id,
             })
         }
 
         if (checkinDeploy) {
             editCheckin({
-
-
+                happyLevel,
+                journalEntry,
+                survey: checkinData.survey.survey_id,
+                rorschachTest: checkinData.rorschach_test.id,
+                checkin_id: checkinData.check_in_id,
             })
         }
     }
 
-    if (checkinLoading) {return <div>Loading...</div>}
+    if (checkinLoading) {
+        return <div>Loading...</div>
+    }
 
     return (
-            <>
-            <div>
-            </div>
+        <>
+            <div></div>
 
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
@@ -131,7 +128,7 @@ function EditCheckinForm() {
                     </div>
                     <div>
                         <div className="form-group col-md-6">
-                            <img src={checkinData.rorschach_test.image.path}/>
+                            <img src={checkinData.rorschach_test.image.path} />
                             <label htmlFor="response">What you saw...</label>
                             <input
                                 type="text"
@@ -158,7 +155,7 @@ function EditCheckinForm() {
 
                         <div>
                             <label htmlFor="question1">
-                                { checkinData.survey.q1.prompt}{' '}
+                                {checkinData.survey.q1.prompt}{' '}
                             </label>
                             <input
                                 type="number"
@@ -172,7 +169,7 @@ function EditCheckinForm() {
                         </div>
                         <div>
                             <label htmlFor="question2">
-                                { checkinData.survey.q2.prompt}{' '}
+                                {checkinData.survey.q2.prompt}{' '}
                             </label>
                             <input
                                 type="number"
@@ -186,7 +183,7 @@ function EditCheckinForm() {
                         </div>
                         <div>
                             <label htmlFor="question3">
-                                { checkinData.survey.q3.prompt}{' '}
+                                {checkinData.survey.q3.prompt}{' '}
                             </label>
                             <input
                                 type="number"
@@ -200,7 +197,7 @@ function EditCheckinForm() {
                         </div>
                         <div>
                             <label htmlFor="question4">
-                                { checkinData.survey.q4.prompt}{' '}
+                                {checkinData.survey.q4.prompt}{' '}
                             </label>
                             <input
                                 type="number"
@@ -214,7 +211,7 @@ function EditCheckinForm() {
                         </div>
                         <div>
                             <label htmlFor="question5">
-                                { checkinData.survey.q5.prompt}{' '}
+                                {checkinData.survey.q5.prompt}{' '}
                             </label>
                             <input
                                 type="number"
@@ -228,7 +225,9 @@ function EditCheckinForm() {
                         </div>
 
                         <div className="form-group col-md-6">
-                            <label htmlFor="journalEntry">What you wrote...</label>
+                            <label htmlFor="journalEntry">
+                                What you wrote...
+                            </label>
                             <textarea
                                 type="text"
                                 className="form-control form-control-lg"
@@ -253,4 +252,4 @@ function EditCheckinForm() {
     )
 }
 
-export default EditCheckinForm;
+export default EditCheckinForm

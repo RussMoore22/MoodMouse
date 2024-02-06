@@ -134,14 +134,14 @@ export const moodmouseApi = createApi({
         }),
 
         editOneCheckin: builder.mutation({
-            query: (check_in_id) => {
+            query: (info) => {
                 const data = {}
                 data['happy_level'] = info.happyLevel
                 data['journal_entry'] = info.journalEntry
                 data['survey'] = info.survey
                 data['rorschach_test'] = info.rorschachTest
                 return {
-                    url: `/api/checkins/${check_in_id}`,
+                    url: `/api/checkins/${info.checkin_id}`,
                     method: 'PUT',
                     body: data,
                     credentials: 'include',
@@ -151,20 +151,20 @@ export const moodmouseApi = createApi({
         }),
 
         editOneSurvey: builder.mutation({
-            query: (survey_id) => {
+            query: (info) => {
                 const data = {}
-                data['q1'] = info.q1q
+                data['q1'] = info.q1
                 data['q1_ans'] = info.q1Ans
-                data['q2'] = info.q2q
+                data['q2'] = info.q2
                 data['q2_ans'] = info.q2Ans
-                data['q3'] = info.q3q
+                data['q3'] = info.q3
                 data['q3_ans'] = info.q3Ans
-                data['q4'] = info.q4q
+                data['q4'] = info.q4
                 data['q4_ans'] = info.q4Ans
-                data['q5'] = info.q5q
+                data['q5'] = info.q5
                 data['q5_ans'] = info.q5Ans
                 return {
-                    url: `/api/surveys/${survey_id}`,
+                    url: `/api/surveys/${info.survey_id}`,
                     method: 'PUT',
                     body: data,
                     credentials: 'include',
@@ -205,5 +205,5 @@ export const {
     useGetOneCheckinQuery,
     useEditOneCheckinMutation,
     useEditOneSurveyMutation,
-    useEditOneRorschachTestMutation
+    useEditOneRorschachTestMutation,
 } = moodmouseApi
