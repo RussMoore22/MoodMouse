@@ -29,11 +29,8 @@ function Nav() {
 
                 <NavLink className="navbar-brand" to="/calendar">
                     Check In Calendar
-
-                <NavLink className="navbar-brand" to="/detail">
-                    Check in detail
-
                 </NavLink>
+
                 <button
                     onClick={logout}
                     className="navbar-toggler"
