@@ -255,3 +255,19 @@ A-Ha moments:
 
 -   Hooks and custom hooks are not allowed to be used in conditional statements, loops, or nested functions. This restriction exists because hooks rely on the order of execution to maintain state between renders, and placing them inside conditional statements or loops can result in unexpected behavior.
 -   It is allowed to have multiple useEffects in one functional component, and each will be executed independently of the others.
+
+### Feb 5, 2024
+
+-   completed part of basic functionality for the check-in calendar page and assisted with debugging - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the basic function for the check-in calendar page. This includes listing the date and mood score for the user, and implementing the ability to filter the user's check-ins by the selected date.
+2. We also finished the basic function for the check-in detail page. This page displays the mood score, date, survey answers and questions, journals, and responses for Rorschach tests.
+
+What I contributed to today, with the help of my team members, was building the basic functionality for the check-in calendar page. I integrated API calls into the apiSlice, retrieving all check-ins from the backend API endpoint. I utilized the JavaScript map function to display the retrieved data, and implemented routers and NavLink to facilitate navigation to the check-in calendar page. Although we didn't complete the feature to visually represent the check-in list as a calendar, as we anticipated it might take longer than expected, we decided to proceed with building the basic functionalities for other required pages and plan to revisit and complete the check-in calendar feature later.
+
+A-Ha moments:
+
+-   I learned that when handling dates in JavaScript, '0' represents January, and the setMonth() method can accept numbers greater than 11 (December) or less than 0. As the month number changes, JavaScript automatically adjusts the corresponding year as necessary. For instance, setMonth(12) would represent January of the next year, and setMonth(24) would be January of 2026. Similarly, setMonth(-12) would represent January of 2023. It's quite fascinating.
+-   I also learned that dates can be compared directly in JavaScript. However, it's important to note that dates retrieved from the backend are in string format, so they need to be converted to Date objects before comparison with another date object.
