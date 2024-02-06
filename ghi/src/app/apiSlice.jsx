@@ -173,7 +173,7 @@ export const moodmouseApi = createApi({
             invalidatesTags: ['Checkins'],
         }),
 
-        editRorschachTest: builder.mutation({
+        editOneRorschachTest: builder.mutation({
             query: (rorschach_id) => {
                 const data = {}
                 data['image'] = info.image
@@ -204,5 +204,5 @@ export const {
     useGetOneCheckinQuery,
     useEditOneCheckinMutation,
     useEditOneSurveyMutation,
-    useEditRorschachTestMutation
+    useEditOneRorschachTestMutation
 } = moodmouseApi

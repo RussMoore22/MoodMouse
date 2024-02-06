@@ -11,7 +11,7 @@ import SignupForm from './SignupForm'
 import CreateCheckinForm from './CreateCheckinForm'
 import CheckinCalendar from './CheckinCalendar'
 import DetailCheckin from './DetailCheckin'
-import EditCheckinForm from 'EditCheckinForm'
+import EditCheckinForm from './EditCheckinForm'
 
 
 const router = createBrowserRouter([
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
                 element: <DetailCheckin />
             },
             {
-                path: "/checkins/:check_in_id/edit",
+                path: "/checkins/:checkin_id/edit",
                 element: <EditCheckinForm />
             }
         ]
