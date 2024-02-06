@@ -9,24 +9,30 @@ import Home from './Home'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import CreateCheckinForm from './CreateCheckinForm'
+import CheckinCalendar from './CheckinCalendar'
 import DetailCheckin from './DetailCheckin'
+
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: '/',
         element: <App />,
         children: [
             {
-                path: "/login",
-                element: <LoginForm />
+                path: '/login',
+                element: <LoginForm />,
             },
             {
-                path: "/signup",
-                element: <SignupForm />
+                path: '/signup',
+                element: <SignupForm />,
             },
             {
-                path: "/create",
-                element: <CreateCheckinForm />
+                path: '/create',
+                element: <CreateCheckinForm />,
+            },
+            {
+                path: '/calendar',
+                element: <CheckinCalendar />,
             },
             {
                 path: "/checkins/:checkin_id",
@@ -34,13 +40,12 @@ const router = createBrowserRouter([
             }
         ]
     },
+])
 
-]);
-
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
             <RouterProvider router={router} />
         </Provider>
     </React.StrictMode>
-);
+)
