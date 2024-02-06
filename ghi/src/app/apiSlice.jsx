@@ -115,6 +115,24 @@ export const moodmouseApi = createApi({
                 }
             },
         }),
+
+        getAllCheckins: builder.query({
+            query: () => ({
+                url: '/api/checkins/mine',
+                credentials: 'include',
+            }),
+            providesTags: ['Checkins'],
+        }),
+
+        getOneCheckin: builder.query({
+            query: (checkin_id) => {
+                return {
+                    url: `/api/checkins/${checkin_id}`,
+                    credentials: 'include'
+                }
+
+            }, providesTags: ['Checkins']
+        })
     }),
 })
 
@@ -128,4 +146,6 @@ export const {
     useCreateSurveyMutation,
     useGetImagesQuery,
     useGetQuestionQuery,
+    useGetAllCheckinsQuery,
+    useGetOneCheckinQuery
 } = moodmouseApi
