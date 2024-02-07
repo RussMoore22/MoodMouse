@@ -3,7 +3,6 @@ import { useGetAllCheckinsQuery } from './app/apiSlice'
 
 function CheckinsList() {
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
-    console.log(checkins)
     const [startDate, setStartDate] = useState(new Date('02-01-2024'))
     const [endDate, setEndDate] = useState(new Date('02-29-2024'))
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
@@ -53,14 +52,6 @@ function CheckinsList() {
         setEndDate(new Date(currentYear, currentMonth + 1, 1))
     }, [selectDate])
 
-    console.log(
-        'select date: ',
-        selectDate,
-        '...start date: ',
-        startDate,
-        '...end Date: ',
-        endDate
-    )
 
     const score = (checkin) => {
         return (
@@ -74,34 +65,45 @@ function CheckinsList() {
     }
 
     const MakeCardList = () => {
-        const checkinsMonth = checkins.filter(
-            (checkin) =>
-                // new Date(checkin.date) >= startDate &&
-                // new Date(checkin.date) < endDate
-                checkin.check_in_id === 1
-        )
-        console.log(checkinsMonth)
+        const start = startDate.getDate()
+        const end = new Date(endDate.setDate(endDate.getDate()-1)).getDate()
+        console.log(start, end, "*****")
+        let checkinsMonth = []
+        if (checkins.length > 0){
+            checkinsMonth = checkins.filter(
+                (checkin) =>
+            new Date(checkin.date) >= startDate &&
+            new Date(checkin.date) < endDate
+            )
+        }
+
+        console.log("our checkins after filter: ", checkinsMonth)
+
         let cards = []
         const weekDay = startDate.getDay()
         for (let i = 0; i < weekDay; i++) {
             cards.push({ date: 0 })
         }
+        console.log("cards: ",cards)
 
-        for (let i = startDate.getDate(); i <= endDate.getDate(); i++) {
-            if (i === new Date(checkinsMonth[0].date).getDate()) {
-                cards.push(checkinsMonth[0])
-                checkinsMonth.shift()
+        for (let i = start; i <= end; i++) {
+            console.log("enddate .date(): ", endDate.getDate())
+            if (i == (new Date(checkinsMonth[0]?.date)).getDate()) {
+                cards.push(checkinsMonth.shift())
+
             } else {
                 cards.push({ date: '' })
             }
         }
-        console.log(cards)
+        console.log("cards after going through checkins: ",cards)
+
     }
     useEffect(() => {
-        if (!isLoading && !(checkins === undefined)) {
+        if (!(checkins === undefined)) {
+
             MakeCardList()
         }
-    }, [selectDate])
+    }, [isLoading, startDate])
 
     if (isLoading) return <div>Loading...</div>
     // console.log(checkins)
