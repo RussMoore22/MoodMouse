@@ -271,3 +271,17 @@ A-Ha moments:
 
 -   I learned that when handling dates in JavaScript, '0' represents January, and the setMonth() method can accept numbers greater than 11 (December) or less than 0. As the month number changes, JavaScript automatically adjusts the corresponding year as necessary. For instance, setMonth(12) would represent January of the next year, and setMonth(24) would be January of 2026. Similarly, setMonth(-12) would represent January of 2023. It's quite fascinating.
 -   I also learned that dates can be compared directly in JavaScript. However, it's important to note that dates retrieved from the backend are in string format, so they need to be converted to Date objects before comparison with another date object.
+
+### Feb 6, 2024
+-  finished part of updating the information page for the check-in and also helped debug on the main page  - Navigator and Driver.
+
+Features that our team build for today:
+1. We completed the update functionality for the check-in page.
+2. We began work on the main page and integrated inspirational quotes from a third-party API.
+
+My focus today, with the assistance of my team members, was on further developing the update functionality for the check-in page. I utilized update functions provided by custom hooks created using Redux and apiSlice by my team member. I passed the necessary values into the functions to update the check-in as the request body for the PUT endpoint. Firstly, I updated the survey, followed by the rorschach_test. After updating these two, I utilized the editcheckin() from the custom hook to update the final check-in object. Additionally, I made modifications to some parts of the apiSlice to handle errors. Upon completing the update page, I implemented navigation functionality to allow users to edit their corresponding check-ins by clicking on the detail page.
+
+A-Ha moments:
+* I learned that encountering a "render too many hooks" error is often caused by an early if-statement in React.
+* I discovered the importance of using React extensions to check the local status of state variables, as updating states or changing their values may cause delays and not immediately reflect in console.log() outputs.
+* I also learned that using {data.author?.split(",")} is a concise way to check if the author exists and perform an action like splitting by a comma. Previously, I thought the only way to achieve this was by using {data.author ? data.author.split(",") : undefined}, which includes an "else" statement. However, {data.author?.split(",")} is clearer and more readable, especially when an else statement is unnecessary
