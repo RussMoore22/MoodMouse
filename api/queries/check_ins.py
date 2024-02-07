@@ -362,8 +362,6 @@ class Check_InQueries:
                         [check_in_id]
                     )
                     rec = result.fetchone()
-
-
                     if account_data["id"] != rec[1]:
                         return Error(message="check-in does not belong to currently logged in user.")
                     survey = SurveyOut(

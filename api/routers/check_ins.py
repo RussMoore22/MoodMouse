@@ -66,6 +66,10 @@ def get_one_check_in(
     repo: Check_InQueries = Depends()
 ) -> Union[Check_inOutDetail, Error]:
 
-    if account_data["id"] != check_in_id:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User does not have a check-in with this check-in ID.")
+    check_in = repo.get_one_check_in(check_in_id, account_data)
+    if isinstance(check_in, Error):
+        response.status_code= 404
+    else:
+        response.status_code=200
+
     return repo.get_one_check_in(check_in_id, account_data)
