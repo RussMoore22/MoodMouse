@@ -52,7 +52,6 @@ function CheckinsList() {
         setEndDate(new Date(currentYear, currentMonth + 1, 1))
     }, [selectDate])
 
-
     const score = (checkin) => {
         return (
             checkin.happy_level +
@@ -66,63 +65,62 @@ function CheckinsList() {
 
     const MakeCardList = () => {
         const start = startDate.getDate()
-        const end = new Date(endDate.setDate(endDate.getDate()-1)).getDate()
+        const end = new Date(endDate.setDate(endDate.getDate() - 1)).getDate()
 
         let checkinsMonth = []
-        if (checkins.length > 0){
+        if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-            new Date(checkin.date) >= startDate &&
-            new Date(checkin.date) < endDate
+                    new Date(checkin.date) >= startDate &&
+                    new Date(checkin.date) < endDate
             )
         }
-
-
 
         let cards = []
         const weekDay = startDate.getDay()
         for (let i = weekDay; i > 0; i--) {
-            cards.push({ date: (new Date(
-                startDate.getFullYear(),
-                startDate.getMonth(),
-                startDate.getDate()-i)
-            ).getDate(),
-            type: "muted"
+            cards.push({
+                date: new Date(
+                    startDate.getFullYear(),
+                    startDate.getMonth(),
+                    startDate.getDate() - i
+                ).getDate(),
+                type: 'muted',
+                data: false,
             })
         }
 
-
         for (let i = start; i <= end; i++) {
-
-            if (i == (new Date(checkinsMonth[0]?.date)).getDate()) {
-                cards.push({date: i, type: "checkin", data: checkinsMonth.shift()})
-
+            if (i == new Date(checkinsMonth[0]?.date).getDate()) {
+                cards.push({
+                    date: i,
+                    type: 'checkin',
+                    data: checkinsMonth.shift(),
+                })
             } else {
-                cards.push({ date: i, type: "blank" })
+                cards.push({ date: i, type: 'blank', data: false })
             }
         }
         const filledCards = cards.length
-        for (let i = 1; i <= 48-filledCards; i++){
-            cards.push({date: i, type: "muted"})
+        for (let i = 1; i <= 48 - filledCards; i++) {
+            cards.push({ date: i, type: 'muted', data: false })
         }
-        let cardMatrix = [[],[],[],[],[],[]]
-        for (let i = 0; i < 6; i++){
-            for (let j = 0; j < 7; j++){
+        let cardMatrix = [[], [], [], [], [], []]
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 7; j++) {
                 cardMatrix[i].push(cards.shift())
             }
         }
 
         setCalendarCards(cardMatrix)
-
     }
     useEffect(() => {
         if (!(checkins === undefined)) {
-
             MakeCardList()
         }
     }, [isLoading, startDate])
 
-
+    const color()
     if (isLoading) return <div>Loading...</div>
     // console.log(checkins)
 
@@ -170,9 +168,8 @@ function CheckinsList() {
                 </tbody>
             </table>
             <div>
-
-            <div>
-                {/* <div className="card-group d-flex flex-row bd-highlight mb-3">
+                <div>
+                    {/* <div className="card-group d-flex flex-row bd-highlight mb-3">
                     {calendarCards?.map((card) => {
                         if (card.type === "checkin"){
                             return (
@@ -209,18 +206,37 @@ function CheckinsList() {
                         }
                     })}
                 </div> */}
-                {calendarCards.map(cardRow => {
-                    return(
-                        <div className="d-flex bd-highlight">
-                            {cardRow.map(card => {
-                                return (
-                                    <div className="p-2 flex-fill bd-highlight">{card.date}</div>
-                                )
-                            })}
-                        </div>
+                    {calendarCards.map((cardRow) => {
+                        return (
+                            <div className="d-flex bd-highlight card-group">
+                                {cardRow.map((card) => {
+                                    return (
+                                        <div
+                                            className="card p-2 bd-highlight"
+                                            style={{
+                                                backgroundColor: `rgba(52, 52,  ${
+                                                    card.data
+                                                        ? 254 *
+                                                          card.data.happy_level
+                                                        : 0
+                                                })`,
+                                            }}
+                                        >
+                                            <div className="card-body">
+                                                <div className="card-header">
+                                                    {card.date}
+                                                </div>
+                                                <h6 className="card-title">
+                                                    {/* {card.data?.happy_level} */}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         )
-                })}
-            </div>
+                    })}
+                </div>
             </div>
         </>
     )
