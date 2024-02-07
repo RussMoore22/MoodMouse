@@ -240,3 +240,16 @@ Today I worked on:
 As a group, we worked together to complete the Check-In Calendar Page. Our day consisted of writing the CheckinList.jsx function. We did lots of research on Date Constructors, how to combine the check-ins scores to show a total of the survey question answers and the happy level score. As we get close to completing the project, all the functions are suddenly making a lot more sense and I am enjoying mob programming with my team. The stress starts dialing down a bit. I feel the job-seeking stress sneaking up on me but I won't let it affect me right now. I still have 3 weeks but oh man, 3 WEEKS!! 
 
 I had so many ah-ha moments today but the most memorable one was when Russ showed me that I could select text and wrap it all into parenthesis. That blew my mind. It felt like it was such an obvious thing but so efficient. It helped me save so much time from that time I started using it until I had to get off the screen. 
+
+
+## February 6, 2024
+
+Today I worked on:
+
+* Starting to build the EditCheckinPage.jsx and adding routes to main.
+* Assisting Russ, Ramesh and Luna as Navigator to complete the EditCheckinPage.jsx
+* Completing the get_all_mine api endpoint. 
+
+As a group, we worked on completing the EditCheckinPage.jsx so that users can have the ability to edit their check-ins. This took us most of the morning since we weren't sure how we were going to tackle this process but thanks to Russ' guidance and knowledge, we were able to complete it swiftly and learn a lot during the process. Later after break, we separated into pair programming teams so that Ramesh and I could complete the unit testing for the get_one and get_all_mine api endpoints while Luna and Russ worked on completing the MainPage.jsx . 
+
+One ah-ha moment for today was when working on the unit test for the get_all_mine fastapi endpoint. I learned so much about asserts and creating mock data as well as whats coming from where during this process by having some hands on practice after the class was over.  I had to troubleshoot so much because I did not understand where things where coming from until I saw them break. I believe this is the best way to learn something, by fixing it when its broken and hopefully I get lots of practice doing that in my future job. Feeling comfortable with this subject makes me feel confident and excited to help Ramesh tomorrow as we tackle his get_one endpoint together!
