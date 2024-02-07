@@ -120,7 +120,24 @@ function CheckinsList() {
         }
     }, [isLoading, startDate])
 
-    const color()
+    const dateColor = (card) => {
+        if (card.type === 'blank') {
+            return 'rgb(240, 240, 240)'
+        }
+        if (card.type === 'muted') {
+            return 'rgb(120, 120, 120)'
+        } else {
+            let total =
+                card.data.happy_level +
+                card.data.survey.q1_ans +
+                card.data.survey.q2_ans +
+                card.data.survey.q3_ans +
+                card.data.survey.q4_ans +
+                card.data.survey.q5_ans
+            const red = 255 - Math.floor(255 * (total / 24))
+            return `rgb(${red}, 255, 255)`
+        }
+    }
     if (isLoading) return <div>Loading...</div>
     // console.log(checkins)
 
@@ -214,12 +231,9 @@ function CheckinsList() {
                                         <div
                                             className="card p-2 bd-highlight"
                                             style={{
-                                                backgroundColor: `rgba(52, 52,  ${
-                                                    card.data
-                                                        ? 254 *
-                                                          card.data.happy_level
-                                                        : 0
-                                                })`,
+                                                backgroundColor: `${dateColor(
+                                                    card
+                                                )}`,
                                             }}
                                         >
                                             <div className="card-body">
