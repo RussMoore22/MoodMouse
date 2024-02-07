@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useGetAllCheckinsQuery } from './app/apiSlice'
+import { useNavigate } from 'react-router-dom'
 
 function CheckinsList() {
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
@@ -7,6 +8,7 @@ function CheckinsList() {
     const [endDate, setEndDate] = useState(new Date('02-29-2024'))
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
     const [calendarCards, setCalendarCards] = useState([])
+    const navigate = useNavigate()
 
     const handleIncrement = (event) => {
         if (selectDate.getMonth() === 11) {
@@ -138,119 +140,66 @@ function CheckinsList() {
             return `rgb(${red}, 255, 255)`
         }
     }
+    const handleNavigation = (card) => {
+        if (card.type === 'checkin') {
+            navigate(`/checkins/${card.data.check_in_id}`)
+        }
+    }
     if (isLoading) return <div>Loading...</div>
     // console.log(checkins)
 
     return (
         <>
-            <button onClick={handleDecrement}>Decrement</button>
-            <span>{getMonthYearName(selectDate)}</span>
-            <button onClick={handleIncrement}>Increment</button>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th className="col-1" scope="col">
-                            date
-                        </th>
-                        <th className="col-1" scope="col">
-                            happy_level
-                        </th>
-                        <th className="col-1" scope="col">
-                            Score
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {checkins
-                        .filter(function (checkin) {
-                            {
-                                return (
-                                    new Date(checkin.date) >= startDate &&
-                                    new Date(checkin.date) < endDate
-                                )
-                            }
-                        })
-                        .map((checkin) => {
-                            return (
-                                <tr
-                                    className="table-secondary"
-                                    key={checkin.check_in_id}
-                                >
-                                    <td> {checkin.date}</td>
-                                    <td> {checkin.happy_level}</td>
-                                    <td> {score(checkin)}</td>
-                                </tr>
-                            )
-                        })}
-                </tbody>
-            </table>
             <div>
-                <div>
-                    {/* <div className="card-group d-flex flex-row bd-highlight mb-3">
-                    {calendarCards?.map((card) => {
-                        if (card.type === "checkin"){
-                            return (
-                                <div className="card p-2 bd-highlight">
-                                    <div className="card-body">
-                                        <div className="card-header">
-                                            <h6 className="card-title">{card.date}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        else if (card.type === "blank") {
-                            return (
-                                <div className="card p-2 bd-highlight">
-                                    <div className="card-body">
-                                        <div className="card-header">
-                                            <h6 className="card-title">{card.date}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        else if (card.type === "muted") {
-                            return(
-                                <div className="card p-2 bd-highlight">
-                                    <div className="card-body">
-                                        <div className="card-header">
-                                            <h6 className="card-title">{card.date}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })}
-                </div> */}
-                    {calendarCards.map((cardRow) => {
-                        return (
-                            <div className="d-flex bd-highlight card-group">
-                                {cardRow.map((card) => {
-                                    return (
-                                        <div
-                                            className="card p-2 bd-highlight"
-                                            style={{
-                                                backgroundColor: `${dateColor(
-                                                    card
-                                                )}`,
-                                            }}
-                                        >
-                                            <div className="card-body">
-                                                <div className="card-header">
-                                                    {card.date}
-                                                </div>
-                                                <h6 className="card-title">
-                                                    {/* {card.data?.happy_level} */}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        )
-                    })}
+                <h1> Calendar </h1>
+                <button onClick={handleDecrement}>Decrement</button>
+                <span>{getMonthYearName(selectDate)}</span>
+                <button onClick={handleIncrement}>Increment</button>
+                <div className="d-flex flex-wrap bd-highlight card-group">
+                    <div className="d-flex bd-highlight card-group">Sunday</div>
+                    <div className="d-flex bd-highlight card-group">Monday</div>
+                    <div className="d-flex bd-highlight card-group">
+                        Tuesday
+                    </div>
+                    <div className="d-flex bd-highlight card-group">
+                        Wednesday
+                    </div>
+                    <div className="d-flex bd-highlight card-group">
+                        Thursday
+                    </div>
+                    <div className="d-flex bd-highlight card-group">Friday</div>
+                    <div className="d-flex bd-highlight card-group">
+                        Saturday
+                    </div>
                 </div>
+                {calendarCards.map((cardRow) => {
+                    return (
+                        <div className="d-flex bd-highlight card-group">
+                            {cardRow.map((card) => {
+                                return (
+                                    <div
+                                        onClick={() => handleNavigation(card)}
+                                        className="card p-2 bd-highlight"
+                                        style={{
+                                            backgroundColor: `${dateColor(
+                                                card
+                                            )}`,
+                                        }}
+                                    >
+                                        <div className="card-body">
+                                            <div className="card-header">
+                                                {card.date}
+                                            </div>
+                                            <h6 className="card-title">
+                                                {/* {card.data?.happy_level} */}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )
+                })}
             </div>
         </>
     )
