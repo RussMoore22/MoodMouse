@@ -61,8 +61,8 @@ class MockCheckinQuery:
         return Check_inOutDetail(
             check_in_id=1,
             account=AccountOut(**account),
-            date=info.date,
-            updated_date=info.updated_date,
+            date='2024-01-26T17:56:04.858000+00:00',
+            updated_date='2024-01-26T17:56:04.858000+00:00',
             happy_level=info.happy_level,
             journal_entry=info.journal_entry,
             survey=mock_survey_object(survey_id=info.survey),
@@ -73,10 +73,10 @@ class MockCheckinQuery:
 def mock_get_current_account():
     return {
         "id": 1,
-        "username": "string                                            ",
-        "first_name": "string                                            ",
-        "last_name": "string                                            ",
-        "email": "string                                            "
+        "username": "lcarrol",
+        "first_name": "Lewis",
+        "last_name": "Carrol",
+        "email": "lcarrol@alice.com"
     }
 
 
@@ -89,8 +89,6 @@ def test_create_check_ins():
     app.dependency_overrides[authenticator.get_current_account_data] = mock_get_current_account
     app.dependency_overrides[Check_InQueries] = MockCheckinQuery
     request_body = {
-        "date": "2024-01-26T17:56:04.858Z",
-        "updated_date": "2024-01-26T17:56:04.858Z",
         "happy_level": 1,
         "journal_entry": "writing",
         "survey": 1,
@@ -105,13 +103,13 @@ def test_create_check_ins():
         "check_in_id": 1,
         "account": {
             "id": 1,
-            "username": "string                                            ",
-            "first_name": "string                                            ",
-            "last_name": "string                                            ",
-            "email": "string                                            "
+            "username": "lcarrol",
+            "first_name": "Lewis",
+            "last_name": "Carrol",
+            "email": "lcarrol@alice.com"
         },
-        "date": "2024-01-26T17:56:04.858000+00:00",
-        "updated_date": "2024-01-26T17:56:04.858000+00:00",
+        "date": '2024-01-26T17:56:04.858000+00:00',
+        "updated_date": '2024-01-26T17:56:04.858000+00:00',
         "happy_level": 1,
         "journal_entry": "writing",
         "survey": {
@@ -151,3 +149,5 @@ def test_create_check_ins():
             "response": "I see a moth"
         }
     }
+
+    app.dependency_overrides = {}
