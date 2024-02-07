@@ -67,7 +67,7 @@ function CheckinsList() {
     const MakeCardList = () => {
         const start = startDate.getDate()
         const end = new Date(endDate.setDate(endDate.getDate()-1)).getDate()
-        console.log(start, end, "*****")
+
         let checkinsMonth = []
         if (checkins.length > 0){
             checkinsMonth = checkins.filter(
@@ -77,7 +77,7 @@ function CheckinsList() {
             )
         }
 
-        console.log("our checkins after filter: ", checkinsMonth)
+
 
         let cards = []
         const weekDay = startDate.getDay()
@@ -86,25 +86,33 @@ function CheckinsList() {
                 startDate.getFullYear(),
                 startDate.getMonth(),
                 startDate.getDate()-i)
-            ).getDate()
+            ).getDate(),
+            type: "muted"
             })
         }
-        console.log("cards: ",cards)
+
 
         for (let i = start; i <= end; i++) {
-            console.log("enddate .date(): ", endDate.getDate())
+
             if (i == (new Date(checkinsMonth[0]?.date)).getDate()) {
-                cards.push(checkinsMonth.shift())
+                cards.push({date: i, type: "checkin", data: checkinsMonth.shift()})
 
             } else {
-                cards.push({ date: i })
+                cards.push({ date: i, type: "blank" })
             }
         }
         const filledCards = cards.length
         for (let i = 1; i <= 48-filledCards; i++){
-            cards.push({date: i})
+            cards.push({date: i, type: "muted"})
         }
-        console.log("cards after going through checkins: ",cards)
+        let cardMatrix = [[],[],[],[],[],[]]
+        for (let i = 0; i < 6; i++){
+            for (let j = 0; j < 7; j++){
+                cardMatrix[i].push(cards.shift())
+            }
+        }
+
+        setCalendarCards(cardMatrix)
 
     }
     useEffect(() => {
@@ -113,6 +121,7 @@ function CheckinsList() {
             MakeCardList()
         }
     }, [isLoading, startDate])
+
 
     if (isLoading) return <div>Loading...</div>
     // console.log(checkins)
@@ -160,6 +169,59 @@ function CheckinsList() {
                         })}
                 </tbody>
             </table>
+            <div>
+
+            <div>
+                {/* <div className="card-group d-flex flex-row bd-highlight mb-3">
+                    {calendarCards?.map((card) => {
+                        if (card.type === "checkin"){
+                            return (
+                                <div className="card p-2 bd-highlight">
+                                    <div className="card-body">
+                                        <div className="card-header">
+                                            <h6 className="card-title">{card.date}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        else if (card.type === "blank") {
+                            return (
+                                <div className="card p-2 bd-highlight">
+                                    <div className="card-body">
+                                        <div className="card-header">
+                                            <h6 className="card-title">{card.date}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        else if (card.type === "muted") {
+                            return(
+                                <div className="card p-2 bd-highlight">
+                                    <div className="card-body">
+                                        <div className="card-header">
+                                            <h6 className="card-title">{card.date}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })}
+                </div> */}
+                {calendarCards.map(cardRow => {
+                    return(
+                        <div className="d-flex bd-highlight">
+                            {cardRow.map(card => {
+                                return (
+                                    <div className="p-2 flex-fill bd-highlight">{card.date}</div>
+                                )
+                            })}
+                        </div>
+                        )
+                })}
+            </div>
+            </div>
         </>
     )
 }
