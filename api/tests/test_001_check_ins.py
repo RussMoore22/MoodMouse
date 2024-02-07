@@ -10,10 +10,10 @@ client = TestClient(app)
 def mock_get_current_account():
     return {
         "id": 1,
-        "username": "string                                            ",
-        "first_name": "string                                            ",
-        "last_name": "string                                            ",
-        "email": "string                                            "
+        "username": "Lheadrick01",
+        "first_name": "Lola",
+        "last_name": "Headrick",
+        "email": "lola@gmail.com"
     }
 
 
@@ -64,8 +64,8 @@ class MockCheckinQueries:
         return Check_inOutDetail(
             check_in_id=check_in_id,
             account=AccountOut(**account),
-            date=check_in.date,
-            updated_date=check_in.updated_date,
+            date="2023-01-26T19:40:53.141000+00:00",
+            updated_date="2024-01-26T19:40:53.141000+00:00",
             happy_level=check_in.happy_level,
             journal_entry=check_in.journal_entry,
             survey=mock_survey_object(check_in.survey),
@@ -82,8 +82,6 @@ def test_update_checkin():
     app.dependency_overrides[Check_InQueries] = MockCheckinQueries
     check_in_id = 1
     check_in = {
-        "date": "2024-01-26T19:40:53.141Z",
-        "updated_date": "2024-01-26T19:40:53.141Z",
         "happy_level": 4,
         "journal_entry": "This is a test",
         "survey": 2,
@@ -98,12 +96,12 @@ def test_update_checkin():
         "check_in_id": 1,
         "account": {
             "id": 1,
-            "username": "string                                            ",
-            "first_name": "string                                            ",
-            "last_name": "string                                            ",
-            "email": "string                                            "
+            "username": "Lheadrick01",
+            "first_name": "Lola",
+            "last_name": "Headrick",
+            "email": "lola@gmail.com"
         },
-        "date": "2024-01-26T19:40:53.141000+00:00",
+        "date": "2023-01-26T19:40:53.141000+00:00",
         "updated_date": "2024-01-26T19:40:53.141000+00:00",
         "happy_level": 4,
         "journal_entry": "This is a test",
