@@ -2,62 +2,115 @@ import React, { useState, useEffect } from 'react'
 import { useGetAllCheckinsQuery } from './app/apiSlice'
 
 function CheckinsList() {
-    const { data: checkins, isLoading } = useGetAllCheckinsQuery();
-    console.log(checkins);
-    const [startDate, setStartDate] = useState(new Date('02-01-2024'));
-    const [endDate, setEndDate] = useState(new Date('02-29-2024'));
-    const [selectDate, setSelectDate] = useState(new Date(Date.now()));
+    const { data: checkins, isLoading } = useGetAllCheckinsQuery()
+    console.log(checkins)
+    const [startDate, setStartDate] = useState(new Date('02-01-2024'))
+    const [endDate, setEndDate] = useState(new Date('02-29-2024'))
+    const [selectDate, setSelectDate] = useState(new Date(Date.now()))
+    const [calendarCards, setCalendarCards] = useState([])
 
     const handleIncrement = (event) => {
         if (selectDate.getMonth() === 11) {
-            setSelectDate( new Date(new Date(selectDate.setFullYear(selectDate.getFullYear() + 1)).setMonth(0)) )
+            setSelectDate(
+                new Date(
+                    new Date(
+                        selectDate.setFullYear(selectDate.getFullYear() + 1)
+                    ).setMonth(0)
+                )
+            )
         } else {
-            setSelectDate(new Date(selectDate.setMonth(selectDate.getMonth() + 1)))
+            setSelectDate(
+                new Date(selectDate.setMonth(selectDate.getMonth() + 1))
+            )
         }
     }
     const handleDecrement = (event) => {
-        if (selectDate.getMonth() === 0 ) {
-            setSelectDate( new Date(new Date(selectDate.setFullYear(selectDate.getFullYear() - 1)).setMonth(11)) )
+        if (selectDate.getMonth() === 0) {
+            setSelectDate(
+                new Date(
+                    new Date(
+                        selectDate.setFullYear(selectDate.getFullYear() - 1)
+                    ).setMonth(11)
+                )
+            )
         } else {
-            setSelectDate(new Date(selectDate.setMonth(selectDate.getMonth() - 1)))
+            setSelectDate(
+                new Date(selectDate.setMonth(selectDate.getMonth() - 1))
+            )
         }
     }
     const getMonthYearName = (selectDate) => {
-            const month = selectDate.toLocaleString('default', {month: 'long'});
-            const year = selectDate.getFullYear();
-            return (`${month} ${year}`);
-    };
+        const month = selectDate.toLocaleString('default', { month: 'long' })
+        const year = selectDate.getFullYear()
+        return `${month} ${year}`
+    }
 
     useEffect(() => {
         //first + last day of the selectDate month
         const currentMonth = selectDate.getMonth()
         const currentYear = selectDate.getFullYear()
         setStartDate(new Date(currentYear, currentMonth, 1))
-        setEndDate(new Date(currentYear, currentMonth+1, 1))
+        setEndDate(new Date(currentYear, currentMonth + 1, 1))
     }, [selectDate])
 
-    console.log("select date: ", selectDate, "...start date: ", startDate, "...end Date: ", endDate)
+    console.log(
+        'select date: ',
+        selectDate,
+        '...start date: ',
+        startDate,
+        '...end Date: ',
+        endDate
+    )
 
     const score = (checkin) => {
-        return (checkin.happy_level +
-                checkin.survey.q1_ans +
-                checkin.survey.q2_ans +
-                checkin.survey.q3_ans +
-                checkin.survey.q4_ans +
-                checkin.survey.q5_ans)
+        return (
+            checkin.happy_level +
+            checkin.survey.q1_ans +
+            checkin.survey.q2_ans +
+            checkin.survey.q3_ans +
+            checkin.survey.q4_ans +
+            checkin.survey.q5_ans
+        )
     }
 
+    const MakeCardList = () => {
+        const checkinsMonth = checkins.filter(
+            (checkin) =>
+                // new Date(checkin.date) >= startDate &&
+                // new Date(checkin.date) < endDate
+                checkin.check_in_id === 1
+        )
+        console.log(checkinsMonth)
+        let cards = []
+        const weekDay = startDate.getDay()
+        for (let i = 0; i < weekDay; i++) {
+            cards.push({ date: 0 })
+        }
+
+        for (let i = startDate.getDate(); i <= endDate.getDate(); i++) {
+            if (i === new Date(checkinsMonth[0].date).getDate()) {
+                cards.push(checkinsMonth[0])
+                checkinsMonth.shift()
+            } else {
+                cards.push({ date: '' })
+            }
+        }
+        console.log(cards)
+    }
+    useEffect(() => {
+        if (!isLoading && !(checkins === undefined)) {
+            MakeCardList()
+        }
+    }, [selectDate])
+
     if (isLoading) return <div>Loading...</div>
+    // console.log(checkins)
 
     return (
         <>
-        <button onClick={handleDecrement}>
-            Decrement
-        </button>
-        <span>{getMonthYearName(selectDate)}</span>
-        <button onClick={handleIncrement}>
-            Increment
-        </button>
+            <button onClick={handleDecrement}>Decrement</button>
+            <span>{getMonthYearName(selectDate)}</span>
+            <button onClick={handleIncrement}>Increment</button>
             <table className="table">
                 <thead>
                     <tr>
@@ -100,4 +153,4 @@ function CheckinsList() {
     )
 }
 
-export default CheckinsList;
+export default CheckinsList
