@@ -151,25 +151,34 @@ function CheckinsList() {
     return (
         <>
             <div>
-                <h1> Calendar </h1>
-                <button onClick={handleDecrement}>Decrement</button>
-                <span>{getMonthYearName(selectDate)}</span>
-                <button onClick={handleIncrement}>Increment</button>
-                <div className="d-flex flex-wrap bd-highlight card-group">
-                    <div className="d-flex bd-highlight card-group">Sunday</div>
-                    <div className="d-flex bd-highlight card-group">Monday</div>
-                    <div className="d-flex bd-highlight card-group">
-                        Tuesday
+                <h2> My Mood Calendar </h2>
+                <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
+                    <div className="flex-fill bd-highlight" >
+                        <button onClick={handleDecrement}>Decrement</button>
+                        </div>
+                    <div className="flex-fill bd-highlight" >
+                        <h3>{getMonthYearName(selectDate)}</h3>
+                        </div>
+                    <div className="flex-fill bd-highlight" >
+                        <button onClick={handleIncrement}>Increment</button>
+                        </div>
+                </div>
+
+                <div className="d-flex bd-highlight justify-content-around">
+                    <div className="flex-fill bd-highlight" ><h6>Sunday  </h6></div>
+                    <div className="flex-fill bd-highlight" ><h6 >Monday</h6></div>
+                    <div className="flex-fill bd-highlight"><h6>
+                        Tuesday</h6>
                     </div>
-                    <div className="d-flex bd-highlight card-group">
-                        Wednesday
+                    <div className="flex-fill bd-highlight"><h6>
+                        Wednesday</h6>
                     </div>
-                    <div className="d-flex bd-highlight card-group">
-                        Thursday
+                    <div className="flex-fill bd-highlight"><h6>
+                        Thursday</h6>
                     </div>
-                    <div className="d-flex bd-highlight card-group">Friday</div>
-                    <div className="d-flex bd-highlight card-group">
-                        Saturday
+                    <div className="flex-fill bd-highlight"><h6>Friday</h6></div>
+                    <div className="flex-fill bd-highlight"><h6>
+                        Saturday</h6>
                     </div>
                 </div>
                 {calendarCards.map((cardRow) => {
