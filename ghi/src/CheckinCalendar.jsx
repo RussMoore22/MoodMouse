@@ -81,8 +81,13 @@ function CheckinsList() {
 
         let cards = []
         const weekDay = startDate.getDay()
-        for (let i = 0; i < weekDay; i++) {
-            cards.push({ date: 0 })
+        for (let i = weekDay; i > 0; i--) {
+            cards.push({ date: (new Date(
+                startDate.getFullYear(),
+                startDate.getMonth(),
+                startDate.getDate()-i)
+            ).getDate()
+            })
         }
         console.log("cards: ",cards)
 
@@ -92,8 +97,12 @@ function CheckinsList() {
                 cards.push(checkinsMonth.shift())
 
             } else {
-                cards.push({ date: '' })
+                cards.push({ date: i })
             }
+        }
+        const filledCards = cards.length
+        for (let i = 1; i <= 48-filledCards; i++){
+            cards.push({date: i})
         }
         console.log("cards after going through checkins: ",cards)
 
