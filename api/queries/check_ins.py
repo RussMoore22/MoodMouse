@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from queries.pool import pool
 from typing import Union, List
 from models import (
@@ -362,13 +362,10 @@ class Check_InQueries:
                         [check_in_id]
                     )
                     rec = result.fetchone()
-                    print("**************", rec)
-                    print("**************", type(rec))
+
+
                     if account_data["id"] != rec[1]:
-                        print(account_data["id"])
-                        print(rec[1])
-                        raise HTTPException(status_code=404, detail="Item not found")
-                        # return Error(message="check-in does not belong to currently logged in user.")
+                        return Error(message="check-in does not belong to currently logged in user.")
                     survey = SurveyOut(
                         survey_id=rec[6],
                         q1=QuestionOut(id=rec[7], prompt=rec[8]),

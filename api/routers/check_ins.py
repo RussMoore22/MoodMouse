@@ -2,7 +2,8 @@ from fastapi import (
     APIRouter,
     Request,
     Response,
-    Depends
+    Depends,
+    HTTPException, status
 )
 from models import Check_inIn, Check_inOutList, Check_inOutDetail, Error
 from queries.check_ins import Check_InQueries
@@ -65,4 +66,6 @@ def get_one_check_in(
     repo: Check_InQueries = Depends()
 ) -> Union[Check_inOutDetail, Error]:
 
+    if account_data["id"] != check_in_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User does not have a check-in with this check-in ID.")
     return repo.get_one_check_in(check_in_id, account_data)
