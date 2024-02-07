@@ -139,10 +139,11 @@ class MockCheckinQueries:
 
 def test_get_all_mine():
     """
-    test get_all checkins
+    test get_all_mine checkins
     """
     # Arrange
-    app.dependency_overrides[authenticator.get_current_account_data] = mock_get_current_account
+    app.dependency_overrides[
+        authenticator.get_current_account_data] = mock_get_current_account
     app.dependency_overrides[Check_InQueries] = MockCheckinQueries
     # Act
     response = client.get('/api/checkins/mine')
