@@ -141,7 +141,7 @@ def test_get_all_mine():
     """
     test get_all checkins
     """
-# Arrange
+    # Arrange
     app.dependency_overrides[authenticator.get_current_account_data] = mock_get_current_account
     app.dependency_overrides[Check_InQueries] = MockCheckinQueries
     # Act
