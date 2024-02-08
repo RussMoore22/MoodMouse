@@ -24,12 +24,11 @@ Today, I worked on:
 * Engineering the Authentication Setup.
 * Integrating the POstgreSQL extension in VSC to ease the workflow with the database.
 
-As one of the Navigators today, I helped the Driver with
-
 During this time, we discovered how flexible FastAPI really is. We noticed that there
 wasn’t a difference between the info and information parameters of the create_account 
 function in the accounts.py file. We also learned that host name when creating.
 
+I started taking notes during the team's stand-ups to make sure that we are documenting what our responsabilities are for the day and after we get off class, I prepare the next day's stand up document to show what we did the previous day, what we have to do today and any remarks the team members make to make sure everybody's concerns are being heard. I thought this process would help the stand-ups be quicker and more structured while also ensuring that everyone's thoughts and concerns are being addressed as a team. I asked wether everyone was okay with this idea and the team seemed to appreciate this approach. I want to make sure that as a team lead, I give my absolute best to them, and I help guide and ease this group project process.
 
 ## January 18, 2024
 
@@ -52,7 +51,7 @@ more and more clear .
 One of the many ah-ha moments I had today was when we were working on one 
 of the parameters of the get/create function and we realized that
 the user data that we were getting or creating in the queries was based 
-on that username. Athough now it seems like that was a small dicovery, this felt like a huge step
+on that username. Although now it seems like that was a small discovery, this felt like a huge step
 forward in the direction of more knowledge and it made us all ecstatic. 
 
 Another moment of realization was when the instructor provided a valuable hint regarding an error 
@@ -66,16 +65,16 @@ identification of the SIGNING key and resolved the issue.
 Today I worked on:
 
 * Attempting to fix duplicate error.
-* Creating migrations for Questions, Surveys, rorshach_imgs, rorshach_tests, and check_ins. 
+* Creating migrations for Questions, Surveys, rorschach_imgs, rorschach_tests, and check_ins. 
 * Working out merge requests questions and concerns. 
 * Updating Excalidraw wireframe and backend design to reflect accurate variable naming in migrations. 
 
-As one of the  navigators for today, I helped direct the driver with researching the PostgreSQL 
+As one of the navigators for today, I helped direct the driver with researching the PostgreSQL 
 documentation for Foreign Key formatting. We discovered that we could implement a foreign key 
 for each item that we had created before calling the foreign key. We needed to specify the 
 referenced columns by id in the questions table for each foreign key. I also helped with updating 
-our excalidraw documentation to reflect the changes we were making to the variable names. We had to
-abandon the duplcate issue due to being stuck on it for a long time and wanting to move on to 
+our Excalidraw documentation to reflect the changes we were making to the variable names. We had to
+abandon the duplicate issue due to being stuck on it for a long time and wanting to move on to 
 something more productive. 
 
 Today I learned that migrations written should be done in order of tables that don’t 
@@ -103,7 +102,6 @@ were preventing us from getting all the rorshach tests.
 
 We decided to not do the get_one api endpoint for the rorshach image because it woulndt affect us right 
 now and we are planning to come back to it as an issue on gitlab.
-
 
 Today I learned that that there cant be any commas before the FROM statement in the query. We started 
 troubleshooting by adding a try and except statements to our get_all code. We decided to add the
@@ -144,11 +142,10 @@ Today I worked on:
 
 * Created the PUT router and query endpoint for check-in.
 * Helping Luna create the DELETE router adn query endpoint for the check-in and get_one_rorschach function to use on the create function.
-* Updating the roschach_test portion in the returns of updated.
-* Helping Luna update the roschach_test portion in the returns of create.
+* Updating the rorschach_test portion in the returns of updated.
+* Helping Luna update the rorschach_test portion in the returns of create.
 
-
-Today Luna and I worked together to create the PUT and DELETE endpoints for the check-in feature. We referenced the update and delete function from Curtis' code and found it very helpful. 
+Today Luna and I worked together to create the PUT and DELETE endpoints for the check-in feature. We referenced the update and delete function from Curtis' code and found it very helpful.
 
 Today I learned so much about GitLab. As I encountered a merge conflict at the end of the day, we had to do some research on what command to use to show all the branches and we required the help of the SEIRS because we were afraid of messing up the testing branch. After the SEIRS came over and instructed us on what commands to use, we were able to commit and push all the changes successfully.  
 
@@ -161,7 +158,7 @@ Today I worked on:
 * Creating the get_one function on the check_in feature. 
 * Creating the check_in error authentication get_one function on the check_in feature.
 
-Ramesh and I were stuck working on the get_one function for the check-in feature for most of our pair programming time. We spent most of our time researching and trying to figure out how to move forward from not being able to create a check-in. With that roadblock, we learned that we needed to wipe Ramesh's database since we had new migrations and then after creating new data, the error went away. As we tested were v=creating the get_one function, we seem to be getting more comfortable with SQL and the SQL Explorer from VSC. I feel more comfortable using SQL in the backend than I did when we started the project. Tomorrow Ramesh and I plan to finish the get_one query function and route, test it in Swagger, and work on adding the authentication. After all of that is done, we will merge that working feature into testing.
+Ramesh and I were stuck working on the get_one function for the check-in feature for most of our pair programming time. We spent most of our time researching and trying to figure out how to move forward from not being able to create a check-in. With that roadblock, we learned that we needed to wipe Ramesh's database since we had new migrations and then after creating new data, the error went away. As we tested were creating the get_one function, we seem to be getting more comfortable with SQL and the SQL Explorer from VSC. I feel more comfortable using SQL in the backend than I did when we started the project. Tomorrow Ramesh and I plan to finish the get_one query function and route, test it in Swagger, and work on adding the authentication. After all of that is done, we will merge that working feature into testing.
 
 
 ## January 26, 2024
@@ -182,9 +179,7 @@ Today I worked on:
 * Researching Redux configurations with Vite and React.
 * Starting to work on Unit testing for get_all_mine function with Luna.
 
-
-Today I learned how important it is to understand where things are coming from. As a team, we worked on setting up redux for the front-end and during our mob programming time, we
-encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
+Today I learned how important it is to understand where things are coming from. As a team, we worked on setting up redux for the front-end and during our mob programming time, we encountered many roadblocks along the way. One of those roadblocks was a Provider Error we were showing the localhost page and we couldn't figure out wether we needed to use reducers to set up redux, or what to do. We discovered that the reason we couldn't get our data to show up in the console was because in the index.html , we were rendering the main.js page instead of the index.js. When we followed Riley's example in lecture,we forgot that we needed to update index.html as well. 
 
 
 ## January 30, 2024
@@ -226,3 +221,44 @@ Today I worked on:
 As a group, we worked together to complete the CreateCheckinForm.jsx. Users should now have the ability to create a full check-in from the form. We made changes to the create check-in endpoint in the backend to fetch all the data and then distributed that data accordingly to whatever index it belonged to in the return statement. We also gain some valuable experience with GitLab by helping Ramesh troubleshoot some VSC and Gitlab pulling issues. Everyday seems to be challenging but as we continue pushing forward, we are learning more and more how to communicate and work together as a team. 
 
 One ah-ha moment today was when the team was guiding me through a required fields missing error in the survey and rorschach test. Luna and Russ showed me where I could find the payload and how great of a tool the developer tools can be when it comes to error handling. Luna walked me through how the Form pulls from the apiSlice and how you can see in the dev tools that both of the fields we were getting errors from were just missing required fields. After that the error stopped being intimidating because I could see what it was. For the survey, the naming convention in the apiSlice was incorrect because we were calling the variables q1q and in the CreateCheckinForm we were calling the variables q1 so it was not understanding where q1 was.
+
+
+## February 5, 2024
+
+Today I worked on:
+
+* Assisting Luna with starting and writing out the basic Check-In Calendar features.
+* Adding score count total, increment and decrement features to the Check-In Calendar Page.
+* Helping Russ with starting to create and writing out the basic features in the Check-In Details Page.
+* Helping Ramesh troubleshoot GitLab and VSC errors, create volumes and database again and complete code for the Check-In Details Page.
+
+As a group, we worked together to complete the Check-In Calendar Page. Our day consisted of writing the CheckinList.jsx function. We did lots of research on Date Constructors, how to combine the check-ins scores to show a total of the survey question answers and the happy level score. As we get close to completing the project, all the functions are suddenly making a lot more sense and I am enjoying mob programming with my team. The stress starts dialing down a bit. I feel the job-seeking stress sneaking up on me but I won't let it affect me right now. I still have 3 weeks but oh man, 3 WEEKS!! 
+
+I had so many ah-ha moments today but the most memorable one was when Russ showed me that I could select text and wrap it all into parenthesis. That blew my mind. It felt like it was such an obvious thing but so efficient. It helped me save so much time from that time I started using it until I had to get off the screen. 
+
+
+## February 6, 2024
+
+Today I worked on:
+
+* Starting to build the EditCheckinPage.jsx and adding routes to main.
+* Assisting Russ, Ramesh and Luna as Navigator to complete the EditCheckinPage.jsx
+* Completing the get_all_mine api endpoint. 
+
+As a group, we worked on completing the EditCheckinPage.jsx so that users can have the ability to edit their check-ins. This took us most of the morning since we weren't sure how we were going to tackle this process but thanks to Russ' guidance and knowledge, we were able to complete it swiftly and learn a lot during the process. Later after break, we separated into pair programming teams so that Ramesh and I could complete the unit testing for the get_one and get_all_mine api endpoints while Luna and Russ worked on completing the MainPage.jsx . 
+
+One ah-ha moment for today was when working on the unit test for the get_all_mine fastapi endpoint. I learned so much about asserts and creating mock data as well as whats coming from where during this process by having some hands on practice after the class was over.  I had to troubleshoot so much because I did not understand where things where coming from until I saw them break. I believe this is the best way to learn something, by fixing it when its broken and hopefully I get lots of practice doing that in my future job. Feeling comfortable with this subject makes me feel confident and excited to help Ramesh tomorrow as we tackle his get_one endpoint together!
+
+
+## February 6, 2024
+
+Today I worked on:
+
+* Assisting Ramesh with creating his unit test for the get_one_check_in.
+* Coding the error handling for the update_checkin function in the routers and queries. 
+* Assigning README.md sections for each team member to be responsible for.
+* Creating merge requests to merge unit testing branches to testing and then main. 
+
+Today we decided to split into two teams and work on different sides of the application to close certain GitLab issues. Ramesh and I worked on the error handling in the backend for the update_checkin and the get_one_check_one while Russ and Luna worked on the frontend figuring out the calendar view. As we get closer and closer to the end of this project, I look back and reflect on certain interactions with another one of my team members and even though I did not take note of this interaction in my journal to main this project journal space professional, they did on theirs and this is incredibly disappointing as it was meant to be a confidential conversation and remain between us. When I discovered this, I was shocked but not surprised as it was to be expected. I'm only writing about this experience here now because I appreciate good and bad experiences during these stressful times and whether someone adds or takes from the stress, it is important to remain professional because the job still has to be done. I am aware that this is not a foreign concept in the workforce so reflecting on these group project experiences, I am grateful to have learned so much from the good and bad ones. 
+
+Helping Ramesh build his unit test today really helped me solidify my unit testing knowledge. Walking him through understanding where the code comes from and why it should go where it goes was such an awesome experience for me and I'm glad he was able to grasp a better understanding of how unit tests work. When we finished his unit test, we took a crack at the update_checkin and get_one_check_in error handling issue and we found that to be a bit confusing. We did some research on how to implement FastAPI HTTPException errors and took turns coding out the solutions and after finally getting the get_one_check_in to work, we went to do the same for the update and we could not figure out how to bring the account's id to be verified so that users can only update check-ins that belong to them. We came back to the room for the our daily wrap-up and the rest of the team walked Ramesh and I through how to do that for the router and the queries method. It was really cool to walk through it and understand how to implement this correctly.

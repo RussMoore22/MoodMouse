@@ -24,7 +24,7 @@ Goals:
 6. query request for posting an account into the db
 We were able to get to finish goals 1-4, which was great progress.
 
-'Aha moment': we played around with the pydantic arguments for the post-route for create_account and saw the response within Swagger. removing the pydantic argument got rid of the example input-JSON.
+Aha-moment: we played around with the pydantic arguments for the post-route for create_account and saw the response within Swagger. removing the pydantic argument got rid of the example input-JSON.
 
 I was writing the code with Ramesh and Jenn as navigators and Luna as the facilitator. The team was able to get through developing a create_accounts route. I was able to show the team how to set up the postgreSQL extension within VSCode. The team had a small hiccup with git merging pipeline issues. we decided we will put all code into a linter before the commit that gets merged into testing/main to avoid this issue in the future.
 
@@ -52,7 +52,7 @@ all the information away to my group and allow them to figure it out while I gui
 
 I allowed the driver to design the migrations the way the decided without too much influence, and she came up with a great idea: using a smaller data-type in the sql database for certain columns so that we are allocating less space.
 
-Ah-ha moment: the sql entry made using Psycopg pool connection allows for to arguments - one for sql code in a string and the other for variables assigned to the “%s”, which the .execute method allows for.
+Aha-moment: the sql entry made using Psycopg pool connection allows for to arguments - one for sql code in a string and the other for variables assigned to the “%s”, which the .execute method allows for.
 
 We had an issue when loading our docker containers - psycopg connection failed. the docker container for Fast-api needs to be manually run everytime we run docker compose up. we would like to figure out how to resolve this issue.
 
@@ -78,7 +78,7 @@ We had a conversation about how we should write the migrations SQL code concerni
 
 We had to abandon the duplicate account issue for now, as our first attempt was not sucessful and the team wanted to move on. I am planning on looking into this on my own.
 
-Aha- the volumes in docker must be deleted and rebuilt whenever a migration is changed. however, a change to tables in the database can be made without changing a migration but instead creating a new migration that uses the the “ALTER TABLE” keyword.
+Aha-moment the volumes in docker must be deleted and rebuilt whenever a migration is changed. however, a change to tables in the database can be made without changing a migration but instead creating a new migration that uses the the “ALTER TABLE” keyword.
 
 we added an “updated_date” to our check-in model in case the user makes a change. we may want to display that data.
 
@@ -150,7 +150,7 @@ the team brought up a few concerns:
 3. Jenn brought up a concern that I am being used as a resource too much when it comes to git related issues and that it is not allowing others in the team to learn git on their own. She wants each member of the team to try and figure out the issue for themselves first and then go to a SEIR since they have better experience with teaching than I do. I agreed to hold myself back and allow the team to go through issues that arise without getting too involved. I expressed my concern that the main branch must be protected but I want them to explore git and get more experience. Ramesh brought up the idea of creating a seperate "practice" branch or even a seperate project to get more familiar.
 4. When reviewing a merge request from Luna and Jenn, I noticed that some code that I wrote had been changed. I was suprised to see this, as it was not in scope of the tasks Luna and Jenn were supposed to work on the day before. I brought up the change and explained why I had originally designed it the way I did and how the refactor that was made was less efficient. Additionally, I was not aware when going over the goals on the day they did this that my code would be changed. I brought this up to the team and we started to list out issues to write in. It went very well and I felt like we were starting to get organized.
 
-Aha Moment:
+Aha Moment: Merge conflicts can be solved in GitLab in an intermediary branch, then tested, then merged to main. Doing merges this way will mean all conflicts are handled in the testing branch.
 
 
 
@@ -215,3 +215,36 @@ Goals:
 We finished all of our goals for the day, since I was able to look into the issues we were having the night before. I was able to allow my teammates to drive while I gently guided them. I didn't want them to miss out on the learning opportunity of sdolving the useState for themselves, so I tried my best not to interject much. I was periodically asking questions of those not participating as much and tried to keep engagement high. Once we got the schema corrected, everyone rebuilt their volumes at the same time for time efficiency.
 
 Aha-Moment: VS-Code sometimes will not refresh to the files that currectly exist in its directory. check using another text application such as nano. this will ensure that it is not a git issue.
+
+## February 05, 2024
+
+Goals:
+1. Create the Checkin Calendar page
+2. Create the details page
+
+We finished the goals for the day and were on track for finishing the project. We have an issue with one teammember's VS Code. There are periods of time where a git commit will not update it even after a hard refresh. This has caused many issues. The group has decided to not make me reviewer for every merge request like they had been doing in the past. They beleive it will reflect poorly on their grades and so we made the decision to spread the work out evenly. however, this has made merging conflicts a larger issue in our group, since not everyone is comfortable with resolving them as they arise. We have decided as a group that the merge reviews will still be evenly distributed but that we will only make branches from the most up to date code to avoid merge conflicts.
+
+Aha Moment: destructuring in javascript using curly brackets allows you to make an alias, which helps when you are doing a lot of destructuring of functions calls with similar outputs.
+
+
+## February 06, 2024
+
+Goals:
+1. Create the edit one check-in page
+2. Create the home page
+
+Finished the edit page and had to slow down and get help from two of the group mates that were not absorbing the information. talking through the information is beneficial to everyone, so I didnt mind walking through the code slowly. When our team gets to a bug, we ask the navigators to participate in handling the resolution even when we already know what the issue is so that everyone is up to speed and learns from it. It is getting difficult to do this since the pressure of getting the project finished on time is growing. I can feel a bit of stress from some of the team and the priority for getting the project completed is starting to outway the priorty to learn.
+
+Aha Moment: Using a console log after a setState will occur before the state is even set. it is more helpful to use a console log in a useEffect to catch when the state has actually changed to perform certain actions with the state to ensure it has been changed first. Also, if statements can go inside of the function for useEffect hooks.
+
+## February 07, 2024
+
+1. finish the calendar view
+2. fix unit testing code (since changes were made to models)
+3. add error handling to get_one endpoints
+
+We broke up into two groups of two for pair programming today, which ended up allowing us to be much more productive. Luna and I worked on front end (calendar view) while our other two teamates worked on the backend (error handling for get_one error handling).
+
+Luna and I made great progress on the calendar view. To ensure our success, we drew out a more detailed wireframe of that page and discussed what shape our data needed to take to get something that resembled a calendar. We started by getting all the checkins and filtering them for the given month. We added them to an array and filled in the days where no checkin was completed for that day with a dummy object. the dummy objects allowed a dummy card to be created in html and were were able to get a 7x6 grid of days that corresponded to the correct weekday.
+
+Aha-moment: we created some dummy checkin data, and didnt realize why when we changed one, certain parameters of the others would change. it wasnt clear right away, but this dummy data was depending on the same surveys and made it seem like the edit endpoint was causing more than one to be changed.

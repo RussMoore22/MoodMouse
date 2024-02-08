@@ -255,3 +255,50 @@ A-Ha moments:
 
 -   Hooks and custom hooks are not allowed to be used in conditional statements, loops, or nested functions. This restriction exists because hooks rely on the order of execution to maintain state between renders, and placing them inside conditional statements or loops can result in unexpected behavior.
 -   It is allowed to have multiple useEffects in one functional component, and each will be executed independently of the others.
+
+### Feb 5, 2024
+
+-   completed part of basic functionality for the check-in calendar page and assisted with debugging - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the basic function for the check-in calendar page. This includes listing the date and mood score for the user, and implementing the ability to filter the user's check-ins by the selected date.
+2. We also finished the basic function for the check-in detail page. This page displays the mood score, date, survey answers and questions, journals, and responses for Rorschach tests.
+
+What I contributed to today, with the help of my team members, was building the basic functionality for the check-in calendar page. I integrated API calls into the apiSlice, retrieving all check-ins from the backend API endpoint. I utilized the JavaScript map function to display the retrieved data, and implemented routers and NavLink to facilitate navigation to the check-in calendar page. Although we didn't complete the feature to visually represent the check-in list as a calendar, as we anticipated it might take longer than expected, we decided to proceed with building the basic functionalities for other required pages and plan to revisit and complete the check-in calendar feature later.
+
+A-Ha moments:
+
+-   I learned that when handling dates in JavaScript, '0' represents January, and the setMonth() method can accept numbers greater than 11 (December) or less than 0. As the month number changes, JavaScript automatically adjusts the corresponding year as necessary. For instance, setMonth(12) would represent January of the next year, and setMonth(24) would be January of 2026. Similarly, setMonth(-12) would represent January of 2023. It's quite fascinating.
+-   I also learned that dates can be compared directly in JavaScript. However, it's important to note that dates retrieved from the backend are in string format, so they need to be converted to Date objects before comparison with another date object.
+
+### Feb 6, 2024
+
+-   finished part of updating the information page for the check-in and also helped debug on the main page - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the update functionality for the check-in page.
+2. We began work on the main page and integrated inspirational quotes from a third-party API.
+
+My focus today, with the assistance of my team members, was on further developing the update functionality for the check-in page. I utilized update functions provided by custom hooks created using Redux and apiSlice by my team member. I passed the necessary values into the functions to update the check-in as the request body for the PUT endpoint. Firstly, I updated the survey, followed by the rorschach_test. After updating these two, I utilized the editcheckin() from the custom hook to update the final check-in object. Additionally, I made modifications to some parts of the apiSlice to handle errors. Upon completing the update page, I implemented navigation functionality to allow users to edit their corresponding check-ins by clicking on the detail page.
+
+A-Ha moments:
+
+-   I learned that encountering a "render too many hooks" error is often caused by an early if-statement in React.
+-   I discovered the importance of using React extensions to check the local status of state variables, as updating states or changing their values may cause delays and not immediately reflect in console.log() outputs.
+-   I also learned that using {data.author?.split(",")} is a concise way to check if the author exists and perform an action like splitting by a comma. Previously, I thought the only way to achieve this was by using {data.author ? data.author.split(",") : undefined}, which includes an "else" statement. However, {data.author?.split(",")} is clearer and more readable, especially when an else statement is unnecessary
+
+### Feb 7, 2024
+
+-   Built part of the check-in calendar and helped with debugging - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the check-in calendar that shows the list of check-ins that users created for each month in a calendar
+
+Today we were divided into two groups again. Jenn and Ramesh worked on error handling on the backend and unit tests, while Russ and I worked on building the calendar page for the check-in list. The functionality of the calendar page is to display a list of check-ins that the user creates per month in a calendar. The color of each date dynamically changes based on the mood score that the user assigns to themselves. When the user clicks on a date, it navigates them to the corresponding detail page where they can see more details or edit the check-in if desired. We began by drafting how to implement this feature. We decided to use cards to display each date and to create a fixed number of cards (48 cards) per month, including the start date and end date of the current month. Since the start date and end date change dynamically each month, the remaining cards represent spaces for these changes and display dates from the previous month and dates from the next month if they are not filled in with dates from the current month. We used a matrix to display these cards in rows of 7 cards each, allowing each row to start from Sunday to Saturday. Finally, we implemented dynamic color changes for the cards based on the mood score of the user on that day. The lower the mood score, the lighter the color. Additionally, we added functionality to navigate users to different detail check-in pages when they click on a date. Specifically, I worked on building the part of functionality for the check-in calendar page with the help from Russ, including dynamic color changes on the dates, navigating users to different pages, and displaying dates on cards. We were soooo proud to have built the calendar from scratch and made it function as expected!
+
+A-Ha moments:
+
+-   I learned that there seems to be no direct way in Bootstrap to set the number of rows and columns to display items other than by using the width of the items. For displaying rows of fixed columns, the alternative method was to use a matrix
