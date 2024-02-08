@@ -188,6 +188,17 @@ export const moodmouseApi = createApi({
             },
             invalidatesTags: ['Checkins'],
         }),
+
+        deleteCheckin: builder.mutation({
+            query: (info) => {
+                return {
+                    url: `/api/checkins/${info.checkin_id}`,
+                    method: 'DELETE',
+                    credentials: 'include'
+                }
+            },
+            invalidatesTags: ['Checkins']
+        })
     }),
 })
 
@@ -206,4 +217,5 @@ export const {
     useEditOneCheckinMutation,
     useEditOneSurveyMutation,
     useEditOneRorschachTestMutation,
+    useDeleteCheckinMutation,
 } = moodmouseApi
