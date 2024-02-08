@@ -1,14 +1,8 @@
-import { Link, NavLink } from 'react-router-dom'
-import {
-    useGetTokenQuery,
-    useLogoutMutation,
-    useSignupMutation,
-} from './app/apiSlice'
+import { NavLink, Navigate } from 'react-router-dom'
+import { useGetTokenQuery, useLogoutMutation } from './app/apiSlice'
 
 function Nav() {
     const { data: account } = useGetTokenQuery()
-    console.log({ account })
-
     const [logout] = useLogoutMutation()
 
     return (
@@ -17,22 +11,7 @@ function Nav() {
                 <NavLink className="navbar-brand" to="/">
                     MoodMouse!
                 </NavLink>
-                <NavLink className="navbar-brand" to="/login">
-                    Log In
-                </NavLink>
-                <NavLink className="navbar-brand" to="/signup">
-                    Sign up
-                </NavLink>
-                <NavLink className="navbar-brand" to="/create">
-                    Create a Check In
-                </NavLink>
-
-                <NavLink className="navbar-brand" to="/calendar">
-                    Check In Calendar
-                </NavLink>
-
                 <button
-                    onClick={logout}
                     className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -41,14 +20,55 @@ function Nav() {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    {' '}
-                    Logout
+                    Menu
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div
                     className="collapse navbar-collapse"
                     id="navbarSupportedContent"
-                ></div>
+                >
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        {!account && (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/login">
+                                        Log In
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/signup">
+                                        Sign up
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+                        {account && (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/create">
+                                        Create a Check In
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link"
+                                        to="/calendar"
+                                    >
+                                        Check In Calendar
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <button
+                                        onClick={logout}
+                                        className="btn btn-outline-danger"
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </div>
             </div>
         </nav>
     )
