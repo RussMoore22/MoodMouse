@@ -30,8 +30,13 @@ class QuestionQueries:
 class SurveyQueries:
     def create(self, info: SurveyIn) -> Union[SurveyOut, Error]:
         question = QuestionQueries()
-        qs = [question.get_one(info.q1), question.get_one(info.q2), question.get_one(
-            info.q3), question.get_one(info.q4), question.get_one(info.q5)]
+        qs = [
+            question.get_one(info.q1),
+            question.get_one(info.q2),
+            question.get_one(info.q3),
+            question.get_one(info.q4),
+            question.get_one(info.q5),
+        ]
         for q in qs:
             if isinstance(q, Error):
                 return q
@@ -96,8 +101,13 @@ class SurveyQueries:
     ) -> Union[SurveyOut, Error]:
         try:
             question = QuestionQueries()
-            qs = [question.get_one(info.q1), question.get_one(info.q2), question.get_one(
-                info.q3), question.get_one(info.q4), question.get_one(info.q5)]
+            qs = [
+                question.get_one(info.q1),
+                question.get_one(info.q2),
+                question.get_one(info.q3),
+                question.get_one(info.q4),
+                question.get_one(info.q5),
+            ]
             for q in qs:
                 if isinstance(q, Error):
                     return q
