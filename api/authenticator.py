@@ -2,9 +2,7 @@ import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
 from queries.accounts import AccountsQueries
-from models import (AccountIn,
-                    AccountOutWithHashedPassword,
-                    AccountOut)
+from models import AccountIn, AccountOutWithHashedPassword, AccountOut
 
 
 class MoodMouseAuthenticator(Authenticator):
@@ -29,8 +27,9 @@ class MoodMouseAuthenticator(Authenticator):
         # account object
         return account.hashed_password
 
-    def get_account_data_for_cookie(self,
-                                    account: AccountOutWithHashedPassword):
+    def get_account_data_for_cookie(
+        self, account: AccountOutWithHashedPassword
+    ):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return account.username, AccountOut(**account.dict())

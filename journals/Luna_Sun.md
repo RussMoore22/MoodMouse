@@ -111,3 +111,194 @@ What I worked on was updating the survey's data and returning a response that in
 A-Ha moments:
 
 -   Learned that if the remote repository in GitLab shows updated changes but the local repository doesn't seem to catch those changes even after pulling changes from the remote, the possible reason might be local. We had this issue today, and to solve it, we found that we basically just needed to restart VSCode.
+
+### Jan 24, 2024
+
+Today, I worked on:
+
+-   Building the delete method for the check-in API endpoint and also helped my partner, Jenn, to build the put method for the check-in API endpoint - Navigator and Driver.
+
+Features that our team build for today:
+
+-   We built Delete endpoint for Checkin
+-   We built Put endpoint for Checkin
+-   We also built a function that can handle the foreign key object for checkin
+
+Today, I am paired with Jenn, and we are working on building the delete and put functionality for our check-in model. Our team decided that Jenn and I would work on the check-in related files, while Russ and Ramesh would work on error handling for all the endpoints that we have built for other files, to reduce the likelihood of merge conflicts.
+
+What I worked on is building the delete endpoint for check-in, and I finished it very quickly. Then, I worked on building the function to create a Rorschach test foreign key object by using SQL joins to return a Rorschach test object, and used this object to create the check-in object. I also helped my teammate, Jenn, in building the put endpoint for check-in. I assisted her in figuring out what needs to be updated and what does not, discussing and ensuring what the request body would look like.
+
+A-Ha moments:
+
+-   I learned that when building the foreign key object, using JOINs to build a more complex foreign key object would be more beneficial in terms of performance. What I used to do was create a function to connect to the database and then get the object without using JOIN, and in case I need information from two tables, I would create two functions to call each table, get the data I want, and then create the foreign key object. However, this way seems inefficient because it means that every time I want to create a complex object, I may need to connect to the database multiple times. If I use JOINs, I may only need to connect to the database once so that all the information I want can be extracted. This may not affect the application when it's small, but it would seem to have more potential performance issues if the application grows large. I really appreciate having learned this from Russ, and I never thought about this before. I am glad I have learned something new today.
+
+### Jan 25, 2024
+
+Today, I worked on:
+
+-   Completed the issues account_data_authentication and removed the duplicated functions - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the issue account_data_authentication
+-   Removed the duplicated functions
+-   Removed redundant Error classes
+-   Made migrations to store some data needed for the application
+
+Today, I am paired with Russ, and since the other team is working on the last endpoint, we decided to fix some remaining issues on the issue board. Russ drove the process of making migrations to store the data needed for the application, removed redundant Error classes, and fixed most of the Pydantic issues that we hadn't addressed in our application.
+
+I worked on adding an authentication router for getting a token and outputting the user object with the user's information. I also drove the effort to ensure that all endpoints can only be accessed by the logged-in user. Additionally, I made some modifications to the existing endpoint functions to include the account_data. Afterward, I removed the functions I had written earlier, which were different from Russ's but functioned the same. We discussed which approach was better, and with Russ's help, I realized that mine might cause potential performance issues as the application grows larger. Therefore, I decided to keep the one Russ made, as it is more efficient, and removed the one I had created to avoid having two functions doing the same thing.
+
+A-Ha moments:
+
+-   I learnd that git pull combines two things: one is git fetch and the other is git merge.
+
+### Jan 26, 2024
+
+Today, I worked on:
+
+-   Completed the unit testing- Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the GET one API endpoint for check-in
+-   Completed two unit tests for both PUT and POST endpoints for check-in
+
+Today, I am paired with Russ, and the other team is working on the GET one API endpoint for check-in. We completed two unit tests for check-in. Russ made a POST unit test, and I made a PUT unit test. Later on, we helped the other team figure out and fix the potential error for the GET one check-in endpoint.
+
+Since there is a social hack hour, we haven't done many things today. What I did is write the unit test for the PUT endpoint for check-in. I created different fake foreign key objects and fake JSON responses to test if the endpoint works as expected. I made sure that the authentication and queries are overridden to make the unit test completely isolated. Finally, I cleaned up the overrides to prevent potential errors that may happen in other unit tests.
+
+A-Ha moments:
+
+-   I learned that python -m pytest should be run in the Docker container, not in the terminal
+-   I learned that in unit tests, the fake request body should be in dictionary format rather than in an object or JSON
+-   I learned that using \*args to create a function can allow the function to be called with an unlimited number of parameters passed in
+
+### Jan 29, 2024
+
+Today, I worked on:
+
+-   Fixed errors in frontend authentication getToken and helped my partner in building unit test 003 - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed getToken using Redux
+-   Created unit test 003 to test the get_all endpoint
+-   Finished error handling for check-ins
+
+Today, I was paired with Jenn, but we initially worked on creating getToken using Redux as a group of four. We encountered several issues while configuring Redux, which were ultimately resolved with help from the team. Especially, Russ fixed an issue where Vite continued showing an error message related to "react-redux". It turned out to be an issue with our baseURL and also index.html. We changed the name of index.jsx to main.jsx but forgot to update "<script type="module" src="/src/main.jsx"></script>" to link to main.jsx.
+
+During the Redux session, I drove for the part where we tried to debug react-redux for about 1.5 hours. I attempted to fix the bug in the group but couldn't figure it out. However, with continued testing and attempts, we eventually resolved it, and I learned a lot from that experience! While pairing with Jenn, my main contribution was helping her build unit test 003 whenever she needed clarification on certain aspects. We haven't finished everything and plan to complete it tomorrow.
+
+A-Ha moments:
+
+-   I learned that for Redux, if we've checked everything and are sure that the code is correct but there still seems to be an error, one way to solve it is by trying to rebuild the Docker container because sometimes it might not be recognized if some environmental variables or dependencies have changed.
+
+### Jan 30, 2024
+
+Today, I worked on:
+
+-   Completed the login page for the frontend authentication - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed login page
+-   Completed signup page
+-   Completed logout page
+-   Created a new router to store all our routers there
+
+Today, our team engaged in mob programming, switching off every hour. We successfully completed the login, signup, and logout pages for our frontend authentication. Additionally, we created a new router to manage all of our child routers.
+
+My contributions for today included creating a login page based on the recording and assisting other team members with debugging when needed. I designed a new login form page, established new states to store usernames and passwords, and passed this data into our API function in the apiSlice. The data was stored in an info object, from which I created a formData. This formData was then sent to the endpoint to log in the user, resulting in a successful operation. I also made several discoveries while other team members were driving.
+
+A-Ha moments:
+
+-   I learned that when sending a request body in the apiSlice, the data needs to be in dictionary format, not as an instance from the FormData object
+-   I learned that to use child routers, we need to add <Outlet /> in our App.jsx as a parent router.
+
+### Jan 31, 2024
+
+Today, I worked on:
+
+-   Built part of the createCheckinForm and helped my teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+-   Completed the majority of createCheckinForm, including displaying Rorschach images and questions when the user first loads the page and creating the form that allows the user to submit the form, which then sends the data to the POST endpoint to create the corresponding object
+
+Today, our team is working on creating the createCheckinForm to collect the required data from the user and send it to the POST endpoint to create the object and return the JSON response for future use. Since we are using apiSlice to handle all API calls, we first created the queries in the apiSlice, including a mutation to create a survey object, a mutation to create a Rorschach test, and a mutation to finally create a checkin with survey and Rorschach test objects as foreign key objects. We also created two get queries for displaying the Rorschach images and survey questions for users to look at and answer. We have successfully created the survey and Rorschach test objects using custom hooks and action functions from the custom hooks. However, we were unable to get the checkin created using the same method. We have tried to debug for over one and a half hours but still could not fix it, and we finally decided to take a break and continue debugging tomorrow.
+
+My contribution, with the help of the group, for today was to call the custom hook created in apiSlice to display the survey questions. I checked the data to display it after it was successfully loaded, and I also helped with debugging. Previously, we encountered a problem that we were unable to display the Rorschach images when the user first loaded the page. We built a button that was used to generate different images after the user clicked the button, but we wanted to also display a random image when the user first loaded the page. I tried to use the useEffect() to display the image and also set the dependency of the useEffect() to be Rorschach images data that we received from the custom get hook to ensure that the initial image will only be loaded once and will only be re-rendered when we have changes in our Rorschach images tables in the database.
+
+A-Ha moments:
+
+-   I learned that although the date format is displayed like a string on the backend, it is actually a date object rather than just a string and might not be accepted if we simply pass that date as a string to the backend to create the data.
+-   I felt that everything about Redux is starting to click, and I finally can get more sense of why Redux is complicated in configurations but will be very powerful and easy to use in displaying data and manipulating data.
+
+### Feb 1, 2024
+
+-   fixed the issues related to checkin object creation and helped teammates debug - Navigator and Driver.
+
+Features that our team build for today:
+
+1.  We fixed the issue related to creating the survey object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+2.  We addressed the issue related to creating the Rorschach tests object on the frontend, ensuring that the 'info' parameter in apiSlice can successfully capture the data from the frontend form and send it to the endpoint as a request body.
+3.  We resolved the issue related to creating the check-in object by using useEffect() to create the object only when the foreign key objects are successfully created.
+4.  We have completed the basic functionality for our Create Check-in Form page.
+5.  We modified the backend queries to exclude the date and updated_date from our request body; it is now automatically created whenever the user creates or updates the data
+
+What I particularly worked on today, with the assistance of my best team members, was fixing the issues related to check-in creation. Previously, we used if-statements to test whether the state of our foreign key objects was successfully created. If the objects were successfully created, we would then create our core and final check-in object. However, we discovered that if we updated the states of the survey and Rorschach tests within the if-statements and created the check-in object right after updating those states, we would likely encounter an error. This was because the state wasn't instantly updated, and we would miss data needed to create the check-in.
+
+With help from Russ, we resolved this issue by using useEffect() instead of if-statements. useEffect() allows us to create our check-in object only when the survey and Rorschach objects are successfully created, meaning their states are successfully updated. Ultimately, we successfully created the check-in object! I wouldn't have been able to solve this issue without the help of my teammates. I am truly proud of our team and thankful for all the help from them!
+
+A-Ha moments:
+
+-   Hooks and custom hooks are not allowed to be used in conditional statements, loops, or nested functions. This restriction exists because hooks rely on the order of execution to maintain state between renders, and placing them inside conditional statements or loops can result in unexpected behavior.
+-   It is allowed to have multiple useEffects in one functional component, and each will be executed independently of the others.
+
+### Feb 5, 2024
+
+-   completed part of basic functionality for the check-in calendar page and assisted with debugging - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the basic function for the check-in calendar page. This includes listing the date and mood score for the user, and implementing the ability to filter the user's check-ins by the selected date.
+2. We also finished the basic function for the check-in detail page. This page displays the mood score, date, survey answers and questions, journals, and responses for Rorschach tests.
+
+What I contributed to today, with the help of my team members, was building the basic functionality for the check-in calendar page. I integrated API calls into the apiSlice, retrieving all check-ins from the backend API endpoint. I utilized the JavaScript map function to display the retrieved data, and implemented routers and NavLink to facilitate navigation to the check-in calendar page. Although we didn't complete the feature to visually represent the check-in list as a calendar, as we anticipated it might take longer than expected, we decided to proceed with building the basic functionalities for other required pages and plan to revisit and complete the check-in calendar feature later.
+
+A-Ha moments:
+
+-   I learned that when handling dates in JavaScript, '0' represents January, and the setMonth() method can accept numbers greater than 11 (December) or less than 0. As the month number changes, JavaScript automatically adjusts the corresponding year as necessary. For instance, setMonth(12) would represent January of the next year, and setMonth(24) would be January of 2026. Similarly, setMonth(-12) would represent January of 2023. It's quite fascinating.
+-   I also learned that dates can be compared directly in JavaScript. However, it's important to note that dates retrieved from the backend are in string format, so they need to be converted to Date objects before comparison with another date object.
+
+### Feb 6, 2024
+
+-   finished part of updating the information page for the check-in and also helped debug on the main page - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the update functionality for the check-in page.
+2. We began work on the main page and integrated inspirational quotes from a third-party API.
+
+My focus today, with the assistance of my team members, was on further developing the update functionality for the check-in page. I utilized update functions provided by custom hooks created using Redux and apiSlice by my team member. I passed the necessary values into the functions to update the check-in as the request body for the PUT endpoint. Firstly, I updated the survey, followed by the rorschach_test. After updating these two, I utilized the editcheckin() from the custom hook to update the final check-in object. Additionally, I made modifications to some parts of the apiSlice to handle errors. Upon completing the update page, I implemented navigation functionality to allow users to edit their corresponding check-ins by clicking on the detail page.
+
+A-Ha moments:
+
+-   I learned that encountering a "render too many hooks" error is often caused by an early if-statement in React.
+-   I discovered the importance of using React extensions to check the local status of state variables, as updating states or changing their values may cause delays and not immediately reflect in console.log() outputs.
+-   I also learned that using {data.author?.split(",")} is a concise way to check if the author exists and perform an action like splitting by a comma. Previously, I thought the only way to achieve this was by using {data.author ? data.author.split(",") : undefined}, which includes an "else" statement. However, {data.author?.split(",")} is clearer and more readable, especially when an else statement is unnecessary
+
+### Feb 7, 2024
+
+-   Built part of the check-in calendar and helped with debugging - Navigator and Driver.
+
+Features that our team build for today:
+
+1. We completed the check-in calendar that shows the list of check-ins that users created for each month in a calendar
+
+Today we were divided into two groups again. Jenn and Ramesh worked on error handling on the backend and unit tests, while Russ and I worked on building the calendar page for the check-in list. The functionality of the calendar page is to display a list of check-ins that the user creates per month in a calendar. The color of each date dynamically changes based on the mood score that the user assigns to themselves. When the user clicks on a date, it navigates them to the corresponding detail page where they can see more details or edit the check-in if desired. We began by drafting how to implement this feature. We decided to use cards to display each date and to create a fixed number of cards (48 cards) per month, including the start date and end date of the current month. Since the start date and end date change dynamically each month, the remaining cards represent spaces for these changes and display dates from the previous month and dates from the next month if they are not filled in with dates from the current month. We used a matrix to display these cards in rows of 7 cards each, allowing each row to start from Sunday to Saturday. Finally, we implemented dynamic color changes for the cards based on the mood score of the user on that day. The lower the mood score, the lighter the color. Additionally, we added functionality to navigate users to different detail check-in pages when they click on a date. Specifically, I worked on building the part of functionality for the check-in calendar page with the help from Russ, including dynamic color changes on the dates, navigating users to different pages, and displaying dates on cards. We were soooo proud to have built the calendar from scratch and made it function as expected!
+
+A-Ha moments:
+
+-   I learned that there seems to be no direct way in Bootstrap to set the number of rows and columns to display items other than by using the width of the items. For displaying rows of fixed columns, the alternative method was to use a matrix

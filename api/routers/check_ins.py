@@ -2,7 +2,9 @@ from fastapi import (
     APIRouter,
     Request,
     Response,
-    Depends
+    Depends,
+    HTTPException,
+    status,
 )
 from models import Check_inIn, Check_inOutList, Check_inOutDetail, Error
 from queries.check_ins import Check_InQueries
@@ -18,7 +20,7 @@ def create_check_in(
     request: Request,
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: Check_InQueries = Depends()
+    repo: Check_InQueries = Depends(),
 ):
     return repo.create(info, account_data)
 
@@ -28,16 +30,16 @@ def get_mine(
     request: Request,
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: Check_InQueries = Depends()
+    repo: Check_InQueries = Depends(),
 ):
     # return repo.get_all_mine(account_data["id"])
     return repo.get_all_mine(account_data)
 
 
-@router.put("/api/checkins/{check_in_id}", response_model=Union[
-    Check_inOutDetail,
-    Error
-])
+@router.put(
+    "/api/checkins/{check_in_id}",
+    response_model=Union[Check_inOutDetail, Error],
+)
 def update_checkin(
     check_in_id: int,
     check_in: Check_inIn,
@@ -45,13 +47,37 @@ def update_checkin(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: Check_InQueries = Depends(),
 ) -> Union[Error, Check_inOutDetail]:
-    return repo.update_checkin(check_in_id, check_in, account_data)
+    updated_checkin = repo.update_checkin(check_in_id, check_in, account_data)
+    if isinstance(updated_checkin, Error):
+        response.status_code = 404
+    else:
+        response.status_code = 200
+    return updated_checkin
+
 
 @router.delete("/api/checkins/{check_in_id}", response_model=bool)
 def delete_checkin(
     check_in_id: int,
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: Check_InQueries = Depends()
+    repo: Check_InQueries = Depends(),
 ) -> Union[bool, Error]:
     return repo.delete(check_in_id)
+
+
+@router.get(
+    "/api/checkins/{check_in_id}",
+    response_model=Union[Check_inOutDetail, Error],
+)
+def get_one_check_in(
+    check_in_id: int,
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: Check_InQueries = Depends(),
+) -> Union[Check_inOutDetail, Error]:
+    check_in = repo.get_one_check_in(check_in_id, account_data)
+    if isinstance(check_in, Error):
+        response.status_code = 404
+    else:
+        response.status_code = 200
+    return check_in
