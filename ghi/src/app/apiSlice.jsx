@@ -78,7 +78,7 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            },
+            }, invalidatesTags: ['Checkins']
         }),
         createSurvey: builder.mutation({
             query: (info) => {
@@ -99,7 +99,7 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            },
+            }, invalidatesTags: ['Checkins']
         }),
         createRorschachTest: builder.mutation({
             query: (info) => {
@@ -112,7 +112,7 @@ export const moodmouseApi = createApi({
                     body: data,
                     credentials: 'include',
                 }
-            },
+            }, invalidatesTags: ['Checkins']
         }),
 
         getAllCheckins: builder.query({
