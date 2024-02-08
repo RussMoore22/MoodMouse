@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useGetAllCheckinsQuery } from './app/apiSlice'
+import { useGetAllCheckinsQuery, useDeleteCheckinMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
 function CheckinsList() {
@@ -9,6 +9,15 @@ function CheckinsList() {
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
     const [calendarCards, setCalendarCards] = useState([])
     const navigate = useNavigate()
+    const [deleteMode, setDeleteMode] = useState(false)
+    const [deleteCheckin, deleteCheckinStatus] = useDeleteCheckinMutation()
+
+    const toggleDeleteMode = () => {
+        setDeleteMode(!deleteMode)
+    }
+    const deleteCard = (event) => {
+        deleteCheckin({checkin_id: event.target.value})
+    }
 
     const handleIncrement = (event) => {
         if (selectDate.getMonth() === 11) {
@@ -141,7 +150,7 @@ function CheckinsList() {
         }
     }
     const handleNavigation = (card) => {
-        if (card.type === 'checkin') {
+        if (card.type === 'checkin' && !deleteMode) {
             navigate(`/checkins/${card.data.check_in_id}`)
         }
     }
@@ -150,6 +159,9 @@ function CheckinsList() {
     return (
         <>
             <div>
+                <div>
+                    <button onClick={toggleDeleteMode}>delete mode</button>
+                </div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
                     <div className="flex-fill bd-highlight">
@@ -204,6 +216,10 @@ function CheckinsList() {
                                             <div className="card-header">
                                                 {card.date}
                                             </div>
+                                            <h6 className="card-title">
+                                                {/* {card.data?.happy_level} */}
+                                            </h6>
+                                            { (card.type === 'checkin') && (deleteMode) && <button value={card.data.check_in_id} onClick={deleteCard}>delete</button>}
                                         </div>
                                     </div>
                                 )
