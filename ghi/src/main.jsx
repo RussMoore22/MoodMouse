@@ -12,6 +12,7 @@ import CreateCheckinForm from './CreateCheckinForm'
 import CheckinCalendar from './CheckinCalendar'
 import DetailCheckin from './DetailCheckin'
 import EditCheckinForm from './EditCheckinForm'
+import ErrorNotification from './ErrorNotification'
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: "/checkins/:checkin_id/edit",
                 element: <EditCheckinForm />
+            },
+            {
+                path: "*",
+                element: <ErrorNotification error="Whoops! Where'd you go?!"/>
             }
         ]
     },
