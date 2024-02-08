@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import CarouselComponent from './CarouselComponent';
 
 
  function Home() {
@@ -34,10 +35,11 @@ import React, { useState, useEffect } from 'react'
         <div>
             <h3>{data.text}</h3>
             <h4>-{ data.author.split(',')[0] }</h4>
+            <CarouselComponent/>
 
         </div>
         </>
     )
 }
 
-export default Home
+export default Home;
