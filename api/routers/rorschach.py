@@ -1,6 +1,5 @@
 from fastapi import (
     APIRouter,
-    Request,
     Response,
     Depends,
 )
@@ -12,22 +11,25 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.get("/api/rorschach_imgs", response_model=List[RorschachImageOut])
+@router.get(
+    "/api/rorschach_imgs", response_model=Union[List[RorschachImageOut], Error]
+)
 async def get_rorschach_image(
+    response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachImageQueries = Depends(),
 ) -> Union[List[RorschachImageOut], Error]:
-
-    return repo.get_all()
+    rorschach_img = repo.get_all()
+    if isinstance(rorschach_img, Error):
+        response.status_code = 404
+    return rorschach_img
 
 
 @router.post(
     "/api/rorschach_tests", response_model=Union[RorschachTestOut, Error]
 )
-# Include union of error handling. union: {some error model here}
 async def create_rorschach_test(
     info: RorschachTestIn,
-    request: Request,
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachTestQueries = Depends(),
@@ -47,7 +49,6 @@ async def create_rorschach_test(
 async def update_rorschach_test(
     rorschach_id: int,
     info: RorschachTestIn,
-    request: Request,
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachTestQueries = Depends(),
