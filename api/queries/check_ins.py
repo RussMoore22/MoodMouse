@@ -1,4 +1,3 @@
-from fastapi import HTTPException, status
 from queries.pool import pool
 from typing import Union, List
 from models import (
@@ -107,8 +106,8 @@ class Check_InQueries:
                             )
                         )
                     return check_ins
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(message="could not receive checkin data")
 
     def create(
         self, info: Check_inIn, account: dict
@@ -211,7 +210,9 @@ class Check_InQueries:
         except Exception:
             return Error(message=f"Could not get survey with id {survey_id}")
 
-    def get_one_rorschach(self, rorschach_id: int):
+    def get_one_rorschach(
+        self, rorschach_id: int
+    ) -> Union[RorschachTestOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -279,7 +280,6 @@ class Check_InQueries:
                         happy_level=check_in.happy_level,
                         journal_entry=check_in.journal_entry,
                         survey=self.get_one_survey(check_in.survey),
-                        # Need to work on accessing rorschach
                         rorschach_test=self.get_one_rorschach(
                             check_in.rorschach_test
                         ),
@@ -362,7 +362,8 @@ class Check_InQueries:
                     rec = result.fetchone()
                     if account_data["id"] != rec[1]:
                         return Error(
-                            message="check-in does not belong to currently logged in user."
+                            message="""check-in does not belong
+                              to currently logged in user."""
                         )
                     survey = SurveyOut(
                         survey_id=rec[6],
