@@ -258,6 +258,9 @@ class Check_InQueries:
             account: dict
     ) -> Union[Check_inOutDetail, Error]:
         try:
+            data = self.get_one_check_in(check_in_id=check_in_id, account_data=account)
+            if isinstance(data, Error):
+                return data
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
@@ -267,7 +270,7 @@ class Check_InQueries:
                             , happy_level = %s
                             , journal_entry = %s
                         WHERE check_in_id = %s
-                        RETURNING date, updated_date
+                        RETURNING account, date, updated_date
                         """,
                         [
                             check_in.happy_level,
@@ -276,6 +279,8 @@ class Check_InQueries:
                         ]
                     )
                     data = db.fetchall()[0]
+                    if account["id"] != data[0]:
+                        return Error(message="Check in does not belong to user!")
                     return Check_inOutDetail(
                         check_in_id=check_in_id,
                         account=AccountOut(**account),
@@ -289,7 +294,7 @@ class Check_InQueries:
                             check_in.rorschach_test)
                     )
         except Exception:
-            return {"message": "Could not update that Check In!"}
+            return Error(message="Could not update check-in!")
 
     def delete(self, check_in_id: int) -> bool:
         try:
@@ -396,5 +401,5 @@ class Check_InQueries:
                         rorschach_test=rorschach_test
                     )
                 return check_in
-        except Exception as e:
-            print("you got an error******:", e)
+        except Exception:
+            return Error(message="Could not get check-in!")
