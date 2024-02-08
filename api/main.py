@@ -6,20 +6,17 @@ from authenticator import authenticator
 
 app = FastAPI()
 
-app.include_router(authenticator.router, tags=['Auth'])
-app.include_router(accounts.router, tags=['Auth'])
+app.include_router(authenticator.router, tags=["Auth"])
+app.include_router(accounts.router, tags=["Auth"])
 
 app.include_router(check_ins.router)
-app.include_router(rorschach.router, tags=['Rorschach'])
-app.include_router(surveys.router, tags=['Survey'])
-
+app.include_router(rorschach.router, tags=["Rorschach"])
+app.include_router(surveys.router, tags=["Survey"])
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        os.environ.get("CORS_HOST")
-    ],
+    allow_origins=[os.environ.get("CORS_HOST")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,6 +31,6 @@ def launch_details():
             "week": 17,
             "day": 5,
             "hour": 19,
-            "min": "00"
+            "min": "00",
         }
     }
