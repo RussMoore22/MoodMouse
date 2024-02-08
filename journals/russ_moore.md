@@ -227,7 +227,7 @@ We finished the goals for the day and were on track for finishing the project. W
 Aha Moment: destructuring in javascript using curly brackets allows you to make an alias, which helps when you are doing a lot of destructuring of functions calls with similar outputs.
 
 
-## February 05, 2024
+## February 06, 2024
 
 Goals:
 1. Create the edit one check-in page
@@ -236,3 +236,15 @@ Goals:
 Finished the edit page and had to slow down and get help from two of the group mates that were not absorbing the information. talking through the information is beneficial to everyone, so I didnt mind walking through the code slowly. When our team gets to a bug, we ask the navigators to participate in handling the resolution even when we already know what the issue is so that everyone is up to speed and learns from it. It is getting difficult to do this since the pressure of getting the project finished on time is growing. I can feel a bit of stress from some of the team and the priority for getting the project completed is starting to outway the priorty to learn.
 
 Aha Moment: Using a console log after a setState will occur before the state is even set. it is more helpful to use a console log in a useEffect to catch when the state has actually changed to perform certain actions with the state to ensure it has been changed first. Also, if statements can go inside of the function for useEffect hooks.
+
+## February 07, 2024
+
+1. finish the calendar view
+2. fix unit testing code (since changes were made to models)
+3. add error handling to get_one endpoints
+
+We broke up into two groups of two for pair programming today, which ended up allowing us to be much more productive. Luna and I worked on front end (calendar view) while our other two teamates worked on the backend (error handling for get_one error handling).
+
+Luna and I made great progress on the calendar view. To ensure our success, we drew out a more detailed wireframe of that page and discussed what shape our data needed to take to get something that resembled a calendar. We started by getting all the checkins and filtering them for the given month. We added them to an array and filled in the days where no checkin was completed for that day with a dummy object. the dummy objects allowed a dummy card to be created in html and were were able to get a 7x6 grid of days that corresponded to the correct weekday.
+
+Aha-moment: we created some dummy checkin data, and didnt realize why when we changed one, certain parameters of the others would change. it wasnt clear right away, but this dummy data was depending on the same surveys and made it seem like the edit endpoint was causing more than one to be changed.
