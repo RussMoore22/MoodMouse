@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Construct from './Construct'
 import './App.css'
+import { Outlet } from 'react-router-dom'
+import Nav from './nav'
+import LoginForm from './LoginForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -20,7 +23,7 @@ if (!API_HOST) {
  * This is an example of using JSDOC to define types for your component
  * @typedef {{module: number, week: number, day: number, min: number, hour: number}} LaunchInfo
  * @typedef {{launch_details: LaunchInfo, message?: string}} LaunchData
- * 
+ *
  * @returns {React.ReactNode}
  */
 function App() {
@@ -54,9 +57,11 @@ function App() {
     }, [])
 
     return (
-        <div>
-            <ErrorNotification error={error} />
-            <Construct info={launchInfo} />
+        <div className="container">
+            <Nav />
+            <div className="mt-5">
+                <Outlet />
+            </div>
         </div>
     )
 }
