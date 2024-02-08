@@ -7,7 +7,6 @@ import {
 
 function Nav() {
     const { data: account } = useGetTokenQuery()
-    console.log({ account })
 
     const [logout] = useLogoutMutation()
 
