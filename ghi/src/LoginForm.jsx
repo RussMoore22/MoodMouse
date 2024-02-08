@@ -27,7 +27,6 @@ function LoginForm() {
             navigate('/')
         }
         if (loginStatus.isError) {
-            console.log(loginStatus)
             setErrorMessage(loginStatus.error.data.detail)
         }
     }, [loginStatus])
@@ -43,10 +42,10 @@ function LoginForm() {
             <div className="row">
                 <form id="user-login-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
-                        Welcome back!
+                        <h2>Welcome back!</h2>
                     </div>
                     {errorMessage.length > 0 && (
-                        <div class="alert alert-danger" role="alert">
+                        <div className="alert alert-danger" role="alert">
                             {errorMessage}
                         </div>
                     )}
