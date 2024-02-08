@@ -5,6 +5,8 @@
 | :---:   | :----:       | :----:   | :----:   |
 | prompt  | varchar(300) | yes      | no       |
 
+The questions entity contains the data used in the surveys given to the user daily.
+
 #### surveys
 | name   | type                   | unique | optional |
 | :---:  | :----:                 | :----: | :----:   |
@@ -18,6 +20,8 @@
 | q4_ans | int                    | yes    | no       |
 | q5     | reference to questions | yes    | no       |
 | q5_ans | int                    | yes    | no       |
+
+The survey entity is given to a user daily when 
 
 #### rorschach_imgs
 | name   | type           | unique   | optional |
