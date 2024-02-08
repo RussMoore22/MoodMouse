@@ -11,7 +11,6 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 function CreateCheckinForm() {
-
     const [happyLevel, setHappyLevel] = useState('')
     const [survey, setSurvey] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
@@ -32,9 +31,9 @@ function CreateCheckinForm() {
     const [createRorschachTest, rorschachStatus] =
         useCreateRorschachTestMutation()
     const { data: rorschach_imgs, isLoading: r_isLoading } = useGetImagesQuery()
-    const { data: checkinList, isloading: checkinListIsLoading } = useGetAllCheckinsQuery()
+    const { data: checkinList, isloading: checkinListIsLoading } =
+        useGetAllCheckinsQuery()
     const navigate = useNavigate()
-
 
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -117,35 +116,42 @@ function CreateCheckinForm() {
                 survey,
                 rorschachTest,
             })
-            navigate('/calendar')
         }
     }, [survey, rorschachTest])
 
     useEffect(() => {
-        if (!(rorschach_imgs===undefined)){
-        getRandomRorschachImg()
+        if (checkinStatus.isSuccess) {
+            navigate('/calendar')
+        }
+    }, [checkinStatus])
+
+    useEffect(() => {
+        if (!(rorschach_imgs === undefined)) {
+            getRandomRorschachImg()
         }
     }, [rorschach_imgs])
 
     // finds checkin for current day and if it exists, reoutes to the edit page
-    useEffect(() =>{
+    useEffect(() => {
         const today = new Date()
-        if (!(checkinList===undefined) && !checkinListIsLoading) {
+        if (!(checkinList === undefined) && !checkinListIsLoading) {
             console.log(checkinList)
-            const checkinToday = checkinList
-            .find(checkin =>
-                (
-                ((new Date(checkin.date)).getFullYear() === today.getFullYear()) &&
-                ((new Date(checkin.date)).getMonth() === today.getMonth()) &&
-                ((new Date(checkin.date)).getDate() === today.getDate())
-                )
+            const checkinToday = checkinList.find(
+                (checkin) =>
+                    new Date(checkin.date).getFullYear() ===
+                        today.getFullYear() &&
+                    new Date(checkin.date).getMonth() === today.getMonth() &&
+                    new Date(checkin.date).getDate() === today.getDate()
             )
-            console.log("here is the checkin for today if it exsists: checkinToday")
-            if (checkinToday === undefined){
-                console.log("no checkin for day")
-            }
-            else {
-                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+            console.log(
+                'here is the checkin for today if it exsists: checkinToday'
+            )
+            if (checkinToday === undefined) {
+                console.log('no checkin for day')
+            } else {
+                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+                // navigate(`/calendar`)
+                console.log("aha")
             }
         }
     }, [checkinList])

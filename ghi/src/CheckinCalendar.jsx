@@ -120,7 +120,7 @@ function CheckinsList() {
         if (!(checkins === undefined)) {
             MakeCardList()
         }
-    }, [isLoading, startDate])
+    }, [checkins, startDate])
 
     const dateColor = (card) => {
         if (card.type === 'blank') {
@@ -146,39 +146,44 @@ function CheckinsList() {
         }
     }
     if (isLoading) return <div>Loading...</div>
-    // console.log(checkins)
 
     return (
         <>
             <div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
-                    <div className="flex-fill bd-highlight" >
+                    <div className="flex-fill bd-highlight">
                         <button onClick={handleDecrement}>Decrement</button>
-                        </div>
-                    <div className="flex-fill bd-highlight" >
+                    </div>
+                    <div className="flex-fill bd-highlight">
                         <h3>{getMonthYearName(selectDate)}</h3>
-                        </div>
-                    <div className="flex-fill bd-highlight" >
+                    </div>
+                    <div className="flex-fill bd-highlight">
                         <button onClick={handleIncrement}>Increment</button>
-                        </div>
+                    </div>
                 </div>
 
                 <div className="d-flex bd-highlight justify-content-around">
-                    <div className="flex-fill bd-highlight" ><h6>Sunday  </h6></div>
-                    <div className="flex-fill bd-highlight" ><h6 >Monday</h6></div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Tuesday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Sunday </h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Wednesday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Monday</h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Thursday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Tuesday</h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>Friday</h6></div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Saturday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Wednesday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Thursday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Friday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Saturday</h6>
                     </div>
                 </div>
                 {calendarCards.map((cardRow) => {
@@ -199,9 +204,6 @@ function CheckinsList() {
                                             <div className="card-header">
                                                 {card.date}
                                             </div>
-                                            <h6 className="card-title">
-                                                {/* {card.data?.happy_level} */}
-                                            </h6>
                                         </div>
                                     </div>
                                 )
