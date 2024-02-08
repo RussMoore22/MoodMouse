@@ -11,7 +11,6 @@ import React, { useState, useEffect } from 'react'
         'https://images.pexels.com/photos/624015/pexels-photo-624015.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     ]
 
-
     const [data, setData] = useState({})
     const url = 'https://type.fit/api/quotes'
     const numGen = () => {
@@ -34,65 +33,29 @@ import React, { useState, useEffect } from 'react'
     }
     return (
         <>
-            <div
-                id="carouselControls"
-                className="carousel slide"
-                data-ride="carousel"
-            >
+            <div id="carouselControls" className="carousel slide" data-ride="carousel">
                 <div className="carousel-inner">
-                    <div class="carousel-item active">
-                        <img
-                            class="d-block w-100"
-                            src={images[0]}
-                            alt="First slide"
-                        />
-                    </div>
-                    <div className="carousel-item">
-                        <img
-                            className="d-block w-100"
-                            src={images[1]}
-                            alt="Second slide"
-                        />
-                    </div>
-                    <div className="carousel-item">
-                        <img
-                            className="d-block w-100"
-                            src={images[2]}
-                            alt="Third slide"
-                        />
-                    </div>
+                    {images.map((image, index) => (
+                        <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                            <img className="d-block w-100" src={image} alt={`Slide ${index}`} />
+                        </div>
+                    ))}
                 </div>
-                <a
-                    className="carousel-control-prev"
-                    href="#carouselControls"
-                    role="button"
-                    data-slide="prev"
-                >
-                    <span
-                        className="carousel-control-prev-icon"
-                        aria-hidden="true"
-                    ></span>
+                <a className="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="sr-only">Previous</span>
                 </a>
-                <a
-                    className="carousel-control-next"
-                    href="#carouselControls"
-                    role="button"
-                    data-slide="next"
-                >
-                    <span
-                        className="carousel-control-next-icon"
-                        aria-hidden="true"
-                    ></span>
+                <a className="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="sr-only">Next</span>
                 </a>
             </div>
             <div>
                 <h3>{data.text}</h3>
-                <h4>-{data.author.split(',')[0]}</h4>
+                <h4>-{data.author?.split(',')[0]}</h4>
             </div>
         </>
-    )
+    );
 };
 
 export default Home;
