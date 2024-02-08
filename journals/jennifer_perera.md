@@ -250,7 +250,7 @@ As a group, we worked on completing the EditCheckinPage.jsx so that users can ha
 One ah-ha moment for today was when working on the unit test for the get_all_mine fastapi endpoint. I learned so much about asserts and creating mock data as well as whats coming from where during this process by having some hands on practice after the class was over.  I had to troubleshoot so much because I did not understand where things where coming from until I saw them break. I believe this is the best way to learn something, by fixing it when its broken and hopefully I get lots of practice doing that in my future job. Feeling comfortable with this subject makes me feel confident and excited to help Ramesh tomorrow as we tackle his get_one endpoint together!
 
 
-## February 6, 2024
+## February 7, 2024
 
 Today I worked on:
 
