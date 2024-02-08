@@ -7,8 +7,6 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Nav from './nav'
 import LoginForm from './LoginForm'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Slider from 'react-slick'
 
 
     function Home() {
@@ -35,22 +34,65 @@ import Slider from 'react-slick'
     }
     return (
         <>
-        <div>
-            <h2>Carousel Image</h2>
-            <Slider>
-                {images.map((image, index) => 
-                <div key={index}>
-                    <img src={image} alt={`Image ${index}`} />
+            <div
+                id="carouselControls"
+                className="carousel slide"
+                data-ride="carousel"
+            >
+                <div className="carousel-inner">
+                    <div class="carousel-item active">
+                        <img
+                            class="d-block w-100"
+                            src={images[0]}
+                            alt="First slide"
+                        />
+                    </div>
+                    <div className="carousel-item">
+                        <img
+                            className="d-block w-100"
+                            src={images[1]}
+                            alt="Second slide"
+                        />
+                    </div>
+                    <div className="carousel-item">
+                        <img
+                            className="d-block w-100"
+                            src={images[2]}
+                            alt="Third slide"
+                        />
+                    </div>
                 </div>
-                )}
-            </Slider>
-        </div>
-        <div>
-            <h3>{data.text}</h3>
-            <h4>-{ data.author.split(',')[0] }</h4>
-        </div>
+                <a
+                    className="carousel-control-prev"
+                    href="#carouselControls"
+                    role="button"
+                    data-slide="prev"
+                >
+                    <span
+                        className="carousel-control-prev-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Previous</span>
+                </a>
+                <a
+                    className="carousel-control-next"
+                    href="#carouselControls"
+                    role="button"
+                    data-slide="next"
+                >
+                    <span
+                        className="carousel-control-next-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Next</span>
+                </a>
+            </div>
+            <div>
+                <h3>{data.text}</h3>
+                <h4>-{data.author.split(',')[0]}</h4>
+            </div>
         </>
-    );
+    )
 };
 
 export default Home;
