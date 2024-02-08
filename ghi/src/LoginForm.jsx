@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useLoginMutation } from './app/apiSlice'
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [login] = useLoginMutation()
+    const [login, loginStatus] = useLoginMutation()
+    const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -19,19 +22,34 @@ function LoginForm() {
         setPassword(event.target.value)
     }
 
-    // useEffect(() => {
-    //     // if ()
-    // }, [loginStatus])
+    useEffect(() => {
+        if (loginStatus.isSuccess) {
+            navigate('/')
+        }
+        if (loginStatus.isError) {
+            console.log(loginStatus)
+            setErrorMessage(loginStatus.error.data.detail)
+        }
+    }, [loginStatus])
+
+    useEffect(() => {
+        if (loginStatus.isError) {
+            setErrorMessage('')
+        }
+    }, [username, password])
 
     return (
         <>
             <div className="row">
                 <form id="user-login-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
-                        {/* <p className="mt-6">Now, tell us about yourself.</p> */}
-                        Now, tell us about yourself.
+                        Welcome back!
                     </div>
-
+                    {errorMessage.length > 0 && (
+                        <div class="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
                     <div className="row">
                         <div className="form-group col-md-6">
                             <label htmlFor="username"></label>
