@@ -10,6 +10,6 @@ steps = [
         # Drop the table
         """
         DROP TABLE questions;
-        """
+        """,
     ]
 ]

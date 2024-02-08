@@ -24,6 +24,6 @@ steps = [
         # Drop the table
         """
         DROP TABLE surveys;
-        """
+        """,
     ]
 ]
