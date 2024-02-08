@@ -1,68 +1,52 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, onClick} from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./CarouselComponent.css"
 
 
 const CarouselComponent = () => {
-    // sample list of images here:
-    // const staticImages = [
-    //     "https://unsplash.com/photos/a-view-of-a-mountain-with-a-road-going-through-it-x2PtscrvApE",
-    //     "https://unsplash.com/photos/a-person-standing-in-the-middle-of-a-forest-rS9qpmU0MVw",
-    //     "https://unsplash.com/photos/a-very-tall-building-with-lots-of-windows-0iqeUARmY8g"
-    // ];
 
-    const [imageUrls, setImageUrls] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch("https://api.artic.edu/api/v1/artworks/search?params=%7B%22q%22%3A%22cats%22%2C%22query%22%3A%7B%22term%22%3A%7B%22is_public_domain%22%3Atrue%7D%7D%7D");
-                const data = await response.json();
-                // Extract image URLs from the response and update state
-                const urls = data?.data?.map(item => item?.thumbnail?.url || 'defaultImageUrlHere') || [];
-                setImageUrls(urls || []);
-            } catch (error) {
-                console.error("Error fetching image data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-
+    const staticImages = [
+        'https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/1234035/pexels-photo-1234035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/8438104/pexels-photo-8438104.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'https://images.pexels.com/photos/12347934/pexels-photo-12347934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    ]
 
     return (
         <>
-        <div>
-            <h2>
-                Test Carousel... I hope this works!
-            </h2>
-            <Slider
-                dots={true}
-                infinite={true}
-                speed={500}
-                slidesToShow={1}
-                slidesToScroll={1}
-                prevArrow={<button>Previous Image</button>}
-                nextArrow={<button>Next Image</button>}
+            <div className="slider-container">
+                <Slider
+                    dots={true}
+                    infinite={true}
+                    speed={300}
+                    slidesToShow={1}
+                    slidesToScroll={1}
+                    prevArrow={
+                        <button
+                            className="slick-prev"
+                        >
+                        </button>
+                    }
+                    nextArrow={
+                        <button
+                            className="slick-next"
+                        >
+                        </button>
+                    }
                 >
-                {
-                    imageUrls.map((imageUrl,index) => (
+                    {staticImages.map((image, index) => (
                         <div key={index}>
-                            {console.log(imageUrl)}
-                            <img src={imageUrl} alt={`API image ${index}`} />
+                            {console.log(image)}
+                            <img src={image} alt={`API image ${index}`} />
                         </div>
-                    ))
-                }
-            </Slider>
-        </div>
-
+                    ))}
+                </Slider>
+            </div>
         </>
-    );
-
+    )
 };
-
-
 
 export default CarouselComponent;
