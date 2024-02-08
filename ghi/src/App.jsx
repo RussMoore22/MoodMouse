@@ -63,7 +63,8 @@ function App() {
         <div className="container">
             <Nav />
             <div className="mt-5">
-                <Home />
+                <Outlet />
+
                 {/* changed Outlet tag to Home */}
             </div>
         </div>
