@@ -5,23 +5,21 @@ import {
     useCreateSurveyMutation,
     useGetImagesQuery,
     useGetQuestionQuery,
+    useGetAllCheckinsQuery,
 } from './app/apiSlice'
 
-function CreateCheckinForm() {
+import { useNavigate } from 'react-router-dom'
 
+function CreateCheckinForm() {
     const [happyLevel, setHappyLevel] = useState('')
     const [survey, setSurvey] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
     const [rorschachTest, setRorschachTest] = useState(0)
 
     const [q1Ans, setQ1Ans] = useState('')
-
     const [q2Ans, setQ2Ans] = useState('')
-
     const [q3Ans, setQ3Ans] = useState('')
-
     const [q4Ans, setQ4Ans] = useState('')
-
     const [q5Ans, setQ5Ans] = useState('')
 
     const [response, setResponse] = useState('')
@@ -33,7 +31,9 @@ function CreateCheckinForm() {
     const [createRorschachTest, rorschachStatus] =
         useCreateRorschachTestMutation()
     const { data: rorschach_imgs, isLoading: r_isLoading } = useGetImagesQuery()
-
+    const { data: checkinList, isloading: checkinListIsLoading } =
+        useGetAllCheckinsQuery()
+    const navigate = useNavigate()
 
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -77,9 +77,7 @@ function CreateCheckinForm() {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('Submit button clicked')
-
-        const image = 1
-        // const response =
+        const image = rorschachImg.id
         createRorschachTest({ image, response })
 
         const q1q = +question1.id
@@ -122,8 +120,40 @@ function CreateCheckinForm() {
     }, [survey, rorschachTest])
 
     useEffect(() => {
-        getRandomRorschachImg()
-    }, [rorschach_imgs, question1, question2, question3, question4, question5])
+        if (checkinStatus.isSuccess) {
+            navigate('/calendar')
+        }
+    }, [checkinStatus])
+
+    useEffect(() => {
+        if (!(rorschach_imgs === undefined)) {
+            getRandomRorschachImg()
+        }
+    }, [rorschach_imgs])
+
+    // finds checkin for current day and if it exists, reoutes to the edit page
+    useEffect(() => {
+        const today = new Date()
+        if (!(checkinList === undefined) && !checkinListIsLoading) {
+            console.log(checkinList)
+            const checkinToday = checkinList.find(
+                (checkin) =>
+                    new Date(checkin.date).getFullYear() ===
+                        today.getFullYear() &&
+                    new Date(checkin.date).getMonth() === today.getMonth() &&
+                    new Date(checkin.date).getDate() === today.getDate()
+            )
+            console.log(
+                'here is the checkin for today if it exsists: checkinToday'
+            )
+            if (checkinToday === undefined) {
+                console.log('no checkin for day')
+            } 
+            else if (happyLevel == 0) {
+                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+            }
+        }
+    }, [checkinList])
 
     return (
         <>
@@ -134,7 +164,7 @@ function CreateCheckinForm() {
                         <img src={rorschachImg.path} width="500" height="600" />
                         <button onClick={getRandomRorschachImg}>
                             {' '}
-                            generate{' '}
+                            generate new image{' '}
                         </button>
                     </div>
                 ) : (
