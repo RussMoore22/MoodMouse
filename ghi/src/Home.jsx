@@ -62,7 +62,6 @@ function Home() {
                                     ? '1000'
                                     : '500'
                             }>
-                            <view>{console.log(imageUrl)},</view>
                             <div
                                 className="overlay-image"
                                 style={{ backgroundImage: `url(${imageUrl})` }}
