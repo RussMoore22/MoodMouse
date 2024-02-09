@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+const VITE_API_URL = import.meta.env.VITE_API_HOST
 
 export const moodmouseApi = createApi({
     reducerPath: 'moodmouseApi',
     baseQuery: fetchBaseQuery({
         // baseUrl: process.env.VITE_API_HOST
-        baseUrl: 'http://localhost:8000',
+        baseUrl: VITE_API_URL,
     }),
     endpoints: (builder) => ({
         getToken: builder.query({
@@ -197,11 +198,11 @@ export const moodmouseApi = createApi({
                 return {
                     url: `/api/checkins/${info.checkin_id}`,
                     method: 'DELETE',
-                    credentials: 'include'
+                    credentials: 'include',
                 }
             },
-            invalidatesTags: ['Checkins']
-        })
+            invalidatesTags: ['Checkins'],
+        }),
     }),
 })
 
