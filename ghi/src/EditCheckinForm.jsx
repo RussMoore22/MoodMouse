@@ -6,11 +6,13 @@ import {
     useEditOneRorschachTestMutation,
     useGetOneCheckinQuery,
 } from './app/apiSlice'
+import { useNavigate } from 'react-router-dom'
 
 function EditCheckinForm() {
     const params = useParams()
     const { data: checkinData, isLoading: checkinLoading } =
         useGetOneCheckinQuery(params.checkin_id)
+    const navigate = useNavigate()
 
     const [happyLevel, setHappyLevel] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
@@ -23,6 +25,7 @@ function EditCheckinForm() {
     const [surveyDeploy, setSurveyDeploy] = useState(false)
     const [rorschachDeploy, setRorschachDeploy] = useState(false)
     const [checkinDeploy, setCheckinDeploy] = useState(false)
+    const [edit, setEdit] = useState(false)
 
     const [editCheckin, checkinStatus] = useEditOneCheckinMutation()
     const [editSurvey, surveyStatus] = useEditOneSurveyMutation()
@@ -77,7 +80,6 @@ function EditCheckinForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('Submit button clicked')
         if (rorschachDeploy) {
             editRorschachTest({
                 image: checkinData.rorschach_test.image.id,
@@ -112,6 +114,37 @@ function EditCheckinForm() {
             })
         }
     }
+
+    const handleCancel = (event) => {
+        event.preventDefault()
+        navigate('/calendar')
+    }
+
+    useEffect(() => {
+        if (checkinDeploy || surveyDeploy || rorschachDeploy) {
+            let navReady = true
+            if (checkinDeploy && !checkinStatus.isSuccess) {
+                navReady = false
+            }
+            if (surveyDeploy && !surveyStatus.isSuccess) {
+                navReady = false
+            }
+            if (rorschachDeploy && !rorschachStatus.isSuccess) {
+                navReady = false
+            }
+            if (navReady) {
+                navigate('/calendar')
+            }
+        }
+    }, [checkinStatus, surveyStatus, rorschachStatus])
+
+    useEffect(() => {
+        if (checkinDeploy || surveyDeploy || rorschachDeploy) {
+            setEdit(true)
+        } else {
+            setEdit(false)
+        }
+    }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
     if (checkinLoading) {
         return <div>Loading...</div>
@@ -241,9 +274,30 @@ function EditCheckinForm() {
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">
-                                Submit Check-in
-                            </button>
+                            {edit ? (
+                                <>
+                                    <button
+                                        onClick={handleCancel}
+                                        type="button"
+                                        className="btn btn-secondary"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary"
+                                    >
+                                        Edit
+                                    </button>
+                                </>
+                            ) : (
+                                <button
+                                    onClick={handleCancel}
+                                    className="btn btn-secondary"
+                                >
+                                    Cancel
+                                </button>
+                            )}
                         </div>
                     </div>
                 </form>

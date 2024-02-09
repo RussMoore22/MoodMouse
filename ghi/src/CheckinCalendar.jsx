@@ -1,14 +1,42 @@
 import React, { useState, useEffect } from 'react'
-import { useGetAllCheckinsQuery } from './app/apiSlice'
+import {
+    useGetAllCheckinsQuery,
+    useDeleteCheckinMutation,
+} from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
+import cTime from "./cTime"
+
 
 function CheckinsList() {
+    const today = new Date(Date.now())
+    const startDateIntialVal = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+    )
+    const endDateIntialVal = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0,
+        23,
+        59,
+        59
+    )
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
-    const [startDate, setStartDate] = useState(new Date('02-01-2024'))
-    const [endDate, setEndDate] = useState(new Date('02-29-2024'))
+    const [startDate, setStartDate] = useState(startDateIntialVal)
+    const [endDate, setEndDate] = useState(endDateIntialVal)
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
     const [calendarCards, setCalendarCards] = useState([])
     const navigate = useNavigate()
+    const [deleteMode, setDeleteMode] = useState(false)
+    const [deleteCheckin, deleteCheckinStatus] = useDeleteCheckinMutation()
+
+    const toggleDeleteMode = () => {
+        setDeleteMode(!deleteMode)
+    }
+    const deleteCard = (event) => {
+        deleteCheckin({ checkin_id: event.target.value })
+    }
 
     const handleIncrement = (event) => {
         if (selectDate.getMonth() === 11) {
@@ -51,7 +79,7 @@ function CheckinsList() {
         const currentMonth = selectDate.getMonth()
         const currentYear = selectDate.getFullYear()
         setStartDate(new Date(currentYear, currentMonth, 1))
-        setEndDate(new Date(currentYear, currentMonth + 1, 1))
+        setEndDate(new Date(currentYear, currentMonth + 1, 0))
     }, [selectDate])
 
     const score = (checkin) => {
@@ -67,14 +95,14 @@ function CheckinsList() {
 
     const MakeCardList = () => {
         const start = startDate.getDate()
-        const end = new Date(endDate.setDate(endDate.getDate() - 1)).getDate()
-
+        const end = endDate.getDate()
         let checkinsMonth = []
+
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    new Date(checkin.date) >= startDate &&
-                    new Date(checkin.date) < endDate
+                    (new Date(cTime(checkin.date))) >= startDate &&
+                    (new Date(cTime(checkin.date))) <= endDate
             )
         }
 
@@ -93,7 +121,7 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (i == new Date(checkinsMonth[0]?.date).getDate()) {
+            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
                 cards.push({
                     date: i,
                     type: 'checkin',
@@ -117,10 +145,13 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        if (!(checkins === undefined)) {
+        console.log('asking if ', startDate.getMonth(), endDate.getMonth(),"start date: ",startDate, "end date", endDate)
+        if (!(checkins === undefined) &&
+        (startDate.getMonth() == endDate.getMonth())
+        ) {
             MakeCardList()
         }
-    }, [isLoading, startDate])
+    }, [checkins, startDate, endDate])
 
     const dateColor = (card) => {
         if (card.type === 'blank') {
@@ -128,7 +159,7 @@ function CheckinsList() {
         }
         if (card.type === 'muted') {
             return 'rgb(120, 120, 120)'
-        } else {
+        } else if (card.type === 'checkin') {
             let total =
                 card.data.happy_level +
                 card.data.survey.q1_ans +
@@ -141,52 +172,63 @@ function CheckinsList() {
         }
     }
     const handleNavigation = (card) => {
-        if (card.type === 'checkin') {
+        if (card.type === 'checkin' && !deleteMode) {
             navigate(`/checkins/${card.data.check_in_id}`)
         }
     }
     if (isLoading) return <div>Loading...</div>
-    // console.log(checkins)
 
     return (
         <>
             <div>
+                <div>
+                    <button onClick={toggleDeleteMode}>delete mode</button>
+                </div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
-                    <div className="flex-fill bd-highlight" >
+                    <div className="flex-fill bd-highlight">
                         <button onClick={handleDecrement}>Decrement</button>
-                        </div>
-                    <div className="flex-fill bd-highlight" >
+                    </div>
+                    <div className="flex-fill bd-highlight">
                         <h3>{getMonthYearName(selectDate)}</h3>
-                        </div>
-                    <div className="flex-fill bd-highlight" >
+                    </div>
+                    <div className="flex-fill bd-highlight">
                         <button onClick={handleIncrement}>Increment</button>
-                        </div>
+                    </div>
                 </div>
 
                 <div className="d-flex bd-highlight justify-content-around">
-                    <div className="flex-fill bd-highlight" ><h6>Sunday  </h6></div>
-                    <div className="flex-fill bd-highlight" ><h6 >Monday</h6></div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Tuesday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Sunday </h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Wednesday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Monday</h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Thursday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Tuesday</h6>
                     </div>
-                    <div className="flex-fill bd-highlight"><h6>Friday</h6></div>
-                    <div className="flex-fill bd-highlight"><h6>
-                        Saturday</h6>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Wednesday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Thursday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Friday</h6>
+                    </div>
+                    <div className="flex-fill bd-highlight">
+                        <h6>Saturday</h6>
                     </div>
                 </div>
                 {calendarCards.map((cardRow) => {
                     return (
-                        <div className="d-flex bd-highlight card-group">
+                        <div key={`${cardRow[0].date}-${cardRow[0].type}`}
+                            className="d-flex bd-highlight card-group"
+                        >
                             {cardRow.map((card) => {
                                 return (
                                     <div
+                                        key={`${card.date}-${card.type}`}
                                         onClick={() => handleNavigation(card)}
                                         className="card p-2 bd-highlight"
                                         style={{
@@ -202,6 +244,18 @@ function CheckinsList() {
                                             <h6 className="card-title">
                                                 {/* {card.data?.happy_level} */}
                                             </h6>
+                                            {card.type === 'checkin' &&
+                                                deleteMode && (
+                                                    <button
+                                                        value={
+                                                            card.data
+                                                                .check_in_id
+                                                        }
+                                                        onClick={deleteCard}
+                                                    >
+                                                        delete
+                                                    </button>
+                                                )}
                                         </div>
                                     </div>
                                 )

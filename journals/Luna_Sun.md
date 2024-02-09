@@ -302,3 +302,23 @@ Today we were divided into two groups again. Jenn and Ramesh worked on error han
 A-Ha moments:
 
 -   I learned that there seems to be no direct way in Bootstrap to set the number of rows and columns to display items other than by using the width of the items. For displaying rows of fixed columns, the alternative method was to use a matrix
+
+### Feb 8, 2024
+-  Fixed unsolved issues and helped debug - Navigator and Driver.
+
+Features that our team build for today:
+1. error handling for backend
+2. add pydantic to queries
+3. error handling for login and signup pages
+4. prevent multiple checkins from being created per day
+5. add delete button for checkins
+6. ensure calendar data is refreshed
+7. redirect pages when user creates, logs in, signs up, and edits the page
+8. clean up code for the backend
+
+Today I am paired with Russ again, and we went through the issues board and checked the unsolved issues, trying to fix as many as possible. When working on preventing multiple check-ins from being created per day, we encountered a blocker where we could not find the reason why our global state was always one render behind. Initially, we suspected it was related to invalidesTags() and useEffect(). After spending over 30 minutes debugging and searching everything we could think of, we decided it was a good time to ask for help, and we approached Riley for assistance, and it was a huge breakthrough when Riley suggested using checkinStatus as a dependency to useEffect(). Although the data on the calendar still appeared to be behind, we later realized that useEffect() and checkinStatus were actually working. The reason it was not fixed immediately was because we had another issue caused solely by our code logic, not the issue that the global state was behind anymore. We truly appreciated Riley's help, and after Riley left, we had a lot discussions about useEffect(). I also want to appreciate Russ for his patience and assistance in helping me better understand useEffect(). Additionally, Ramesh and Jenn made significant progress in styling the page, making our website look much nicer. As the project nears its end, though we may feel slightly behind, I can feel that we are trying our best this week. Tomorrow will be the last day, and I believe we can make it!
+
+A-Ha moments:
+* I learned that useEffect() will always render the page at least once, regardless of whether it has a dependency or not. If it does not have a dependency, it will render only once. If it has a dependency that never changes, it will also render only once
+* Additionally, using the network tab in the dev tools is also a good way for debugging, as it allows me to check if the global data is being updated as well
+* I learned that 401 represents the unauthorized error
