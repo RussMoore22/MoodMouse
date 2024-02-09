@@ -34,6 +34,7 @@ function CreateCheckinForm() {
     const { data: checkinList, isloading: checkinListIsLoading } =
         useGetAllCheckinsQuery()
     const navigate = useNavigate()
+    const {data: account, isLoading: accountIsLoading}
 
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -148,12 +149,14 @@ function CreateCheckinForm() {
             )
             if (checkinToday === undefined) {
                 console.log('no checkin for day')
-            } 
+            }
             else if (happyLevel == 0) {
                 navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
+
+    if account
 
     return (
         <>
