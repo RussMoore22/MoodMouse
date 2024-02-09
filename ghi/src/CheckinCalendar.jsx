@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useGetAllCheckinsQuery, useDeleteCheckinMutation } from './app/apiSlice'
+import {
+    useGetAllCheckinsQuery,
+    useDeleteCheckinMutation,
+} from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
 function CheckinsList() {
@@ -16,7 +19,7 @@ function CheckinsList() {
         setDeleteMode(!deleteMode)
     }
     const deleteCard = (event) => {
-        deleteCheckin({checkin_id: event.target.value})
+        deleteCheckin({ checkin_id: event.target.value })
     }
 
     const handleIncrement = (event) => {
@@ -200,10 +203,13 @@ function CheckinsList() {
                 </div>
                 {calendarCards.map((cardRow) => {
                     return (
-                        <div className="d-flex bd-highlight card-group">
+                        <div key={`${cardRow[0].date}-${cardRow[0].type}`}
+                            className="d-flex bd-highlight card-group"
+                        >
                             {cardRow.map((card) => {
                                 return (
                                     <div
+                                        key={`${card.date}-${card.type}`}
                                         onClick={() => handleNavigation(card)}
                                         className="card p-2 bd-highlight"
                                         style={{
@@ -219,7 +225,18 @@ function CheckinsList() {
                                             <h6 className="card-title">
                                                 {/* {card.data?.happy_level} */}
                                             </h6>
-                                            { (card.type === 'checkin') && (deleteMode) && <button value={card.data.check_in_id} onClick={deleteCard}>delete</button>}
+                                            {card.type === 'checkin' &&
+                                                deleteMode && (
+                                                    <button
+                                                        value={
+                                                            card.data
+                                                                .check_in_id
+                                                        }
+                                                        onClick={deleteCard}
+                                                    >
+                                                        delete
+                                                    </button>
+                                                )}
                                         </div>
                                     </div>
                                 )
