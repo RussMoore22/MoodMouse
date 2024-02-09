@@ -248,3 +248,23 @@ We broke up into two groups of two for pair programming today, which ended up al
 Luna and I made great progress on the calendar view. To ensure our success, we drew out a more detailed wireframe of that page and discussed what shape our data needed to take to get something that resembled a calendar. We started by getting all the checkins and filtering them for the given month. We added them to an array and filled in the days where no checkin was completed for that day with a dummy object. the dummy objects allowed a dummy card to be created in html and were were able to get a 7x6 grid of days that corresponded to the correct weekday.
 
 Aha-moment: we created some dummy checkin data, and didnt realize why when we changed one, certain parameters of the others would change. it wasnt clear right away, but this dummy data was depending on the same surveys and made it seem like the edit endpoint was causing more than one to be changed.
+
+## February 08, 2024
+
+Goals:
+
+1. fix unit testing
+2. error handling for all backend routes
+3. add pydantic typing to routers and queries
+4. add login/signup errors on page
+5. do not allow user to add multiple checkins per day
+6. add delete-mode button
+7. refresh calendar components on navigation
+8. redirect to other pages when submitting forms or clicking certain buttons
+9. clean the backend code
+
+Luna and I pair programmed again today and accomplished all our goals for the day. We were really dedicated to finishing as much as possible one day in advanced. We asked for some help from Riley since the page that navigated from our create checkin to our list/calendar page was not rendering the newly created data to the list. We thought it might be a problem with a useEffect and that turned out to be the problem. We were having a difficult time with some useEffects but since our project uses so many of them, I feel like I have a much better grasp of their mechanics now. Debugging with Riley shed light on what kinds of thing I can look out for when something isn't as expected- we focused a lot on the network and the sequence of events that take place around the time the submit button is clicked and the api calls are made. It was very enlightening, and Luna and I quickly discovered the issue soon after he left us tyo our work.
+Aha-Moment: when using useEffect hooks, pay attention to the dependencies and if their state is the state that should truly be depended on. Using a useEffect to get a reroute to occur after a succesful response is returned.
+
+When we finally met with our other two team-mates, I couldn't have been more impressed with their progress. The styling they added looked really great and I was happy to see they were able to get so much done. I was a little worried that we would be behind, but once I saw what they had come up with, I felt a whole lot better about getting eveything done on time.
+
