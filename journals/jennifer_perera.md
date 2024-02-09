@@ -263,6 +263,7 @@ Today we decided to split into two teams and work on different sides of the appl
 
 Helping Ramesh build his unit test today really helped me solidify my unit testing knowledge. Walking him through understanding where the code comes from and why it should go where it goes was such an awesome experience for me and I'm glad he was able to grasp a better understanding of how unit tests work. When we finished his unit test, we took a crack at the update_checkin and get_one_check_in error handling issue and we found that to be a bit confusing. We did some research on how to implement FastAPI HTTPException errors and took turns coding out the solutions and after finally getting the get_one_check_in to work, we went to do the same for the update and we could not figure out how to bring the account's id to be verified so that users can only update check-ins that belong to them. We came back to the room for the our daily wrap-up and the rest of the team walked Ramesh and I through how to do that for the router and the queries method. It was really cool to walk through it and understand how to implement this correctly.
 
+
 ## February 8, 2024
 
 Today I worked on:
