@@ -24,7 +24,8 @@ function CreateCheckinForm() {
 
     const [response, setResponse] = useState('')
     const [rorschachImg, setRorschachImage] = useState({})
-    const [questions, setQuestions] = useState([])
+    // checkinExist stores check_in_id if it exists
+    const [checkinExist, setCheckinExist] = useState(0)
 
     const [createCheckin, checkinStatus] = useCreateCheckinMutation()
     const [createSurvey, surveyStatus] = useCreateSurveyMutation()
@@ -141,13 +142,30 @@ function CreateCheckinForm() {
                 'here is the checkin for today if it exsists: checkinToday'
             )
             if (checkinToday === undefined) {
-                console.log('no checkin for day')
-            } 
-            else if (happyLevel == 0) {
-                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+                // console.log('no checkin for day')
+                setCheckinExist(0)
+            } else if (happyLevel == 0) {
+                setCheckinExist(checkinToday.check_in_id)
+                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
+
+    const handleEdit = (event) => {
+        event.preventDefault()
+        navigate(`/checkins/${checkinExist}/edit`)
+    }
+
+    if (checkinExist) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                {`You have already created a checkin for ${
+                    new Date().getMonth() + 1
+                } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
+                <button onClick={handleEdit}>Edit Today's check-in</button>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -296,4 +314,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm;
+export default CreateCheckinForm
