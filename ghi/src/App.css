@@ -16,5 +16,28 @@
 }
 
 body {
-    background-color:  #DCD6F7
+    background-color:  #e2def4
+}
+
+nav {
+    background-color: #E6A4B4;
+
+}
+
+button {
+    background-color: #2A2F4F;
+    border-radius: 10%;
+    color: #FDE2F3;
+}
+
+.submit-button {
+    background-color: #5C469C;
+    border-radius: 10%;
+    color: #FDE2F3;
+}
+
+.delete-button {
+    background-color: #a30000;
+    border-radius: 15%;
+    color: #FDE2F3;
 }
