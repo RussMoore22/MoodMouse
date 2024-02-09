@@ -73,13 +73,11 @@ function CreateCheckinForm() {
     const { data: question3, isLoading: q3_isLoading } = useGetQuestionQuery(3)
     const { data: question4, isLoading: q4_isLoading } = useGetQuestionQuery(4)
     const { data: question5, isLoading: q5_isLoading } = useGetQuestionQuery(5)
-
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('Submit button clicked')
         const image = rorschachImg.id
         createRorschachTest({ image, response })
-
         const q1q = +question1.id
         const q2q = +question2.id
         const q3q = +question3.id
@@ -101,13 +99,10 @@ function CreateCheckinForm() {
 
     useEffect(() => {
         if (surveyStatus.isSuccess && rorschachStatus.isSuccess) {
-            console.log('testing the survey:', surveyStatus)
-            console.log('testing the rorschach:', rorschachStatus)
             setRorschachTest(+rorschachStatus.data.id)
             setSurvey(+surveyStatus.data.survey_id)
         }
     }, [surveyStatus, rorschachStatus])
-
     useEffect(() => {
         if (survey > 0 && rorschachTest > 0) {
             createCheckin({
@@ -118,7 +113,6 @@ function CreateCheckinForm() {
             })
         }
     }, [survey, rorschachTest])
-
     useEffect(() => {
         if (checkinStatus.isSuccess) {
             navigate('/calendar')
@@ -172,12 +166,11 @@ function CreateCheckinForm() {
                         Image does not exist! {rorschachImg.path}
                         <button onClick={getRandomRorschachImg}>
                             {' '}
-                            generate{' '}
+                            Generate{' '}
                         </button>
                     </p>
                 )}
             </div>
-
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
@@ -208,7 +201,6 @@ function CreateCheckinForm() {
                                 max="4"
                             />
                         </div>
-
                         <div>
                             <label htmlFor="question1">
                                 {q1_isLoading ? 'loading...' : question1.prompt}{' '}
@@ -279,7 +271,6 @@ function CreateCheckinForm() {
                                 value={q5Ans}
                             />
                         </div>
-
                         <div className="form-group col-md-6">
                             <label htmlFor="journalEntry"></label>
                             <input
@@ -294,7 +285,7 @@ function CreateCheckinForm() {
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-info">
                                 Submit Check-in
                             </button>
                         </div>
@@ -305,4 +296,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm
+export default CreateCheckinForm;
