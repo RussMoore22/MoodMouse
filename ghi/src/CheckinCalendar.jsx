@@ -97,10 +97,7 @@ function CheckinsList() {
         const start = startDate.getDate()
         const end = endDate.getDate()
         let checkinsMonth = []
-        for (let c of checkins){
-            console.log(new Date(cTime(c.date)))
 
-        }
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
