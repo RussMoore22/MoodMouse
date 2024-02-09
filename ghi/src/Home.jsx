@@ -6,11 +6,9 @@ import "./CarouselComponent.css"
 function Home() {
     const [data, setData] = useState({})
     const url = 'https://type.fit/api/quotes'
-
     const numGen = () => {
         return Math.floor(Math.random()*16)
     }
-
     const fetchData = async () => {
             const response = await fetch(url)
             if (response.ok){
@@ -18,18 +16,14 @@ function Home() {
                 setData(responseJson[numGen()])
         }
     }
-
     useEffect(() => {
         fetchData()
     }, [])
-
     console.log(data)
-
     if (Object.keys(data).length === 0) {
         console.log("CAUGHT PROMISE *****")
         return (<div>Loading</div>)
     }
-
     return (
         <>
             <div className="quote-container">
@@ -40,7 +34,7 @@ function Home() {
                 <CarouselComponent />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Home;
