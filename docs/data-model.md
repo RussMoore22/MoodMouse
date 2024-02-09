@@ -21,18 +21,23 @@ The questions entity contains the data used in the surveys given to the user dai
 | q5     | reference to questions | yes    | no       |
 | q5_ans | int                    | yes    | no       |
 
-The survey entity is given to a user daily when 
+The survey entity is given to a user daily when they create a checkin
 
 #### rorschach_imgs
 | name   | type           | unique   | optional |
 | :---:  | :----:         | :----:   | :----:   |
 | path   | varchar(300)   | no       | no       |
 
+The rorschach_img entity provides a path to an image that the user
+will respond to when completing a rorschach_test
+
 #### rorschach_tests
 | name     | type                          | unique   | optional |
 | :---:    | :----:                        | :----:   | :----:   |
 | image    | reference to rorschach_imgs   | no       | no       |
 | response | varchar(500).                 | no       | yes      |
+
+The rorschach_test entity is given to a user daily when they create a checkin
 
 #### check_ins
 | name           | type                       | unique | optional |
@@ -44,6 +49,8 @@ The survey entity is given to a user daily when
 | journal_entry  | text                       | no     | yes      |
 | survey         | references surveys         | no     | no       |
 | rorschach_test | references rorschach_tests | no     | no       |
+
+The check_in entity is the core data of the application and stores daily data from a user.
 
 #### accounts
 | name               | type           | unique   | optional |
