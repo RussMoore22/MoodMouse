@@ -42,7 +42,6 @@ function Home() {
 
     return (
         <>
-            <div className="quote-container"></div>
             <div
                 id="myCarousel"
                 className="carousel slide carousel-fade"
@@ -66,7 +65,7 @@ function Home() {
                                 className="overlay-image"
                                 style={{ backgroundImage: `url(${imageUrl})` }}
                             ></div>
-                            <div className="container">
+                            <div className="container-1">
                                 <div className="quote-content">
                                     <h1 className="quote-text">{data.text}</h1>
                                     <h2 className="quote-author">
