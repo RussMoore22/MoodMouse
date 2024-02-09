@@ -1,6 +1,6 @@
-.slider-container {
+/* .slider-container {
     position: relative;
-}
+} */
 
 /* .slick-arrow {
     position: absolute;
@@ -20,13 +20,13 @@
     color: #000;
 } */
 
-.slick-prev {
+/* .slick-prev {
     left: 10px;
 }
 
 .slick-next {
     right: 10px;
-}
+} */
 
 /* .quote-container {
     position: absolute;
@@ -42,7 +42,7 @@
     border-radius: 45px;
 } */
 
-.quote-container {
+/* .quote-container {
     display: contents;
     align-items: center;
     justify-content: center;
@@ -55,9 +55,8 @@
 .quote-content {
     text-align: center;
     margin-bottom: 20px; /* Add margin between text and image */
-}
 
-.quote-text {
+/* .quote-text {
     font-size: 20px;
     font-weight: bold;
 }
@@ -65,7 +64,6 @@
 .quote-author {
     font-style: italic;
     margin-top: 10px; /* Add space between text and author */
-}
 
 
 /* .quote-container {
@@ -77,3 +75,39 @@
     padding: 20px;
     max-block-size: max-content;
 } */
+
+/* .carousel-container {
+    width: 70%;
+    height: 400px; 
+    margin: 0 auto; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+.carousel-item {
+    height:32rem;
+    background:#777;
+    color:black;
+    position: relative;
+}
+
+.container {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding-bottom:50px;
+}
+
+.overlay-image {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    top:0;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+}
