@@ -3,6 +3,7 @@ import { useLoginMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
 function LoginForm() {
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [login, loginStatus] = useLoginMutation()
@@ -12,12 +13,10 @@ function LoginForm() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         login({ username, password })
-    }
-
+    };
     const handleUsername = (event) => {
         setUsername(event.target.value)
-    }
-
+    };
     const handlePassword = (event) => {
         setPassword(event.target.value)
     }
@@ -56,7 +55,7 @@ function LoginForm() {
                                 type="text"
                                 className="form-control"
                                 id="username"
-                                placeholder="Your username"
+                                placeholder="Username"
                                 onChange={handleUsername}
                                 value={username}
                             />
@@ -67,16 +66,15 @@ function LoginForm() {
                                 type="password"
                                 className="form-control"
                                 id="password"
-                                placeholder="Your password"
+                                placeholder="Password"
                                 onChange={handlePassword}
                                 value={password}
                             />
                         </div>
                     </div>
-
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-info">Login</button>
                         </div>
                     </div>
                 </form>
@@ -85,4 +83,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm
+export default LoginForm;
