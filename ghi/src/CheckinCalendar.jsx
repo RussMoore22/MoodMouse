@@ -79,7 +79,12 @@ function CheckinsList() {
 
     const MakeCardList = () => {
         const start = startDate.getDate()
-        const end = new Date(endDate.setDate(endDate.getDate() - 1)).getDate()
+        const today = new Date(Date.now())
+        const end = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0
+        ).getDate()
 
         let checkinsMonth = []
         if (checkins.length > 0) {
