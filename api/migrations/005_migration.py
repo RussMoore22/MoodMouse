@@ -11,6 +11,6 @@ steps = [
         # Drop the table
         """
         DROP TABLE rorschach_tests;
-        """
+        """,
     ]
 ]

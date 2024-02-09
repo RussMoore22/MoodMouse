@@ -1,0 +1,79 @@
+.slider-container {
+    position: relative;
+}
+
+/* .slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #000;
+} */
+
+.slick-prev {
+    left: 10px;
+}
+
+.slick-next {
+    right: 10px;
+}
+
+/* .quote-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: auto;
+    max-width: 80%;
+    max-height: 30%;
+    padding: 20px;
+    background-color: #000;
+    border-radius: 45px;
+} */
+
+.quote-container {
+    display: contents;
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    flex-direction: column; /* Stack elements vertically */
+    max-height: 30%;
+    padding: 20px;
+    max-block-size: max-content;
+}
+
+.quote-content {
+    text-align: center;
+    margin-bottom: 20px; /* Add margin between text and image */
+}
+
+.quote-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.quote-author {
+    font-style: italic;
+    margin-top: 10px; /* Add space between text and author */
+}
+
+
+/* .quote-container {
+    display: contents;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-height: 30%;
+    padding: 20px;
+    max-block-size: max-content;
+} */

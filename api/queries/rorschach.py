@@ -18,7 +18,10 @@ class RorschachImageQueries:
                         FROM rorschach_imgs;
                         """
                     )
-                    return [ RorschachImageOut(id=record[0], path=record[1]) for record in db ]
+                    return [
+                        RorschachImageOut(id=record[0], path=record[1])
+                        for record in db
+                    ]
         except Exception:
             return Error(message="Could not get list of images")
 
@@ -37,7 +40,7 @@ class RorschachImageQueries:
                         FROM rorschach_imgs
                         Where id = %s;
                         """,
-                        [id]
+                        [id],
                     )
                     record = db.fetchone()
                     if record is None:
@@ -49,9 +52,7 @@ class RorschachImageQueries:
 
 class RorschachTestQueries:
 
-    def create(
-            self,
-            info: RorschachTestIn) -> Union[RorschachTestOut, Error]:
+    def create(self, info: RorschachTestIn) -> Union[RorschachTestOut, Error]:
         rorschachimg = RorschachImageQueries()
         if rorschachimg.get_one(info.image) is None:
             return Error(message="rorschach image does not exist")
@@ -70,22 +71,25 @@ class RorschachTestQueries:
                         %s, %s
                         ) RETURNING rorschach_id;
                         """,
-                        [info.image, info.response]
+                        [info.image, info.response],
                     )
                     rorschach_id = data.fetchone()[0]
                     return RorschachTestOut(
-                            id=rorschach_id,
-                            image=rorschachimg.get_one(info.image),
-                            response=info.response)
+                        id=rorschach_id,
+                        image=rorschachimg.get_one(info.image),
+                        response=info.response,
+                    )
         except Exception:
             return Error(message="could not create the rorschach test")
 
     def update(
-            self,
-            rorschach_id: int,
-            info: RorschachTestIn
+        self, rorschach_id: int, info: RorschachTestIn
     ) -> Union[RorschachTestOut, Error]:
         try:
+            rorschachimg = RorschachImageQueries()
+            if rorschachimg.get_one(info.image) is None:
+                return Error(message="rorschach image does not exist")
+
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
@@ -94,13 +98,13 @@ class RorschachTestQueries:
                         SET image=%s, response=%s
                         WHERE rorschach_id=%s;
                         """,
-                        [info.image, info.response, rorschach_id]
+                        [info.image, info.response, rorschach_id],
                     )
                     rorschach_image = RorschachImageQueries()
                     return RorschachTestOut(
                         id=rorschach_id,
                         image=rorschach_image.get_one(info.image),
-                        response=info.response
+                        response=info.response,
                     )
         except Exception:
             return Error(
