@@ -105,11 +105,6 @@ function CheckinsList() {
                     (new Date(cTime(checkin.date))) <= endDate
             )
         }
-        for (let c of checkins) {
-            console.log('testingggg')
-            console.log(new Date(c.date))
-            console.log(new Date(cTime(c.date)))
-        }
 
         let cards = []
         const weekDay = startDate.getDay()
