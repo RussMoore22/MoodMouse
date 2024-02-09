@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import CarouselComponent from './CarouselComponent';
+import "./CarouselComponent.css"
 
 
- function Home() {
+function Home() {
     const [data, setData] = useState({})
     const url = 'https://type.fit/api/quotes'
 
@@ -15,7 +17,6 @@ import React, { useState, useEffect } from 'react'
                 const responseJson = await response.json()
                 setData(responseJson[numGen()])
         }
-
     }
 
     useEffect(() => {
@@ -31,13 +32,15 @@ import React, { useState, useEffect } from 'react'
 
     return (
         <>
-        <div>
-            <h3>{data.text}</h3>
-            <h4>-{ data.author.split(',')[0] }</h4>
-
-        </div>
+            <div className="quote-container">
+                <div className="quote-content">
+                    <p className="quote-text">{data.text}</p>
+                    <p className="quote-author">-{data.author.split(',')[0]}</p>
+                </div>
+                <CarouselComponent />
+            </div>
         </>
     )
 }
 
-export default Home
+export default Home;
