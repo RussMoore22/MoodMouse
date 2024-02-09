@@ -10,8 +10,11 @@ import { useNavigate } from 'react-router-dom'
 
 function EditCheckinForm() {
     const params = useParams()
-    const { data: checkinData, isLoading: checkinLoading } =
-        useGetOneCheckinQuery(params.checkin_id)
+    const {
+        data: checkinData,
+        isLoading: checkinLoading,
+        isError: checkinError,
+    } = useGetOneCheckinQuery(params.checkin_id)
     const navigate = useNavigate()
 
     const [happyLevel, setHappyLevel] = useState(0)
@@ -33,7 +36,7 @@ function EditCheckinForm() {
         useEditOneRorschachTestMutation()
 
     useEffect(() => {
-        if (!checkinLoading) {
+        if (!checkinLoading && !checkinError) {
             setHappyLevel(checkinData.happy_level)
             setJournalEntry(checkinData.journal_entry)
             setQ1Ans(checkinData.survey.q1_ans)
@@ -146,8 +149,12 @@ function EditCheckinForm() {
         }
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
-    if (checkinLoading) {
-        return <div>Loading...</div>
+    if (checkinLoading || checkinData === undefined) {
+        if (checkinLoading) {
+            return <div>Loading...</div>
+        } else if (checkinError) {
+            navigate('/error')
+        }
     }
 
     return (

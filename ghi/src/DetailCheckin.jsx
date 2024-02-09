@@ -5,13 +5,21 @@ import { useNavigate } from 'react-router-dom'
 
 function DetailCheckin() {
     const params = useParams()
-    const { data: checkin, isLoading: checkinIsLoading } =
-        useGetOneCheckinQuery(params.checkin_id)
+    const {
+        data: checkin,
+        isLoading: checkinIsLoading,
+        isError: checkinError,
+    } = useGetOneCheckinQuery(params.checkin_id)
     let navigate = useNavigate()
 
-    if (checkinIsLoading) {
-        return <div> Loading...</div>
+    if (checkinIsLoading || checkin === undefined) {
+        if (checkinIsLoading) {
+            return <div>Loading...</div>
+        } else if (checkinError) {
+            navigate('/error')
+        }
     }
+
     const checkinDate = new Date(checkin.date)
     const score = (checkin) => {
         return (
@@ -28,7 +36,6 @@ function DetailCheckin() {
         navigate(`/checkins/${checkin.check_in_id}/edit`)
     }
 
-    console.log(checkin)
     return (
         <>
             <div>
