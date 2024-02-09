@@ -5,10 +5,22 @@ import {
 } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
+
 function CheckinsList() {
+    const today = new Date(Date.now())
+    const startDateIntialVal = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+    )
+    const endDateIntialVal = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0
+    )
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
-    const [startDate, setStartDate] = useState(new Date('02-01-2024'))
-    const [endDate, setEndDate] = useState(new Date('02-29-2024'))
+    const [startDate, setStartDate] = useState(startDateIntialVal)
+    const [endDate, setEndDate] = useState(endDateIntialVal)
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
     const [calendarCards, setCalendarCards] = useState([])
     const navigate = useNavigate()
@@ -63,7 +75,7 @@ function CheckinsList() {
         const currentMonth = selectDate.getMonth()
         const currentYear = selectDate.getFullYear()
         setStartDate(new Date(currentYear, currentMonth, 1))
-        setEndDate(new Date(currentYear, currentMonth + 1, 1))
+        setEndDate(new Date(currentYear, currentMonth + 1, 0))
     }, [selectDate])
 
     const score = (checkin) => {
@@ -79,13 +91,7 @@ function CheckinsList() {
 
     const MakeCardList = () => {
         const start = startDate.getDate()
-        const today = new Date(Date.now())
-        const end = new Date(
-            today.getFullYear(),
-            today.getMonth() + 1,
-            0
-        ).getDate()
-
+        const end = endDate.getDate()
         let checkinsMonth = []
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
@@ -134,10 +140,13 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        if (!(checkins === undefined)) {
+        console.log('asking if ', startDate.getMonth(), endDate.getMonth(),"start date: ",startDate, "end date", endDate)
+        if (!(checkins === undefined) &&
+        (startDate.getMonth() == endDate.getMonth())
+        ) {
             MakeCardList()
         }
-    }, [checkins, startDate])
+    }, [checkins, startDate, endDate])
 
     const dateColor = (card) => {
         if (card.type === 'blank') {
