@@ -1,11 +1,10 @@
 from queries.pool import pool
-from pydantic import BaseModel
 from typing import List, Union
 from models import RorschachImageOut, RorschachTestIn, RorschachTestOut, Error
 
 
 class RorschachImageQueries:
-    def get_all(self) -> List[RorschachImageOut]:
+    def get_all(self) -> Union[List[RorschachImageOut], Error]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -19,13 +18,15 @@ class RorschachImageQueries:
                         FROM rorschach_imgs;
                         """
                     )
-                    # fetchall()
-                    return [ RorschachImageOut(id=record[0], path=record[1]) for record in db ]
+                    return [
+                        RorschachImageOut(id=record[0], path=record[1])
+                        for record in db
+                    ]
         except Exception:
             return Error(message="Could not get list of images")
 
     # get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, id: int) -> RorschachImageOut:
+    def get_one(self, id: int) -> Union[RorschachImageOut, None]:
         try:
             # connection to database
             with pool.connection() as conn:
@@ -39,7 +40,7 @@ class RorschachImageQueries:
                         FROM rorschach_imgs
                         Where id = %s;
                         """,
-                        [id]
+                        [id],
                     )
                     record = db.fetchone()
                     if record is None:
@@ -50,7 +51,11 @@ class RorschachImageQueries:
 
 
 class RorschachTestQueries:
-    def create(self, info: RorschachTestIn):
+
+    def create(self, info: RorschachTestIn) -> Union[RorschachTestOut, Error]:
+        rorschachimg = RorschachImageQueries()
+        if rorschachimg.get_one(info.image) is None:
+            return Error(message="rorschach image does not exist")
         try:
             # connection to database
             with pool.connection() as conn:
@@ -66,23 +71,25 @@ class RorschachTestQueries:
                         %s, %s
                         ) RETURNING rorschach_id;
                         """,
-                        [info.image, info.response]
+                        [info.image, info.response],
                     )
                     rorschach_id = data.fetchone()[0]
-
-                    rorschachimg = RorschachImageQueries()
-
-                    if rorschachimg.get_one(info.image):
-                        return RorschachTestOut(
-                            id=rorschach_id,
-                            image=rorschachimg.get_one(info.image),
-                            response=info.response)
-                    return Error(message="rorschach Image does not exist")
+                    return RorschachTestOut(
+                        id=rorschach_id,
+                        image=rorschachimg.get_one(info.image),
+                        response=info.response,
+                    )
         except Exception:
-            return Error(message="could not create the rorschach test ")
+            return Error(message="could not create the rorschach test")
 
-    def update(self, rorschach_id: int, info:RorschachTestIn) -> Union[RorschachTestOut, Error]:
+    def update(
+        self, rorschach_id: int, info: RorschachTestIn
+    ) -> Union[RorschachTestOut, Error]:
         try:
+            rorschachimg = RorschachImageQueries()
+            if rorschachimg.get_one(info.image) is None:
+                return Error(message="rorschach image does not exist")
+
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
@@ -91,41 +98,16 @@ class RorschachTestQueries:
                         SET image=%s, response=%s
                         WHERE rorschach_id=%s;
                         """,
-                        [info.image, info.response, rorschach_id]
+                        [info.image, info.response, rorschach_id],
                     )
                     rorschach_image = RorschachImageQueries()
                     return RorschachTestOut(
                         id=rorschach_id,
                         image=rorschach_image.get_one(info.image),
-                        response=info.response
-                        )
-        except Exception:
-            return Error(message="could not update Rorschach Test")
-
-
-
-
-# get_one() here is not for endpoint but for creating foreign key object
-    def get_one(self, rorschach_test_id: int) -> RorschachTestOut:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT rorschach_id, image, response
-                        FROM rorschach_tests
-                        WHERE rorschach_id = %s;
-                        """,
-                        [rorschach_test_id]
+                        response=info.response,
                     )
-                    record = db.fetchone()
-                    rorschachimg = RorschachImageQueries()
-                    if record is None:
-                        return None
-                    else:
-                        if rorschachimg.get_one(record[1]):
-                            return RorschachTestOut(id=record[0], image=rorschachimg.get_one(record[1]), response=record[2])
-                        else:
-                            return None
         except Exception:
-            return None
+            return Error(
+                message=f"""could not update
+                  Rorschach Test with id {rorschach_id}"""
+            )
