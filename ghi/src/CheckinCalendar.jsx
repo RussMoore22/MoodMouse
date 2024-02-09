@@ -17,7 +17,10 @@ function CheckinsList() {
     const endDateIntialVal = new Date(
         today.getFullYear(),
         today.getMonth() + 1,
-        0
+        0,
+        23,
+        59,
+        59
     )
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
     const [startDate, setStartDate] = useState(startDateIntialVal)
@@ -94,12 +97,21 @@ function CheckinsList() {
         const start = startDate.getDate()
         const end = endDate.getDate()
         let checkinsMonth = []
+        for (let c of checkins){
+            console.log(new Date(cTime(c.date)))
+
+        }
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    new Date(cTime(checkin.date)) >= startDate &&
-                    new Date(cTime(checkin.date)) < endDate
+                    (new Date(cTime(checkin.date))) >= startDate &&
+                    (new Date(cTime(checkin.date))) <= endDate
             )
+        }
+        for (let c of checkins) {
+            console.log('testingggg')
+            console.log(new Date(c.date))
+            console.log(new Date(cTime(c.date)))
         }
 
         let cards = []
@@ -117,7 +129,7 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (i == (new Date(cTime(checkinsMonth[0]?.date))).getDate()) {
+            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
                 cards.push({
                     date: i,
                     type: 'checkin',
