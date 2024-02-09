@@ -7,9 +7,12 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Nav from './nav'
 import LoginForm from './LoginForm'
-
+import Slider from 'react-slick'
+import Home from './Home'
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // When using environment variables, you should do a check to see if
 // they are defined or not and throw an appropriate error message
@@ -61,6 +64,8 @@ function App() {
             <Nav />
             <div className="mt-5">
                 <Outlet />
+
+                {/* changed Outlet tag to Home */}
             </div>
         </div>
     )

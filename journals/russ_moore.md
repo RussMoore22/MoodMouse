@@ -227,7 +227,7 @@ We finished the goals for the day and were on track for finishing the project. W
 Aha Moment: destructuring in javascript using curly brackets allows you to make an alias, which helps when you are doing a lot of destructuring of functions calls with similar outputs.
 
 
-## February 05, 2024
+## February 06, 2024
 
 Goals:
 1. Create the edit one check-in page
@@ -236,3 +236,35 @@ Goals:
 Finished the edit page and had to slow down and get help from two of the group mates that were not absorbing the information. talking through the information is beneficial to everyone, so I didnt mind walking through the code slowly. When our team gets to a bug, we ask the navigators to participate in handling the resolution even when we already know what the issue is so that everyone is up to speed and learns from it. It is getting difficult to do this since the pressure of getting the project finished on time is growing. I can feel a bit of stress from some of the team and the priority for getting the project completed is starting to outway the priorty to learn.
 
 Aha Moment: Using a console log after a setState will occur before the state is even set. it is more helpful to use a console log in a useEffect to catch when the state has actually changed to perform certain actions with the state to ensure it has been changed first. Also, if statements can go inside of the function for useEffect hooks.
+
+## February 07, 2024
+
+1. finish the calendar view
+2. fix unit testing code (since changes were made to models)
+3. add error handling to get_one endpoints
+
+We broke up into two groups of two for pair programming today, which ended up allowing us to be much more productive. Luna and I worked on front end (calendar view) while our other two teamates worked on the backend (error handling for get_one error handling).
+
+Luna and I made great progress on the calendar view. To ensure our success, we drew out a more detailed wireframe of that page and discussed what shape our data needed to take to get something that resembled a calendar. We started by getting all the checkins and filtering them for the given month. We added them to an array and filled in the days where no checkin was completed for that day with a dummy object. the dummy objects allowed a dummy card to be created in html and were were able to get a 7x6 grid of days that corresponded to the correct weekday.
+
+Aha-moment: we created some dummy checkin data, and didnt realize why when we changed one, certain parameters of the others would change. it wasnt clear right away, but this dummy data was depending on the same surveys and made it seem like the edit endpoint was causing more than one to be changed.
+
+## February 08, 2024
+
+Goals:
+
+1. fix unit testing
+2. error handling for all backend routes
+3. add pydantic typing to routers and queries
+4. add login/signup errors on page
+5. do not allow user to add multiple checkins per day
+6. add delete-mode button
+7. refresh calendar components on navigation
+8. redirect to other pages when submitting forms or clicking certain buttons
+9. clean the backend code
+
+Luna and I pair programmed again today and accomplished all our goals for the day. We were really dedicated to finishing as much as possible one day in advanced. We asked for some help from Riley since the page that navigated from our create checkin to our list/calendar page was not rendering the newly created data to the list. We thought it might be a problem with a useEffect and that turned out to be the problem. We were having a difficult time with some useEffects but since our project uses so many of them, I feel like I have a much better grasp of their mechanics now. Debugging with Riley shed light on what kinds of thing I can look out for when something isn't as expected- we focused a lot on the network and the sequence of events that take place around the time the submit button is clicked and the api calls are made. It was very enlightening, and Luna and I quickly discovered the issue soon after he left us tyo our work.
+Aha-Moment: when using useEffect hooks, pay attention to the dependencies and if their state is the state that should truly be depended on. Using a useEffect to get a reroute to occur after a succesful response is returned.
+
+When we finally met with our other two team-mates, I couldn't have been more impressed with their progress. The styling they added looked really great and I was happy to see they were able to get so much done. I was a little worried that we would be behind, but once I saw what they had come up with, I felt a whole lot better about getting eveything done on time.
+
