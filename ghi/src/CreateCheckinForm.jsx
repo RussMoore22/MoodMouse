@@ -148,10 +148,9 @@ function CreateCheckinForm() {
             )
             if (checkinToday === undefined) {
                 console.log('no checkin for day')
-            } else {
-                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
-                // navigate(`/calendar`)
-                console.log("aha")
+            } 
+            else if (happyLevel == 0) {
+                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
