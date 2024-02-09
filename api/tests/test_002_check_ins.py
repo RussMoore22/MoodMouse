@@ -30,7 +30,7 @@ def mock_rorschach_test(rorschach_id: int):
         "id": rorschach_id,
         "image": {
             "id": 1,
-            "path": "https://b3447153.smushcdn.com/3447153/wp-content/uploads/2016/01/Rorschach_blot_01-300x196.jpg?lossy=1&strip=1&webp=1",
+            "path": "google.com",
         },
         "response": "I see a moth",
     }
@@ -114,7 +114,7 @@ def test_create_check_ins():
             "id": 1,
             "image": {
                 "id": 1,
-                "path": "https://b3447153.smushcdn.com/3447153/wp-content/uploads/2016/01/Rorschach_blot_01-300x196.jpg?lossy=1&strip=1&webp=1",
+                "path": "google.com",
             },
             "response": "I see a moth",
         },

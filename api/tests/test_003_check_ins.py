@@ -58,7 +58,7 @@ def mock_rorschach_tests():
             "id": 1,
             "image": {
                 "id": 1,
-                "path": "https://b3447153.smushcdn.com/3447153/wp-content/uploads/2016/01/Rorschach_blot_01-300x196.jpg?lossy=1&strip=1&webp=1",
+                "path": "google.com",
             },
             "response": "I see a bear fighting",
         },
@@ -153,6 +153,5 @@ def test_get_all_mine():
         assert "image" in rorschach_test
         assert "response" in rorschach_test
 
-    # This resets any dependency overrides and reverts the fastapi endpoint to its
-    # original state.
+    # Reset the fastapi endpoint to it original state
     app.dependency_overrides = {}
