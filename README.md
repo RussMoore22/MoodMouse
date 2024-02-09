@@ -20,8 +20,7 @@
 </div>
 
 
-**MoodMouse** is the embodiment of our vision to empower users to prioritize their mental health. With features such as journaling, mood tracking, daily Rorschach tests, and emotional state surveys, MoodMouse provides a comprehensive solution for self-care and self-discovery. MoodMouse is meant to encourage users to prioritize their well-being and embark on a journey towards mental wellness.
-
+**MoodMouse** encapsulates our mission of empowering users to prioritize mental health, providing a comprehensive toolkit for self-care and self-discovery. Through journaling, mood tracking, daily Rorschach tests, and emotional state surveys, users embark on a transformative journey towards holistic well-being. Dive into the depths of your subconscious with captivating Rorschach tests, fostering introspection and understanding of unique perceptions. Your privacy is paramount, with MoodMouse's stringent measures safeguarding your data and ensuring peace of mind. Take proactive steps towards mental wellness, cultivating mindfulness, self-awareness, and personal growth with MoodMouse as your steadfast companion. Begin your path to a healthier, happier you today.
 
 
 ### Built with
@@ -70,9 +69,9 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 ## Team Members
 
 - Jennifer Perera - [Email Address](jenniferperera12@gmail.com)
-- Russ Moore - [Email Address](jenniferperera12@gmail.com)
-- Luna Sun - [Email Address](jenniferperera12@gmail.com)
-- Ramesh Beharry - [Email Address](jenniferperera12@gmail.com)
+- Russ Moore
+- Luna Sun - [Email Address](luyisun0412@gmail.com)
+- Ramesh Beharry - [Email Address](ramesh.beharry@mailfence.com)
 
 
 
