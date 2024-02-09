@@ -29,9 +29,10 @@ The survey entity is given to a user daily when
 | path   | varchar(300)   | no       | no       |
 
 #### rorschach_tests
-| name   | type                          | unique   | optional |
-| :---:  | :----:                        | :----:   | :----:   |
-| image  | reference to rorschach_imgs   | no       | no       |
+| name     | type                          | unique   | optional |
+| :---:    | :----:                        | :----:   | :----:   |
+| image    | reference to rorschach_imgs   | no       | no       |
+| response | varchar(500).                 | no       | yes      |
 
 #### check_ins
 | name           | type                       | unique | optional |
