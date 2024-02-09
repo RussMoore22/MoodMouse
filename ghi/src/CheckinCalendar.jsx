@@ -4,6 +4,7 @@ import {
     useDeleteCheckinMutation,
 } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
+import cTime from "./cTime"
 
 
 function CheckinsList() {
@@ -16,7 +17,10 @@ function CheckinsList() {
     const endDateIntialVal = new Date(
         today.getFullYear(),
         today.getMonth() + 1,
-        0
+        0,
+        23,
+        59,
+        59
     )
     const { data: checkins, isLoading } = useGetAllCheckinsQuery()
     const [startDate, setStartDate] = useState(startDateIntialVal)
@@ -93,11 +97,12 @@ function CheckinsList() {
         const start = startDate.getDate()
         const end = endDate.getDate()
         let checkinsMonth = []
+
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    new Date(checkin.date) >= startDate &&
-                    new Date(checkin.date) < endDate
+                    (new Date(cTime(checkin.date))) >= startDate &&
+                    (new Date(cTime(checkin.date))) <= endDate
             )
         }
 
@@ -116,7 +121,7 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (i == new Date(checkinsMonth[0]?.date).getDate()) {
+            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
                 cards.push({
                     date: i,
                     type: 'checkin',
@@ -154,7 +159,7 @@ function CheckinsList() {
         }
         if (card.type === 'muted') {
             return 'rgb(120, 120, 120)'
-        } else {
+        } else if (card.type === 'checkin') {
             let total =
                 card.data.happy_level +
                 card.data.survey.q1_ans +
