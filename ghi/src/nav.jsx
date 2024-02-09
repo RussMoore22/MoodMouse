@@ -3,6 +3,7 @@ import { useGetTokenQuery, useLogoutMutation } from './app/apiSlice'
 
 function Nav() {
     const { data: account } = useGetTokenQuery()
+
     const [logout] = useLogoutMutation()
 
     return (
