@@ -97,21 +97,13 @@ function CheckinsList() {
         const start = startDate.getDate()
         const end = endDate.getDate()
         let checkinsMonth = []
-        for (let c of checkins){
-            console.log(new Date(cTime(c.date)))
 
-        }
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
                     (new Date(cTime(checkin.date))) >= startDate &&
                     (new Date(cTime(checkin.date))) <= endDate
             )
-        }
-        for (let c of checkins) {
-            console.log('testingggg')
-            console.log(new Date(c.date))
-            console.log(new Date(cTime(c.date)))
         }
 
         let cards = []
