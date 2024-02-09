@@ -10,8 +10,6 @@ function ErrorNotification(props) {
         return null
     }
 
-    console.log(props.error)
-
     const returnHome = () => {
         navigate('/')
     }

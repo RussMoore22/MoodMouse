@@ -4,8 +4,7 @@ import {
     useDeleteCheckinMutation,
 } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
-import cTime from "./cTime"
-
+import cTime from './cTime'
 
 function CheckinsList() {
     const today = new Date(Date.now())
@@ -22,7 +21,7 @@ function CheckinsList() {
         59,
         59
     )
-    const { data: checkins, isLoading } = useGetAllCheckinsQuery()
+    const { data: checkins, isLoading, isError } = useGetAllCheckinsQuery()
     const [startDate, setStartDate] = useState(startDateIntialVal)
     const [endDate, setEndDate] = useState(endDateIntialVal)
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
@@ -101,8 +100,8 @@ function CheckinsList() {
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    (new Date(cTime(checkin.date))) >= startDate &&
-                    (new Date(cTime(checkin.date))) <= endDate
+                    new Date(cTime(checkin.date)) >= startDate &&
+                    new Date(cTime(checkin.date)) <= endDate
             )
         }
 
@@ -121,7 +120,10 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
+            if (
+                !(checkinsMonth[0] === undefined) &&
+                i == new Date(cTime(checkinsMonth[0].date)).getDate()
+            ) {
                 cards.push({
                     date: i,
                     type: 'checkin',
@@ -145,9 +147,18 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        console.log('asking if ', startDate.getMonth(), endDate.getMonth(),"start date: ",startDate, "end date", endDate)
-        if (!(checkins === undefined) &&
-        (startDate.getMonth() == endDate.getMonth())
+        console.log(
+            'asking if ',
+            startDate.getMonth(),
+            endDate.getMonth(),
+            'start date: ',
+            startDate,
+            'end date',
+            endDate
+        )
+        if (
+            !(checkins === undefined) &&
+            startDate.getMonth() == endDate.getMonth()
         ) {
             MakeCardList()
         }
@@ -176,94 +187,106 @@ function CheckinsList() {
             navigate(`/checkins/${card.data.check_in_id}`)
         }
     }
+
+    useEffect(() => {
+        if (isError && checkins === undefined) {
+            navigate('/error')
+        }
+    }, [isError])
+
     if (isLoading) return <div>Loading...</div>
 
     return (
         <>
-            <div>
+            {checkins !== undefined && checkins.length >= 0 && (
                 <div>
-                    <button onClick={toggleDeleteMode}>delete mode</button>
-                </div>
-                <h2> My Mood Calendar </h2>
-                <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
-                    <div className="flex-fill bd-highlight">
-                        <button onClick={handleDecrement}>Decrement</button>
+                    <div>
+                        <button onClick={toggleDeleteMode}>delete mode</button>
                     </div>
-                    <div className="flex-fill bd-highlight">
-                        <h3>{getMonthYearName(selectDate)}</h3>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <button onClick={handleIncrement}>Increment</button>
-                    </div>
-                </div>
-
-                <div className="d-flex bd-highlight justify-content-around">
-                    <div className="flex-fill bd-highlight">
-                        <h6>Sunday </h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Monday</h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Tuesday</h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Wednesday</h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Thursday</h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Friday</h6>
-                    </div>
-                    <div className="flex-fill bd-highlight">
-                        <h6>Saturday</h6>
-                    </div>
-                </div>
-                {calendarCards.map((cardRow) => {
-                    return (
-                        <div key={`${cardRow[0].date}-${cardRow[0].type}`}
-                            className="d-flex bd-highlight card-group"
-                        >
-                            {cardRow.map((card) => {
-                                return (
-                                    <div
-                                        key={`${card.date}-${card.type}`}
-                                        onClick={() => handleNavigation(card)}
-                                        className="card p-2 bd-highlight"
-                                        style={{
-                                            backgroundColor: `${dateColor(
-                                                card
-                                            )}`,
-                                        }}
-                                    >
-                                        <div className="card-body">
-                                            <div className="card-header">
-                                                {card.date}
-                                            </div>
-                                            <h6 className="card-title">
-                                                {/* {card.data?.happy_level} */}
-                                            </h6>
-                                            {card.type === 'checkin' &&
-                                                deleteMode && (
-                                                    <button
-                                                        value={
-                                                            card.data
-                                                                .check_in_id
-                                                        }
-                                                        onClick={deleteCard}
-                                                    >
-                                                        delete
-                                                    </button>
-                                                )}
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                    <h2> My Mood Calendar </h2>
+                    <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
+                        <div className="flex-fill bd-highlight">
+                            <button onClick={handleDecrement}>Decrement</button>
                         </div>
-                    )
-                })}
-            </div>
+                        <div className="flex-fill bd-highlight">
+                            <h3>{getMonthYearName(selectDate)}</h3>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <button onClick={handleIncrement}>Increment</button>
+                        </div>
+                    </div>
+
+                    <div className="d-flex bd-highlight justify-content-around">
+                        <div className="flex-fill bd-highlight">
+                            <h6>Sunday </h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Monday</h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Tuesday</h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Wednesday</h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Thursday</h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Friday</h6>
+                        </div>
+                        <div className="flex-fill bd-highlight">
+                            <h6>Saturday</h6>
+                        </div>
+                    </div>
+                    {calendarCards.map((cardRow) => {
+                        return (
+                            <div
+                                key={`${cardRow[0].date}-${cardRow[0].type}`}
+                                className="d-flex bd-highlight card-group"
+                            >
+                                {cardRow.map((card) => {
+                                    return (
+                                        <div
+                                            key={`${card.date}-${card.type}`}
+                                            onClick={() =>
+                                                handleNavigation(card)
+                                            }
+                                            className="card p-2 bd-highlight"
+                                            style={{
+                                                backgroundColor: `${dateColor(
+                                                    card
+                                                )}`,
+                                            }}
+                                        >
+                                            <div className="card-body">
+                                                <div className="card-header">
+                                                    {card.date}
+                                                </div>
+                                                <h6 className="card-title">
+                                                    {/* {card.data?.happy_level} */}
+                                                </h6>
+                                                {card.type === 'checkin' &&
+                                                    deleteMode && (
+                                                        <button
+                                                            value={
+                                                                card.data
+                                                                    .check_in_id
+                                                            }
+                                                            onClick={deleteCard}
+                                                        >
+                                                            delete
+                                                        </button>
+                                                    )}
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
         </>
     )
 }

@@ -149,166 +149,173 @@ function EditCheckinForm() {
         }
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
-    if (checkinLoading || checkinData === undefined) {
-        if (checkinLoading) {
-            return <div>Loading...</div>
-        } else if (checkinError) {
+    useEffect(() => {
+        if (checkinError) {
             navigate('/error')
         }
-    }
+
+    }, [checkinError])
+
+    if (checkinLoading) return <div>Loading....</div>
 
     return (
         <>
-            <div></div>
+            {checkinData && (
+                <div className="row">
+                    <form id="user-checkin-form" onSubmit={handleSubmit}>
+                        <div className="form-group col-md-12 mt-3">
+                            Edit a Check In
+                        </div>
+                        <div>
+                            <div className="form-group col-md-6">
+                                <img
+                                    src={checkinData.rorschach_test.image.path}
+                                />
+                                <label htmlFor="response">
+                                    What you saw...
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="response"
+                                    placeholder="Response"
+                                    onChange={handleRorschachResponse}
+                                    value={response}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="happyLevel">
+                                    How you felt...
+                                </label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="happyLevel"
+                                    placeholder="0"
+                                    onChange={handleHappyLevel}
+                                    value={happyLevel}
+                                    min="0"
+                                    max="4"
+                                />
+                            </div>
 
-            <div className="row">
-                <form id="user-checkin-form" onSubmit={handleSubmit}>
-                    <div className="form-group col-md-12 mt-3">
-                        Edit a Check In
-                    </div>
-                    <div>
-                        <div className="form-group col-md-6">
-                            <img src={checkinData.rorschach_test.image.path} />
-                            <label htmlFor="response">What you saw...</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="happyLevel">How you felt...</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="happyLevel"
-                                placeholder="0"
-                                onChange={handleHappyLevel}
-                                value={happyLevel}
-                                min="0"
-                                max="4"
-                            />
-                        </div>
+                            <div>
+                                <label htmlFor="question1">
+                                    {checkinData.survey.q1.prompt}{' '}
+                                </label>
+                                <input
+                                    type="number"
+                                    name="question1"
+                                    id="question1"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ1}
+                                    value={q1Ans}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="question2">
+                                    {checkinData.survey.q2.prompt}{' '}
+                                </label>
+                                <input
+                                    type="number"
+                                    name="question1"
+                                    id="question2"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ2}
+                                    value={q2Ans}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="question3">
+                                    {checkinData.survey.q3.prompt}{' '}
+                                </label>
+                                <input
+                                    type="number"
+                                    name="question1"
+                                    id="question3"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ3}
+                                    value={q3Ans}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="question4">
+                                    {checkinData.survey.q4.prompt}{' '}
+                                </label>
+                                <input
+                                    type="number"
+                                    name="question1"
+                                    id="question4"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ4}
+                                    value={q4Ans}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="question5">
+                                    {checkinData.survey.q5.prompt}{' '}
+                                </label>
+                                <input
+                                    type="number"
+                                    name="question1"
+                                    id="question5"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ5}
+                                    value={q5Ans}
+                                />
+                            </div>
 
-                        <div>
-                            <label htmlFor="question1">
-                                {checkinData.survey.q1.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question1"
-                                min="0"
-                                max="4"
-                                onChange={handleQ1}
-                                value={q1Ans}
-                            />
+                            <div className="form-group col-md-6">
+                                <label htmlFor="journalEntry">
+                                    What you wrote...
+                                </label>
+                                <textarea
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    id="journalEntry"
+                                    placeholder="Write your journal entry"
+                                    onChange={handleJournalEntry}
+                                    value={journalEntry}
+                                    rows="15"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <label htmlFor="question2">
-                                {checkinData.survey.q2.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question2"
-                                min="0"
-                                max="4"
-                                onChange={handleQ2}
-                                value={q2Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question3">
-                                {checkinData.survey.q3.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question3"
-                                min="0"
-                                max="4"
-                                onChange={handleQ3}
-                                value={q3Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question4">
-                                {checkinData.survey.q4.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question4"
-                                min="0"
-                                max="4"
-                                onChange={handleQ4}
-                                value={q4Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question5">
-                                {checkinData.survey.q5.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question5"
-                                min="0"
-                                max="4"
-                                onChange={handleQ5}
-                                value={q5Ans}
-                            />
-                        </div>
-
-                        <div className="form-group col-md-6">
-                            <label htmlFor="journalEntry">
-                                What you wrote...
-                            </label>
-                            <textarea
-                                type="text"
-                                className="form-control form-control-lg"
-                                id="journalEntry"
-                                placeholder="Write your journal entry"
-                                onChange={handleJournalEntry}
-                                value={journalEntry}
-                                rows="15"
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group row mt-2">
-                        <div className="col-md-10">
-                            {edit ? (
-                                <>
+                        <div className="form-group row mt-2">
+                            <div className="col-md-10">
+                                {edit ? (
+                                    <>
+                                        <button
+                                            onClick={handleCancel}
+                                            type="button"
+                                            className="btn btn-secondary"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary"
+                                        >
+                                            Edit
+                                        </button>
+                                    </>
+                                ) : (
                                     <button
                                         onClick={handleCancel}
-                                        type="button"
                                         className="btn btn-secondary"
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                    >
-                                        Edit
-                                    </button>
-                                </>
-                            ) : (
-                                <button
-                                    onClick={handleCancel}
-                                    className="btn btn-secondary"
-                                >
-                                    Cancel
-                                </button>
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            )}
         </>
     )
 }
