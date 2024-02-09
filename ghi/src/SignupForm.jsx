@@ -8,13 +8,10 @@ function SignupForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    // const [error, setError] = useState(null);
     const [signup] = useSignupMutation()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log('Submit button clicked')
-
         signup({
             firstName,
             lastName,
@@ -22,12 +19,7 @@ function SignupForm() {
             username,
             password,
         });
-        console.log('this is signup', signup)
     };
-    // if (password !== confirmPassword) {
-    //     setError('Password does not match');
-    // }
-        
         const handleFirstName = (event) => {
         setFirstName(event.target.value);
     };
@@ -124,7 +116,9 @@ function SignupForm() {
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">Sign up</button>
+                            <button type="submit" className="btn btn-info">
+                                Sign up
+                            </button>
                         </div>
                     </div>
                 </form>

@@ -19,9 +19,7 @@ function Home() {
     useEffect(() => {
         fetchData()
     }, [])
-    console.log(data)
     if (Object.keys(data).length === 0) {
-        console.log("CAUGHT PROMISE *****")
         return (<div>Loading</div>)
     }
     return (
@@ -33,6 +31,9 @@ function Home() {
                 </div>
                 <CarouselComponent />
             </div>
+        <div>
+            <footer> Hello there !!!!!!!!!!!! </footer>
+        </div>
         </>
     );
 };

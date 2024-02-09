@@ -44,9 +44,9 @@
 
 .quote-container {
     display: contents;
-    align-items: center; /* Vertical alignment */
-    justify-content: center; /* Horizontal alignment */
-    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
     max-height: 30%;
     padding: 20px;
     max-block-size: max-content;

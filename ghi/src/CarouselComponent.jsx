@@ -39,7 +39,6 @@ const CarouselComponent = () => {
                 >
                     {staticImages.map((image, index) => (
                         <div key={index}>
-                            {console.log(image)}
                             <img src={image} alt={`API image ${index}`} />
                         </div>
                     ))}
