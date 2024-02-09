@@ -34,7 +34,6 @@ function CreateCheckinForm() {
     const { data: checkinList, isloading: checkinListIsLoading } =
         useGetAllCheckinsQuery()
     const navigate = useNavigate()
-    const {data: account, isLoading: accountIsLoading}
 
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -155,8 +154,6 @@ function CreateCheckinForm() {
             }
         }
     }, [checkinList])
-
-    if account
 
     return (
         <>
