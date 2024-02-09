@@ -22,25 +22,24 @@ class AccountsQueries:
                         FROM accounts
                         WHERE username=%s;
                         """,
-                        [username]
+                        [username],
                     )
                     user = data.fetchone()
                     if user is None:
                         return None
                     return AccountOutWithHashedPassword(
-                                                        id=user[0],
-                                                        first_name=user[1],
-                                                        last_name=user[2],
-                                                        email=user[3],
-                                                        username=user[4],
-                                                        hashed_password=user[5]
-                                                        )
+                        id=user[0],
+                        first_name=user[1],
+                        last_name=user[2],
+                        email=user[3],
+                        username=user[4],
+                        hashed_password=user[5],
+                    )
         except Exception:
             return Error(message="Could not get the user data.")
 
     def get_by_email(
-            self,
-            email: str
+        self, email: str
     ) -> Union[AccountOutWithHashedPassword, Error]:
         try:
             # connection to database
@@ -59,27 +58,25 @@ class AccountsQueries:
                         FROM accounts
                         WHERE email=%s;
                         """,
-                        [email]
+                        [email],
                     )
                     user = data.fetchone()
                     if user is None:
                         return None
                     return AccountOutWithHashedPassword(
-                                                        id=user[0],
-                                                        first_name=user[1],
-                                                        last_name=user[2],
-                                                        email=user[3],
-                                                        username=user[4],
-                                                        hashed_password=user[5]
-                                                        )
+                        id=user[0],
+                        first_name=user[1],
+                        last_name=user[2],
+                        email=user[3],
+                        username=user[4],
+                        hashed_password=user[5],
+                    )
         except Exception:
             return Error(message="Could not get the user data.")
 
     def create(
-            self,
-            info: AccountIn,
-            hashed_password: str
-            ) -> Union[AccountOut, Error]:
+        self, info: AccountIn, hashed_password: str
+    ) -> Union[AccountOut, Error]:
 
         # checks to see that username is not already in database
         result = self.get(username=info.username)
@@ -118,8 +115,8 @@ class AccountsQueries:
                             info.last_name,
                             info.email,
                             info.username,
-                            hashed_password
-                        ]
+                            hashed_password,
+                        ],
                     )
                     new_user_id = data.fetchone()[0]
                     dict_info = info.dict()

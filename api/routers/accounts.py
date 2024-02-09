@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         return {
@@ -30,7 +30,7 @@ async def create__account(
     info: AccountIn,
     request: Request,
     response: Response,
-    repo: AccountsQueries = Depends()
+    repo: AccountsQueries = Depends(),
 ) -> AccountToken | Error:
     hashed_password = authenticator.hash_password(info.password)
     account = repo.create(info=info, hashed_password=hashed_password)

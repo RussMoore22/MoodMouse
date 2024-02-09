@@ -5,23 +5,21 @@ import {
     useCreateSurveyMutation,
     useGetImagesQuery,
     useGetQuestionQuery,
+    useGetAllCheckinsQuery,
 } from './app/apiSlice'
 
-function CreateCheckinForm() {
+import { useNavigate } from 'react-router-dom'
 
+function CreateCheckinForm() {
     const [happyLevel, setHappyLevel] = useState('')
     const [survey, setSurvey] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
     const [rorschachTest, setRorschachTest] = useState(0)
 
     const [q1Ans, setQ1Ans] = useState('')
-
     const [q2Ans, setQ2Ans] = useState('')
-
     const [q3Ans, setQ3Ans] = useState('')
-
     const [q4Ans, setQ4Ans] = useState('')
-
     const [q5Ans, setQ5Ans] = useState('')
 
     const [response, setResponse] = useState('')
@@ -33,7 +31,9 @@ function CreateCheckinForm() {
     const [createRorschachTest, rorschachStatus] =
         useCreateRorschachTestMutation()
     const { data: rorschach_imgs, isLoading: r_isLoading } = useGetImagesQuery()
-
+    const { data: checkinList, isloading: checkinListIsLoading } =
+        useGetAllCheckinsQuery()
+    const navigate = useNavigate()
 
     const handleHappyLevel = (event) => {
         setHappyLevel(event.target.value)
@@ -73,15 +73,11 @@ function CreateCheckinForm() {
     const { data: question3, isLoading: q3_isLoading } = useGetQuestionQuery(3)
     const { data: question4, isLoading: q4_isLoading } = useGetQuestionQuery(4)
     const { data: question5, isLoading: q5_isLoading } = useGetQuestionQuery(5)
-
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('Submit button clicked')
-
-        const image = 1
-        // const response =
+        const image = rorschachImg.id
         createRorschachTest({ image, response })
-
         const q1q = +question1.id
         const q2q = +question2.id
         const q3q = +question3.id
@@ -103,13 +99,10 @@ function CreateCheckinForm() {
 
     useEffect(() => {
         if (surveyStatus.isSuccess && rorschachStatus.isSuccess) {
-            console.log('testing the survey:', surveyStatus)
-            console.log('testing the rorschach:', rorschachStatus)
             setRorschachTest(+rorschachStatus.data.id)
             setSurvey(+surveyStatus.data.survey_id)
         }
     }, [surveyStatus, rorschachStatus])
-
     useEffect(() => {
         if (survey > 0 && rorschachTest > 0) {
             createCheckin({
@@ -120,10 +113,41 @@ function CreateCheckinForm() {
             })
         }
     }, [survey, rorschachTest])
+    useEffect(() => {
+        if (checkinStatus.isSuccess) {
+            navigate('/calendar')
+        }
+    }, [checkinStatus])
 
     useEffect(() => {
-        getRandomRorschachImg()
-    }, [rorschach_imgs, question1, question2, question3, question4, question5])
+        if (!(rorschach_imgs === undefined)) {
+            getRandomRorschachImg()
+        }
+    }, [rorschach_imgs])
+
+    // finds checkin for current day and if it exists, reoutes to the edit page
+    useEffect(() => {
+        const today = new Date()
+        if (!(checkinList === undefined) && !checkinListIsLoading) {
+            console.log(checkinList)
+            const checkinToday = checkinList.find(
+                (checkin) =>
+                    new Date(checkin.date).getFullYear() ===
+                        today.getFullYear() &&
+                    new Date(checkin.date).getMonth() === today.getMonth() &&
+                    new Date(checkin.date).getDate() === today.getDate()
+            )
+            console.log(
+                'here is the checkin for today if it exsists: checkinToday'
+            )
+            if (checkinToday === undefined) {
+                console.log('no checkin for day')
+            } 
+            else if (happyLevel == 0) {
+                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+            }
+        }
+    }, [checkinList])
 
     return (
         <>
@@ -134,7 +158,7 @@ function CreateCheckinForm() {
                         <img src={rorschachImg.path} width="500" height="600" />
                         <button onClick={getRandomRorschachImg}>
                             {' '}
-                            generate{' '}
+                            generate new image{' '}
                         </button>
                     </div>
                 ) : (
@@ -142,12 +166,11 @@ function CreateCheckinForm() {
                         Image does not exist! {rorschachImg.path}
                         <button onClick={getRandomRorschachImg}>
                             {' '}
-                            generate{' '}
+                            Generate{' '}
                         </button>
                     </p>
                 )}
             </div>
-
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
@@ -178,7 +201,6 @@ function CreateCheckinForm() {
                                 max="4"
                             />
                         </div>
-
                         <div>
                             <label htmlFor="question1">
                                 {q1_isLoading ? 'loading...' : question1.prompt}{' '}
@@ -249,7 +271,6 @@ function CreateCheckinForm() {
                                 value={q5Ans}
                             />
                         </div>
-
                         <div className="form-group col-md-6">
                             <label htmlFor="journalEntry"></label>
                             <input
@@ -264,7 +285,7 @@ function CreateCheckinForm() {
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-info">
                                 Submit Check-in
                             </button>
                         </div>
@@ -275,4 +296,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm
+export default CreateCheckinForm;

@@ -6,11 +6,13 @@ import {
     useEditOneRorschachTestMutation,
     useGetOneCheckinQuery,
 } from './app/apiSlice'
+import { useNavigate } from 'react-router-dom'
 
 function EditCheckinForm() {
     const params = useParams()
     const { data: checkinData, isLoading: checkinLoading } =
         useGetOneCheckinQuery(params.checkin_id)
+    const navigate = useNavigate()
 
     const [happyLevel, setHappyLevel] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
@@ -77,7 +79,6 @@ function EditCheckinForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('Submit button clicked')
         if (rorschachDeploy) {
             editRorschachTest({
                 image: checkinData.rorschach_test.image.id,
@@ -112,6 +113,24 @@ function EditCheckinForm() {
             })
         }
     }
+
+    useEffect(() => {
+        if (checkinDeploy || surveyDeploy || rorschachDeploy) {
+            let navReady = true
+            if (checkinDeploy && !checkinStatus.isSuccess) {
+                navReady = false
+            }
+            if (surveyDeploy && !surveyStatus.isSuccess) {
+                navReady = false
+            }
+            if (rorschachDeploy && !rorschachStatus.isSuccess) {
+                navReady = false
+            }
+            if (navReady) {
+                navigate('/calendar')
+            }
+        }
+    }, [checkinStatus, surveyStatus, rorschachStatus])
 
     if (checkinLoading) {
         return <div>Loading...</div>
