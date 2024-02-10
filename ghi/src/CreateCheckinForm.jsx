@@ -60,7 +60,10 @@ function CreateCheckinForm() {
         setResponse(event.target.value)
     }
 
-    function getRandomRorschachImg() {
+    function getRandomRorschachImg(event) {
+        if (event){
+            event.preventDefault()
+        }
         if (!r_isLoading) {
             const randomIndex = Math.floor(
                 Math.random() * rorschach_imgs.length
@@ -75,7 +78,6 @@ function CreateCheckinForm() {
     const { data: question5, isLoading: q5_isLoading } = useGetQuestionQuery(5)
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('Submit button clicked')
         const image = rorschachImg.id
         createRorschachTest({ image, response })
         const q1q = +question1.id
@@ -121,14 +123,13 @@ function CreateCheckinForm() {
 
     useEffect(() => {
         if (!(rorschach_imgs === undefined)) {
-            getRandomRorschachImg()
+            getRandomRorschachImg(null)
         }
     }, [rorschach_imgs])
 
     useEffect(() => {
         const today = new Date()
         if (!(checkinList === undefined) && !checkinListIsLoading) {
-            console.log(checkinList)
             const checkinToday = checkinList.find(
                 (checkin) =>
                     new Date(checkin.date).getFullYear() ===
@@ -136,15 +137,10 @@ function CreateCheckinForm() {
                     new Date(checkin.date).getMonth() === today.getMonth() &&
                     new Date(checkin.date).getDate() === today.getDate()
             )
-            console.log(
-                'here is the checkin for today if it exsists: checkinToday'
-            )
             if (checkinToday === undefined) {
-                // console.log('no checkin for day')
                 setCheckinExist(0)
             } else if (happyLevel == 0) {
                 setCheckinExist(checkinToday.check_in_id)
-                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
@@ -272,7 +268,7 @@ function CreateCheckinForm() {
                                 height="300"
                             />
                         </div>
-                        <button className="m-2" onClick={getRandomRorschachImg}>
+                        <button type="button" className="m-2" onClick={getRandomRorschachImg}>
                             {' '}
                             generate new image{' '}
                         </button>
