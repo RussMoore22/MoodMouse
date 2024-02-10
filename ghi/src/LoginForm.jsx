@@ -3,7 +3,6 @@ import { useLoginMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
 function LoginForm() {
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [login, loginStatus] = useLoginMutation()
@@ -13,10 +12,10 @@ function LoginForm() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         login({ username, password })
-    };
+    }
     const handleUsername = (event) => {
         setUsername(event.target.value)
-    };
+    }
     const handlePassword = (event) => {
         setPassword(event.target.value)
     }
@@ -83,4 +82,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm;
+export default LoginForm

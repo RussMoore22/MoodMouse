@@ -10,8 +10,11 @@ import { useNavigate } from 'react-router-dom'
 
 function EditCheckinForm() {
     const params = useParams()
-    const { data: checkinData, isLoading: checkinLoading } =
-        useGetOneCheckinQuery(params.checkin_id)
+    const {
+        data: checkinData,
+        isLoading: checkinLoading,
+        isError: checkinError,
+    } = useGetOneCheckinQuery(params.checkin_id)
     const navigate = useNavigate()
 
     const [happyLevel, setHappyLevel] = useState(0)
@@ -33,7 +36,7 @@ function EditCheckinForm() {
         useEditOneRorschachTestMutation()
 
     useEffect(() => {
-        if (!checkinLoading) {
+        if (!checkinLoading && !checkinError) {
             setHappyLevel(checkinData.happy_level)
             setJournalEntry(checkinData.journal_entry)
             setQ1Ans(checkinData.survey.q1_ans)
@@ -146,37 +149,29 @@ function EditCheckinForm() {
         }
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
-    if (checkinLoading) {
-        return <div>Loading...</div>
-    }
+    useEffect(() => {
+        if (checkinError) {
+            navigate('/error')
+        }
+    }, [checkinError])
+
+    if (checkinLoading) return <div>Loading....</div>
 
     return (
         <>
-            <div></div>
-
-            <div className="row">
-                <form id="user-checkin-form" onSubmit={handleSubmit}>
-                    <div className="form-group col-md-12 mt-3">
-                        Edit a Check In
-                    </div>
-                    <div>
-                        <div className="form-group col-md-6">
-                            <img src={checkinData.rorschach_test.image.path} />
-                            <label htmlFor="response">What you saw...</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
+            {checkinData && (
+                <div className="row">
+                    <form id="user-checkin-form" onSubmit={handleSubmit}>
+                        <div className="form-group col-md-12 mt-3">
+                            Edit a Check In
                         </div>
+                        <div></div>
                         <div className="form-group col-md-6">
                             <label htmlFor="happyLevel">How you felt...</label>
                             <input
-                                type="number"
-                                className="form-control"
+                                type="range"
+                                className="form-range"
+                                name="happylevel"
                                 id="happyLevel"
                                 placeholder="0"
                                 onChange={handleHappyLevel}
@@ -187,11 +182,12 @@ function EditCheckinForm() {
                         </div>
 
                         <div>
-                            <label htmlFor="question1">
+                            <label htmlFor="question1" className="form-label">
                                 {checkinData.survey.q1.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question1"
                                 min="0"
@@ -205,7 +201,8 @@ function EditCheckinForm() {
                                 {checkinData.survey.q2.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question2"
                                 min="0"
@@ -219,7 +216,8 @@ function EditCheckinForm() {
                                 {checkinData.survey.q3.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question3"
                                 min="0"
@@ -233,7 +231,8 @@ function EditCheckinForm() {
                                 {checkinData.survey.q4.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question4"
                                 min="0"
@@ -247,7 +246,8 @@ function EditCheckinForm() {
                                 {checkinData.survey.q5.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question5"
                                 min="0"
@@ -256,52 +256,61 @@ function EditCheckinForm() {
                                 value={q5Ans}
                             />
                         </div>
-
                         <div className="form-group col-md-6">
-                            <label htmlFor="journalEntry">
-                                What you wrote...
-                            </label>
+                            <img src={checkinData.rorschach_test.image.path} />
+                            <label htmlFor="response">What you saw...</label>
                             <textarea
                                 type="text"
-                                className="form-control form-control-lg"
-                                id="journalEntry"
-                                placeholder="Write your journal entry"
-                                onChange={handleJournalEntry}
-                                value={journalEntry}
-                                rows="15"
+                                className="form-control"
+                                id="response"
+                                placeholder="Response"
+                                onChange={handleRorschachResponse}
+                                value={response}
                             />
+
+                            <div className="form-group col-md-6">
+                                <label htmlFor="journalEntry">
+                                    What you wrote...
+                                </label>
+                                <textarea
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    id="journalEntry"
+                                    placeholder="Write your journal entry"
+                                    onChange={handleJournalEntry}
+                                    value={journalEntry}
+                                    rows="10"
+                                    cols="200"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group row mt-2">
-                        <div className="col-md-10">
-                            {edit ? (
-                                <>
-                                    <button
-                                        onClick={handleCancel}
-                                        type="button"
-                                        className="btn btn-secondary"
-                                    >
+                        <div className="form-group row mt-2">
+                            <div className="col-md-10">
+                                {edit ? (
+                                    <>
+                                        <button
+                                            onClick={handleCancel}
+                                            type="button"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="submit-button"
+                                        >
+                                            Edit
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button onClick={handleCancel}>
                                         Cancel
                                     </button>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                    >
-                                        Edit
-                                    </button>
-                                </>
-                            ) : (
-                                <button
-                                    onClick={handleCancel}
-                                    className="btn btn-secondary"
-                                >
-                                    Cancel
-                                </button>
-                            )}
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            )}
         </>
     )
 }
