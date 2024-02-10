@@ -24,7 +24,6 @@ function CreateCheckinForm() {
 
     const [response, setResponse] = useState('')
     const [rorschachImg, setRorschachImage] = useState({})
-    // checkinExist stores check_in_id if it exists
     const [checkinExist, setCheckinExist] = useState(0)
 
     const [createCheckin, checkinStatus] = useCreateCheckinMutation()
@@ -126,7 +125,6 @@ function CreateCheckinForm() {
         }
     }, [rorschach_imgs])
 
-    // finds checkin for current day and if it exists, reoutes to the edit page
     useEffect(() => {
         const today = new Date()
         if (!(checkinList === undefined) && !checkinListIsLoading) {
@@ -162,7 +160,9 @@ function CreateCheckinForm() {
                 {`You have already created a checkin for ${
                     new Date().getMonth() + 1
                 } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
-                <button onClick={handleEdit}>Edit Today's check-in</button>
+                <button className="submit-button" onClick={handleEdit}>
+                    Edit Today's check-in
+                </button>
             </div>
         )
     }
@@ -170,47 +170,18 @@ function CreateCheckinForm() {
     return (
         <>
             <div>
-                {rorschachImg.id ? (
-                    <div>
-                        <p> Image does exist </p>
-                        <img src={rorschachImg.path} width="500" height="600" />
-                        <button onClick={getRandomRorschachImg}>
-                            {' '}
-                            generate new image{' '}
-                        </button>
-                    </div>
-                ) : (
-                    <p>
-                        Image does not exist! {rorschachImg.path}
-                        <button onClick={getRandomRorschachImg}>
-                            {' '}
-                            Generate{' '}
-                        </button>
-                    </p>
-                )}
+                <h2 className="mb-5">Create a Check In</h2>
             </div>
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
-                    <div className="form-group col-md-12 mt-3">
-                        Create a Check In
-                    </div>
                     <div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="response">What do you see?</label>
+                            <label htmlFor="happyLevel">
+                                <h5>Happy Level </h5>
+                            </label>
                             <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="happyLevel">Happy Level </label>
-                            <input
-                                type="number"
-                                className="form-control"
+                                type="range"
+                                className="form-range"
                                 id="happyLevel"
                                 placeholder="0"
                                 onChange={handleHappyLevel}
@@ -224,7 +195,8 @@ function CreateCheckinForm() {
                                 {q1_isLoading ? 'loading...' : question1.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question1"
                                 min="0"
@@ -238,7 +210,8 @@ function CreateCheckinForm() {
                                 {q2_isLoading ? 'loading...' : question2.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question2"
                                 min="0"
@@ -252,7 +225,8 @@ function CreateCheckinForm() {
                                 {q3_isLoading ? 'loading...' : question3.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question3"
                                 min="0"
@@ -266,7 +240,8 @@ function CreateCheckinForm() {
                                 {q4_isLoading ? 'loading...' : question4.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question4"
                                 min="0"
@@ -280,7 +255,8 @@ function CreateCheckinForm() {
                                 {q5_isLoading ? 'loading...' : question5.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question5"
                                 min="0"
@@ -289,21 +265,45 @@ function CreateCheckinForm() {
                                 value={q5Ans}
                             />
                         </div>
+                        <div>
+                            <img
+                                src={rorschachImg.path}
+                                width="300"
+                                height="300"
+                            />
+                        </div>
+                        <button className="m-2" onClick={getRandomRorschachImg}>
+                            {' '}
+                            generate new image{' '}
+                        </button>
                         <div className="form-group col-md-6">
-                            <label htmlFor="journalEntry"></label>
+                            <label htmlFor="response">What do you see?</label>
                             <input
                                 type="text"
+                                className="form-control"
+                                id="response"
+                                placeholder="Response"
+                                onChange={handleRorschachResponse}
+                                value={response}
+                            />
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label htmlFor="journalEntry"></label>
+                            <textarea
+                                type="textarea"
                                 className="form-control"
                                 id="journalEntry"
                                 placeholder="Write your journal entry"
                                 onChange={handleJournalEntry}
                                 value={journalEntry}
+                                rows="10"
+                                cols="200"
                             />
                         </div>
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-info">
+                            <button type="submit" className="submit-button">
                                 Submit Check-in
                             </button>
                         </div>

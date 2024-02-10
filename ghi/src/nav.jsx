@@ -15,7 +15,7 @@ function Nav() {
     }, [logoutStatus])
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark ">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/">
                     MoodMouse
