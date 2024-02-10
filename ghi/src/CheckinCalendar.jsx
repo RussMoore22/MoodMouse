@@ -167,8 +167,8 @@ function CheckinsList() {
                 card.data.survey.q3_ans +
                 card.data.survey.q4_ans +
                 card.data.survey.q5_ans
-            const red = 255 - Math.floor(255 * (total / 24))
-            return `rgb(${red}, 255, 255)`
+            const opac = .1 + (.6*total / 24)
+            return `rgba(17, 62, 201, ${opac})`
         }
     }
     const handleNavigation = (card) => {
@@ -181,19 +181,16 @@ function CheckinsList() {
     return (
         <>
             <div>
-                <div>
-                    <button onClick={toggleDeleteMode}>delete mode</button>
-                </div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
                     <div className="flex-fill bd-highlight">
-                        <button onClick={handleDecrement}>Decrement</button>
+                        <button onClick={handleDecrement}>Prev</button>
                     </div>
                     <div className="flex-fill bd-highlight">
                         <h3>{getMonthYearName(selectDate)}</h3>
                     </div>
                     <div className="flex-fill bd-highlight">
-                        <button onClick={handleIncrement}>Increment</button>
+                        <button onClick={handleIncrement}>Next</button>
                     </div>
                 </div>
 
@@ -222,7 +219,8 @@ function CheckinsList() {
                 </div>
                 {calendarCards.map((cardRow) => {
                     return (
-                        <div key={`${cardRow[0].date}-${cardRow[0].type}`}
+                        <div
+                            key={`${cardRow[0].date}-${cardRow[0].type}`}
                             className="d-flex bd-highlight card-group"
                         >
                             {cardRow.map((card) => {
@@ -242,7 +240,6 @@ function CheckinsList() {
                                                 {card.date}
                                             </div>
                                             <h6 className="card-title">
-                                                {/* {card.data?.happy_level} */}
                                             </h6>
                                             {card.type === 'checkin' &&
                                                 deleteMode && (
@@ -252,6 +249,7 @@ function CheckinsList() {
                                                                 .check_in_id
                                                         }
                                                         onClick={deleteCard}
+                                                        className="delete-button"
                                                     >
                                                         delete
                                                     </button>
@@ -263,6 +261,14 @@ function CheckinsList() {
                         </div>
                     )
                 })}
+                <div>
+                    <button
+                        className="btn btn-outline-danger"
+                        onClick={toggleDeleteMode}
+                    >
+                        delete mode
+                    </button>
+                </div>
             </div>
         </>
     )
