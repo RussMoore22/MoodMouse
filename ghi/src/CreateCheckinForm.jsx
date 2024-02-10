@@ -186,8 +186,11 @@ function CreateCheckinForm() {
                                 max="4"
                             />
                         </div>
-                        <div>
-                            <label htmlFor="question1">
+                        <div className="form-group col-md-6">
+                            <label
+                                className="form-group col-md-6"
+                                htmlFor="question1"
+                            >
                                 {q1_isLoading ? 'loading...' : question1.prompt}{' '}
                             </label>
                             <input
@@ -201,7 +204,7 @@ function CreateCheckinForm() {
                                 value={q1Ans}
                             />
                         </div>
-                        <div>
+                        <div className="form-group col-md-6">
                             <label htmlFor="question2">
                                 {q2_isLoading ? 'loading...' : question2.prompt}{' '}
                             </label>
@@ -216,7 +219,7 @@ function CreateCheckinForm() {
                                 value={q2Ans}
                             />
                         </div>
-                        <div>
+                        <div className="form-group col-md-6">
                             <label htmlFor="question3">
                                 {q3_isLoading ? 'loading...' : question3.prompt}{' '}
                             </label>
@@ -231,7 +234,7 @@ function CreateCheckinForm() {
                                 value={q3Ans}
                             />
                         </div>
-                        <div>
+                        <div className="form-group col-md-6">
                             <label htmlFor="question4">
                                 {q4_isLoading ? 'loading...' : question4.prompt}{' '}
                             </label>
@@ -246,7 +249,7 @@ function CreateCheckinForm() {
                                 value={q4Ans}
                             />
                         </div>
-                        <div>
+                        <div className="form-group col-md-6">
                             <label htmlFor="question5">
                                 {q5_isLoading ? 'loading...' : question5.prompt}{' '}
                             </label>
@@ -268,7 +271,11 @@ function CreateCheckinForm() {
                                 height="300"
                             />
                         </div>
-                        <button type="button" className="m-2" onClick={getRandomRorschachImg}>
+                        <button
+                            type="button"
+                            className="m-2"
+                            onClick={getRandomRorschachImg}
+                        >
                             {' '}
                             generate new image{' '}
                         </button>
