@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import "./CarouselComponent.css"
-
+import React, { useState, useEffect } from 'react'
+import './CarouselComponent.css'
 
 function Home() {
     const [data, setData] = useState({})
@@ -60,7 +59,8 @@ function Home() {
                                     : index === 1
                                     ? '1000'
                                     : '500'
-                            }>
+                            }
+                        >
                             <div
                                 className="overlay-image"
                                 style={{ backgroundImage: `url(${imageUrl})` }}
@@ -102,4 +102,4 @@ function Home() {
         </>
     )
 }
-export default Home;
+export default Home

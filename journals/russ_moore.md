@@ -268,3 +268,21 @@ Aha-Moment: when using useEffect hooks, pay attention to the dependencies and if
 
 When we finally met with our other two team-mates, I couldn't have been more impressed with their progress. The styling they added looked really great and I was happy to see they were able to get so much done. I was a little worried that we would be behind, but once I saw what they had come up with, I felt a whole lot better about getting eveything done on time.
 
+## February 09, 2024
+
+goals:
+1. add css to pages
+2. console warnings
+3. correction for timezone of user
+4. create an error page that gets routed to
+5. fix hardcoded localhost and use env variable instead
+6. fix calendar delete button
+7. same day checkin redirect
+8. logout redirect
+9. clean back-end code
+10. clean front-end code
+
+We worked down to the wire. Luna and I worked the many issues that came up when testing the website while the rest of the team worked on fixing the issues with the navbar and the carousel from the day before. We kept setting times to meet up and each time it seemed like we werent quite ready. I was really excited to work on stylizing the webpage but with all the issues for both groups, it felt like we were never able to get to it. Finally, we started working on css but only had about an hour to get as many of our changes in as possible. I also had an issue to clean the front end code but also did not get any chance to finish that issue since everyone was still working on the code.
+Also, we were so tired that we started making mistakes in git that cost us some of our code. When creating a merge request, we accidentally merged into the wrong branch and had to pick through the code to ensure we had no errors. we did have a few and scrambled to fix them.
+
+Aha-Moment when navigating away from a form (choosing not to submit) the prevent deafult still needs to be called. otherwise, the connection loss will produce console errors.
