@@ -60,7 +60,10 @@ function CreateCheckinForm() {
         setResponse(event.target.value)
     }
 
-    function getRandomRorschachImg() {
+    function getRandomRorschachImg(event) {
+        if (event){
+            event.preventDefault()
+        }
         if (!r_isLoading) {
             const randomIndex = Math.floor(
                 Math.random() * rorschach_imgs.length
@@ -121,7 +124,7 @@ function CreateCheckinForm() {
 
     useEffect(() => {
         if (!(rorschach_imgs === undefined)) {
-            getRandomRorschachImg()
+            getRandomRorschachImg(null)
         }
     }, [rorschach_imgs])
 
@@ -272,7 +275,7 @@ function CreateCheckinForm() {
                                 height="300"
                             />
                         </div>
-                        <button className="m-2" onClick={getRandomRorschachImg}>
+                        <button type="button" className="m-2" onClick={getRandomRorschachImg}>
                             {' '}
                             generate new image{' '}
                         </button>
