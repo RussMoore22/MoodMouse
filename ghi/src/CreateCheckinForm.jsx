@@ -24,7 +24,7 @@ function CreateCheckinForm() {
 
     const [response, setResponse] = useState('')
     const [rorschachImg, setRorschachImage] = useState({})
-    const [questions, setQuestions] = useState([])
+    const [checkinExist, setCheckinExist] = useState(0)
 
     const [createCheckin, checkinStatus] = useCreateCheckinMutation()
     const [createSurvey, surveyStatus] = useCreateSurveyMutation()
@@ -125,7 +125,6 @@ function CreateCheckinForm() {
         }
     }, [rorschach_imgs])
 
-    // finds checkin for current day and if it exists, reoutes to the edit page
     useEffect(() => {
         const today = new Date()
         if (!(checkinList === undefined) && !checkinListIsLoading) {
@@ -141,55 +140,43 @@ function CreateCheckinForm() {
                 'here is the checkin for today if it exsists: checkinToday'
             )
             if (checkinToday === undefined) {
-                console.log('no checkin for day')
-            } 
-            else if (happyLevel == 0) {
-                navigate(`/checkins/${checkinToday.check_in_id}/edit`)
+                // console.log('no checkin for day')
+                setCheckinExist(0)
+            } else if (happyLevel == 0) {
+                setCheckinExist(checkinToday.check_in_id)
+                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
 
+    const handleEdit = (event) => {
+        event.preventDefault()
+        navigate(`/checkins/${checkinExist}/edit`)
+    }
+
+    if (checkinExist) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                {`You have already created a checkin for ${
+                    new Date().getMonth() + 1
+                } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
+                <button className="submit-button" onClick={handleEdit}>Edit Today's check-in</button>
+            </div>
+        )
+    }
+
     return (
         <>
             <div>
-                {rorschachImg.id ? (
-                    <div>
-                        <p> Image does exist </p>
-                        <img src={rorschachImg.path} width="500" height="600" />
-                        <button onClick={getRandomRorschachImg}>
-                            {' '}
-                            generate new image{' '}
-                        </button>
-                    </div>
-                ) : (
-                    <p>
-                        Image does not exist! {rorschachImg.path}
-                        <button onClick={getRandomRorschachImg}>
-                            {' '}
-                            Generate{' '}
-                        </button>
-                    </p>
-                )}
+                <h2 className="mb-5">Create a Check In</h2>
             </div>
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
-                    <div className="form-group col-md-12 mt-3">
-                        Create a Check In
-                    </div>
                     <div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="response">What do you see?</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="happyLevel">Happy Level </label>
+                            <label htmlFor="happyLevel">
+                                <h5>Happy Level </h5>
+                            </label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -271,15 +258,39 @@ function CreateCheckinForm() {
                                 value={q5Ans}
                             />
                         </div>
+                        <div>
+                            <img
+                                src={rorschachImg.path}
+                                width="300"
+                                height="300"
+                            />
+                        </div>
+                        <button onClick={getRandomRorschachImg}>
+                            {' '}
+                            generate new image{' '}
+                        </button>
+                        <div className="form-group col-md-6">
+                            <h6>What do you see?</h6>
+                            <label htmlFor="response"></label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="response"
+                                placeholder="Response"
+                                onChange={handleRorschachResponse}
+                                value={response}
+                            />
+                        </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="journalEntry"></label>
                             <input
-                                type="text"
+                                type="textarea"
                                 className="form-control"
                                 id="journalEntry"
                                 placeholder="Write your journal entry"
                                 onChange={handleJournalEntry}
                                 value={journalEntry}
+                                rows="10"
                             />
                         </div>
                     </div>
@@ -296,4 +307,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm;
+export default CreateCheckinForm

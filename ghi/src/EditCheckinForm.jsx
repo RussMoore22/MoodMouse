@@ -25,6 +25,7 @@ function EditCheckinForm() {
     const [surveyDeploy, setSurveyDeploy] = useState(false)
     const [rorschachDeploy, setRorschachDeploy] = useState(false)
     const [checkinDeploy, setCheckinDeploy] = useState(false)
+    const [edit, setEdit] = useState(false)
 
     const [editCheckin, checkinStatus] = useEditOneCheckinMutation()
     const [editSurvey, surveyStatus] = useEditOneSurveyMutation()
@@ -114,6 +115,11 @@ function EditCheckinForm() {
         }
     }
 
+    const handleCancel = (event) => {
+        event.preventDefault()
+        navigate('/calendar')
+    }
+
     useEffect(() => {
         if (checkinDeploy || surveyDeploy || rorschachDeploy) {
             let navReady = true
@@ -132,6 +138,14 @@ function EditCheckinForm() {
         }
     }, [checkinStatus, surveyStatus, rorschachStatus])
 
+    useEffect(() => {
+        if (checkinDeploy || surveyDeploy || rorschachDeploy) {
+            setEdit(true)
+        } else {
+            setEdit(false)
+        }
+    }, [checkinDeploy, surveyDeploy, rorschachDeploy])
+
     if (checkinLoading) {
         return <div>Loading...</div>
     }
@@ -145,103 +159,108 @@ function EditCheckinForm() {
                     <div className="form-group col-md-12 mt-3">
                         Edit a Check In
                     </div>
-                    <div>
-                        <div className="form-group col-md-6">
-                            <img src={checkinData.rorschach_test.image.path} />
-                            <label htmlFor="response">What you saw...</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="happyLevel">How you felt...</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="happyLevel"
-                                placeholder="0"
-                                onChange={handleHappyLevel}
-                                value={happyLevel}
-                                min="0"
-                                max="4"
-                            />
-                        </div>
+                    <div></div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="happyLevel">How you felt...</label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="happylevel"
+                            id="happyLevel"
+                            placeholder="0"
+                            onChange={handleHappyLevel}
+                            value={happyLevel}
+                            min="0"
+                            max="4"
+                        />
+                    </div>
 
-                        <div>
-                            <label htmlFor="question1">
-                                {checkinData.survey.q1.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question1"
-                                min="0"
-                                max="4"
-                                onChange={handleQ1}
-                                value={q1Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question2">
-                                {checkinData.survey.q2.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question2"
-                                min="0"
-                                max="4"
-                                onChange={handleQ2}
-                                value={q2Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question3">
-                                {checkinData.survey.q3.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question3"
-                                min="0"
-                                max="4"
-                                onChange={handleQ3}
-                                value={q3Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question4">
-                                {checkinData.survey.q4.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question4"
-                                min="0"
-                                max="4"
-                                onChange={handleQ4}
-                                value={q4Ans}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="question5">
-                                {checkinData.survey.q5.prompt}{' '}
-                            </label>
-                            <input
-                                type="number"
-                                name="question1"
-                                id="question5"
-                                min="0"
-                                max="4"
-                                onChange={handleQ5}
-                                value={q5Ans}
-                            />
-                        </div>
+                    <div>
+                        <label htmlFor="question1" className="form-label">
+                            {checkinData.survey.q1.prompt}{' '}
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="question1"
+                            id="question1"
+                            min="0"
+                            max="4"
+                            onChange={handleQ1}
+                            value={q1Ans}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="question2">
+                            {checkinData.survey.q2.prompt}{' '}
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="question1"
+                            id="question2"
+                            min="0"
+                            max="4"
+                            onChange={handleQ2}
+                            value={q2Ans}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="question3">
+                            {checkinData.survey.q3.prompt}{' '}
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="question1"
+                            id="question3"
+                            min="0"
+                            max="4"
+                            onChange={handleQ3}
+                            value={q3Ans}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="question4">
+                            {checkinData.survey.q4.prompt}{' '}
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="question1"
+                            id="question4"
+                            min="0"
+                            max="4"
+                            onChange={handleQ4}
+                            value={q4Ans}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="question5">
+                            {checkinData.survey.q5.prompt}{' '}
+                        </label>
+                        <input
+                            type="range"
+                            className="form-range"
+                            name="question1"
+                            id="question5"
+                            min="0"
+                            max="4"
+                            onChange={handleQ5}
+                            value={q5Ans}
+                        />
+                    </div>
+                    <div className="form-group col-md-6">
+                        <img src={checkinData.rorschach_test.image.path} />
+                        <label htmlFor="response">What you saw...</label>
+                        <textarea
+                            type="text"
+                            className="form-control"
+                            id="response"
+                            placeholder="Response"
+                            onChange={handleRorschachResponse}
+                            value={response}
+                        />
 
                         <div className="form-group col-md-6">
                             <label htmlFor="journalEntry">
@@ -254,15 +273,31 @@ function EditCheckinForm() {
                                 placeholder="Write your journal entry"
                                 onChange={handleJournalEntry}
                                 value={journalEntry}
-                                rows="15"
+                                rows="10"
+                                cols="200"
                             />
                         </div>
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-primary">
-                                Submit Check-in
-                            </button>
+                            {edit ? (
+                                <>
+                                    <button
+                                        onClick={handleCancel}
+                                        type="button"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="submit-button"
+                                    >
+                                        Edit
+                                    </button>
+                                </>
+                            ) : (
+                                <button onClick={handleCancel}>Cancel</button>
+                            )}
                         </div>
                     </div>
                 </form>
