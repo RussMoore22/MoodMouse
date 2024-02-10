@@ -160,7 +160,9 @@ function CreateCheckinForm() {
                 {`You have already created a checkin for ${
                     new Date().getMonth() + 1
                 } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
-                <button className="submit-button" onClick={handleEdit}>Edit Today's check-in</button>
+                <button className="submit-button" onClick={handleEdit}>
+                    Edit Today's check-in
+                </button>
             </div>
         )
     }
@@ -178,8 +180,8 @@ function CreateCheckinForm() {
                                 <h5>Happy Level </h5>
                             </label>
                             <input
-                                type="number"
-                                className="form-control"
+                                type="range"
+                                className="form-range"
                                 id="happyLevel"
                                 placeholder="0"
                                 onChange={handleHappyLevel}
@@ -193,7 +195,8 @@ function CreateCheckinForm() {
                                 {q1_isLoading ? 'loading...' : question1.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question1"
                                 min="0"
@@ -207,7 +210,8 @@ function CreateCheckinForm() {
                                 {q2_isLoading ? 'loading...' : question2.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question2"
                                 min="0"
@@ -221,7 +225,8 @@ function CreateCheckinForm() {
                                 {q3_isLoading ? 'loading...' : question3.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question3"
                                 min="0"
@@ -235,7 +240,8 @@ function CreateCheckinForm() {
                                 {q4_isLoading ? 'loading...' : question4.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question4"
                                 min="0"
@@ -249,7 +255,8 @@ function CreateCheckinForm() {
                                 {q5_isLoading ? 'loading...' : question5.prompt}{' '}
                             </label>
                             <input
-                                type="number"
+                                type="range"
+                                className="form-range"
                                 name="question1"
                                 id="question5"
                                 min="0"
@@ -265,13 +272,12 @@ function CreateCheckinForm() {
                                 height="300"
                             />
                         </div>
-                        <button onClick={getRandomRorschachImg}>
+                        <button className="m-2" onClick={getRandomRorschachImg}>
                             {' '}
                             generate new image{' '}
                         </button>
                         <div className="form-group col-md-6">
-                            <h6>What do you see?</h6>
-                            <label htmlFor="response"></label>
+                            <label htmlFor="response">What do you see?</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -283,7 +289,7 @@ function CreateCheckinForm() {
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="journalEntry"></label>
-                            <input
+                            <textarea
                                 type="textarea"
                                 className="form-control"
                                 id="journalEntry"
@@ -291,12 +297,13 @@ function CreateCheckinForm() {
                                 onChange={handleJournalEntry}
                                 value={journalEntry}
                                 rows="10"
+                                cols="200"
                             />
                         </div>
                     </div>
                     <div className="form-group row mt-2">
                         <div className="col-md-10">
-                            <button type="submit" className="btn btn-info">
+                            <button type="submit" className="submit-button">
                                 Submit Check-in
                             </button>
                         </div>

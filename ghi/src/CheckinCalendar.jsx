@@ -4,8 +4,7 @@ import {
     useDeleteCheckinMutation,
 } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
-import cTime from "./cTime"
-
+import cTime from './cTime'
 
 function CheckinsList() {
     const today = new Date(Date.now())
@@ -22,7 +21,7 @@ function CheckinsList() {
         59,
         59
     )
-    const { data: checkins, isLoading } = useGetAllCheckinsQuery()
+    const { data: checkins, isLoading, isError } = useGetAllCheckinsQuery()
     const [startDate, setStartDate] = useState(startDateIntialVal)
     const [endDate, setEndDate] = useState(endDateIntialVal)
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
@@ -101,8 +100,8 @@ function CheckinsList() {
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    (new Date(cTime(checkin.date))) >= startDate &&
-                    (new Date(cTime(checkin.date))) <= endDate
+                    new Date(cTime(checkin.date)) >= startDate &&
+                    new Date(cTime(checkin.date)) <= endDate
             )
         }
 
@@ -121,7 +120,10 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
+            if (
+                !(checkinsMonth[0] === undefined) &&
+                i == new Date(cTime(checkinsMonth[0].date)).getDate()
+            ) {
                 cards.push({
                     date: i,
                     type: 'checkin',
@@ -145,9 +147,18 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        console.log('asking if ', startDate.getMonth(), endDate.getMonth(),"start date: ",startDate, "end date", endDate)
-        if (!(checkins === undefined) &&
-        (startDate.getMonth() == endDate.getMonth())
+        console.log(
+            'asking if ',
+            startDate.getMonth(),
+            endDate.getMonth(),
+            'start date: ',
+            startDate,
+            'end date',
+            endDate
+        )
+        if (
+            !(checkins === undefined) &&
+            startDate.getMonth() == endDate.getMonth()
         ) {
             MakeCardList()
         }
@@ -176,11 +187,19 @@ function CheckinsList() {
             navigate(`/checkins/${card.data.check_in_id}`)
         }
     }
+
+    useEffect(() => {
+        if (isError && checkins === undefined) {
+            navigate('/error')
+        }
+    }, [isError])
+
     if (isLoading) return <div>Loading...</div>
 
     return (
         <>
-            <div>
+            {checkins !== undefined && checkins.length >= 0 && (
+<div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
                     <div className="flex-fill bd-highlight">
@@ -270,7 +289,8 @@ function CheckinsList() {
                     </button>
                 </div>
             </div>
-        </>
+            )}
+            </>
     )
 }
 

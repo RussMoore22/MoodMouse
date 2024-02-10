@@ -361,6 +361,9 @@ An AHA moment: Luna explained how the info attribute we created in the router is
 
 ## 1/26/24
 
+
+An “AHA” moment: Printing out objects is super helpful. This was particularly helpful in our SQL query functions. We use some of the “get_one” examples we have in our other models, such as a get_one_rorschach_test and get_one_survey_object, but the get_one for the checkin model had more data in the object, which are all of the fields we have in our database, so we needed to be careful how we constructed the return statement. When we printed out the SQL query, we saw it came out in some tuple object, which we were then able to easily access through list notation: tuple_item[index].
+
 ## Issues
 
 
@@ -408,3 +411,77 @@ A logged in user should be able to access the check -ins, through check-in IDs, 
 
 * We realized our sign up function was not working because in our return statement, we were passing in a formData object. We kept getting a 422 validation error in our console, so we knew our function was not getting the required type. We were able to console.log the fields in our signup form, so we knew at least those were getting passed through. We found out that the type needed to be a dictionary, so we adjusted our
 body in our return statement to accept a dictionary. This resolved the problem. I am still unsure why our object was acceptable in our login function but not our signup function, so this is an area for future exploration.
+
+
+
+## 1/31
+We worked on our check in model. When I was driving today, I got a lot of help from my team. I was working on creating the CreateCheckIn.jsx file today. This served as more review of the functions of useEffect and useState for me. I knew in general how we first set  useState to a blank state with an empty string, and then we want to capture the change in that state to do other actions, such as filtering. Writing the useState and useEffect functions was review that helped me get reacquainted with JSX after a period of time just focusing on the database  and back end work.
+
+An “AHA” moment: Getting a refresher on how useEffect and anonymous functions are working to get an update state using the state of the previous one. Use effect is using the anonymous function to record “side effects” when there is refreshes to the DOM. This is being used to fetch data, which is what we have commonly used it for, but we can also do other things with it.
+
+
+## 2/1
+
+What I did:
+
+What we did together: We worked together to finish the checkin page. Luna and Russ guided Jenn and I through creating the create checkin page in the front end.
+
+An “AHA” moment: I had plenty of VSCode issues today. I thought my issue was something inside git. We got SIERs to help us through the issues, but Russ had an idea that it might actually be a VSCode issue not refreshing properly as I am making changes. I re-ran git commands at the start but those did not make the changes I expected.
+Along the way, I got more experience learning about the difference between git rebase, merge and fast-forward.
+
+We ran cat createcheckin.jsx file in my terminal to see if git pull was pulling the changes in my computer. It was showing the changes, so that’s how we found out it was a IDE problem. Russ was helpful with troubleshooting this.
+
+I also got a better understanding of how to access items. We had an issue where we couldn’t access some of the items in rorschach_test. We realized we were not using a ubiquitous language and were trying to reference the json data with keys that did not match the fields because we names those variables in our front end differently. This helped me understand what exactly is going inside info, response and requests.
+
+
+
+
+ ## 2/5
+
+What I did: Today the group started working on displaying the calendar page to show the list view of check-ins into a  calendar or calendar like grid. Luna and Russ mostly worked on this. I helped by doing research on some possible calendar templates. I went into Hack Reactor’s SIS page and looked at the page using my developer tools to see if there were any ideas. I noticed it was using vanilla Javascript, and while some show date, month and year functions might be useful, it seemed like we would have to find another template or solution. I also checked out the subscriber calendar in NYtimes website and my old college’s website. Both of those pages had an overwhelming amount of code, also in Javascript, which surprised me, since I thought those sites may have used react, and their variable names were unintelligible, so it was not really good use for inspiration or structure.
+
+Luna, Russ and Jenn and helped me make the check-in detail page. This was more practice for me to understand JSX better. I remembered from lecture how Riley gave data and alias like data: checkin. I got more practice using anonymous functions to update state in order to create a total score for our mood score counter.
+
+What we did together:  As a group, we worked on the Check in calendar page and the check in detail Page.
+
+## 2/6
+
+What I did:  for my unit test, I created a test for the get_one_check_in. I followed Dalonte’s video again to help me out with the code. Jenn and I wanted the video together, and Jenn started with her test first. She worked on get_all. We believed my get_one will be similar to get_all function.  We imported the necessary stuff and created our MockQuery function and used our Query function, and FastAPI Swagger, and models to help construct our return statement. We focused on the get_all test. Our tests failed a lot. Eventually Jenn got a breakthrough by playing around and fixing her assert statements.
+
+What we did together: As a group we worked on creating the editcheckin page. When we started pair programming, Russ and Luna continued to work on this page while Jenna and I worked on completing our unit tests.
+
+
+
+An “AHA” moment:
+## 2/7
+
+What I did:  Using the info we gained yesterday from Jenn driving, today I worked on my unit test. Jenn explained to me what the response.json looks like here and how the override functions use the MockQueries we created with the Mock data inside of them. My return was fairly simple since I am returning just one.
+
+What we did together: We also worked on adding some error logic in our router. We used isinstance to check to see if the arguments being passed into our function is what the function is expecting, along with pydantic type hints. We created simple if , else statements returning 200 and 400 statements respectfully.
+
+An “AHA” moment: When Jenn mapped out from the url in response is related to our router and how the MockQueries are being used from the override function.
+
+## 2/8
+
+Jenn and I did a lot of work to create a carousel for our front end. We chose using Slick React since it had a calendar component in it and seemed fairly straightforward to implement.  We did get a very simple carousel working; however, we had some trouble making the buttons appear since the buttons were white. As we tried to change the color, we went down rabbit holes of creating custom buttons. The custom buttons mostly worked but then their placements were  off. Eventually, the previous and next button merged together.
+
+Jenn considered reverting to our original plan to work with bootstrap for the carousel.
+
+We were very happy when we got the slider to work, but we kept getting errors in the console about some feature previous click not being recognized in the DOM, even though it seemed to be working fine. This brought us to the end of the day.
+
+An “AHA” moment: I had an aha moment when we were playing around with the map function to map through a list of images and get them to display on the carousel. While I have implemented map functions before, the extra practice is also good.
+
+We also got some experience with getting this function to work on 3rd party API, which we might implement fully as our stretch goal.
+
+I felt I worked great with Jenn. She was able to help me when I was driving. We took turns driving and navigating, and had to do a lot of research to work out the quirks of React slider. Unfortunately their docs were not informative.
+
+I also had an AHA moment when I was practicing writing the map function for 3rd party APIs. I could not get it to work for hours, only to realize I did not check if I put the url in properly. I have to remember to always check those simple things first to possibly speed up my troubleshooting. The practice also helped me solidy JSX concepts such as useEffect, useState, anonymous functions.
+
+I also learned/remembered you can print out a console.log in an return html statement for a JSX component, so I was able to troubleshoot my map function as I was writing it to make sure it was getting rh data from the request okay.
+
+
+## 2/9
+
+Jenn and I continued to work on the carousel. As a group, we decided to revise our carousel since we were getting those weird DOM errors. Jenn suggested we go back to bootstrap, and I agreed. Bootstrap turned out to be easier to implement or at least took us less time to do than yesterday. But we still got some weird errors throughout the day. At some point, some adjustment we made to a container the carousel was in must have been conflict with the nav container, causing the nav bar to stop working. I’m still not entirely sure how a conflict in the container might affect the functionality of the nav bar itself, but after making a few tweaks to the carousel container, the nav bar started working again.
+
+An “AHA” moment: We started playing around with different styles, and Jenn and I stumbled on some pretty cool themes that were free; however, after getting the download, we realize the file was way to big and would probably take us a long time to implement into our project. We do want to implement some of those themes into our project as stretch goals.
