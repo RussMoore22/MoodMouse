@@ -315,4 +315,4 @@ function EditCheckinForm() {
     )
 }
 
-export default EditCheckinForm;
+export default EditCheckinForm

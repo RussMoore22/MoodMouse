@@ -170,4 +170,4 @@ function SignupForm() {
     )
 }
 
-export default SignupForm;
+export default SignupForm

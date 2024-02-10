@@ -24,15 +24,14 @@ if (!API_HOST) {
  * @returns {React.ReactNode}
  */
 function App() {
-
     return (
         <div className="container">
             <Nav />
-            <div className='mt-5'>
+            <div className="mt-5">
                 <Outlet />
             </div>
         </div>
     )
 }
 
-export default App;
+export default App

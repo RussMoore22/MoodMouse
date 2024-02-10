@@ -132,7 +132,8 @@ function CreateCheckinForm() {
                 (checkin) =>
                     new Date(cTime(checkin.date)).getFullYear() ===
                         today.getFullYear() &&
-                    new Date(cTime(checkin.date)).getMonth() === today.getMonth() &&
+                    new Date(cTime(checkin.date)).getMonth() ===
+                        today.getMonth() &&
                     new Date(cTime(checkin.date)).getDate() === today.getDate()
             )
             if (checkinToday === undefined) {
@@ -154,7 +155,9 @@ function CreateCheckinForm() {
                 {`You have already created a checkin for ${
                     new Date().getMonth() + 1
                 } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
-                <button className="submit-button" onClick={handleEdit}>Edit Today's check-in</button>
+                <button className="submit-button" onClick={handleEdit}>
+                    Edit Today's check-in
+                </button>
             </div>
         )
     }
@@ -301,4 +304,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm;
+export default CreateCheckinForm
