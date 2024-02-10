@@ -3,6 +3,8 @@
 # Welcome to MoodMouse! 🐭
 [![LinkedIn][linkedin-shield]][linkedin-jenn]
 [![LinkedIn][linkedin-shield]][linkedin-russ]
+[![LinkedIn][linkedin-shield]][linkedin-luna]
+[![LinkedIn][linkedin-shield]][linkedin-ramesh]
 
 <details>
   <summary>Table of Contents</summary>
@@ -10,7 +12,7 @@
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#built-with">Built with</a></li>
     <li><a href="#design">Design</a></li>
-    <li><a href="#team-members">Contact</a></li>
+    <li><a href="#team-members">Team Members</a></li>
   </ol>
 </details>
 
@@ -68,10 +70,10 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 
 ## Team Members
 
-- Jennifer Perera - [Email Address](jenniferperera12@gmail.com)
+- Jennifer Perera
 - Russ Moore
-- Luna Sun - [Email Address](luyisun0412@gmail.com)
-- Ramesh Beharry - [Email Address](ramesh.beharry@mailfence.com)
+- Luna Sun 
+- Ramesh Beharry
 
 
 
@@ -81,6 +83,8 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-jenn]: https://www.linkedin.com/in/jenn1ferperera/
 [linkedin-russ]: https://www.linkedin.com/in/russell-c-moore/
+[linkedin-luna]: https://www.linkedin.com/in/luna-sun-19952322b/ 
+[linkedin-ramesh]: https://www.linkedin.com/in/ramesh-beharry-95619823a
 
 
 
