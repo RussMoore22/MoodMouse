@@ -11,16 +11,16 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 function CreateCheckinForm() {
-    const [happyLevel, setHappyLevel] = useState('')
+    const [happyLevel, setHappyLevel] = useState(0)
     const [survey, setSurvey] = useState(0)
     const [journalEntry, setJournalEntry] = useState('')
     const [rorschachTest, setRorschachTest] = useState(0)
 
-    const [q1Ans, setQ1Ans] = useState('')
-    const [q2Ans, setQ2Ans] = useState('')
-    const [q3Ans, setQ3Ans] = useState('')
-    const [q4Ans, setQ4Ans] = useState('')
-    const [q5Ans, setQ5Ans] = useState('')
+    const [q1Ans, setQ1Ans] = useState(0)
+    const [q2Ans, setQ2Ans] = useState(0)
+    const [q3Ans, setQ3Ans] = useState(0)
+    const [q4Ans, setQ4Ans] = useState(0)
+    const [q5Ans, setQ5Ans] = useState(0)
 
     const [response, setResponse] = useState('')
     const [rorschachImg, setRorschachImage] = useState({})
