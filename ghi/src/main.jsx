@@ -12,7 +12,7 @@ import CreateCheckinForm from './CreateCheckinForm'
 import CheckinCalendar from './CheckinCalendar'
 import DetailCheckin from './DetailCheckin'
 import EditCheckinForm from './EditCheckinForm'
-
+import ErrorNotification from './ErrorNotification'
 
 const router = createBrowserRouter([
     {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: '/login',
@@ -40,14 +40,22 @@ const router = createBrowserRouter([
                 element: <CheckinCalendar />,
             },
             {
-                path: "/checkins/:checkin_id",
-                element: <DetailCheckin />
+                path: '/checkins/:checkin_id',
+                element: <DetailCheckin />,
             },
             {
-                path: "/checkins/:checkin_id/edit",
-                element: <EditCheckinForm />
-            }
-        ]
+                path: '/checkins/:checkin_id/edit',
+                element: <EditCheckinForm />,
+            },
+            {
+                path: '*',
+                element: <ErrorNotification error="Whoops! Where'd you go?!" />,
+            },
+            {
+                path: '/error',
+                element: <ErrorNotification error="Whoops! Where'd you go?!" />,
+            },
+        ],
     },
 ])
 
