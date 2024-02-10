@@ -10,8 +10,11 @@ import { useNavigate } from 'react-router-dom'
 
 function EditCheckinForm() {
     const params = useParams()
-    const { data: checkinData, isLoading: checkinLoading } =
-        useGetOneCheckinQuery(params.checkin_id)
+    const {
+        data: checkinData,
+        isLoading: checkinLoading,
+        isError: checkinError,
+    } = useGetOneCheckinQuery(params.checkin_id)
     const navigate = useNavigate()
 
     const [happyLevel, setHappyLevel] = useState(0)
@@ -33,7 +36,7 @@ function EditCheckinForm() {
         useEditOneRorschachTestMutation()
 
     useEffect(() => {
-        if (!checkinLoading) {
+        if (!checkinLoading && !checkinError) {
             setHappyLevel(checkinData.happy_level)
             setJournalEntry(checkinData.journal_entry)
             setQ1Ans(checkinData.survey.q1_ans)
@@ -146,14 +149,18 @@ function EditCheckinForm() {
         }
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
-    if (checkinLoading) {
-        return <div>Loading...</div>
-    }
+    useEffect(() => {
+        if (checkinError) {
+            navigate('/error')
+        }
+
+    }, [checkinError])
+
+    if (checkinLoading) return <div>Loading....</div>
 
     return (
         <>
-            <div></div>
-
+            {checkinData && (
             <div className="row">
                 <form id="user-checkin-form" onSubmit={handleSubmit}>
                     <div className="form-group col-md-12 mt-3">
@@ -299,9 +306,9 @@ function EditCheckinForm() {
                                 <button onClick={handleCancel}>Cancel</button>
                             )}
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            )}
         </>
     )
 }
