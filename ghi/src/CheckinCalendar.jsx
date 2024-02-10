@@ -4,8 +4,7 @@ import {
     useDeleteCheckinMutation,
 } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
-import cTime from "./cTime"
-
+import cTime from './cTime'
 
 function CheckinsList() {
     const today = new Date(Date.now())
@@ -22,7 +21,7 @@ function CheckinsList() {
         59,
         59
     )
-    const { data: checkins, isLoading } = useGetAllCheckinsQuery()
+    const { data: checkins, isLoading, isError } = useGetAllCheckinsQuery()
     const [startDate, setStartDate] = useState(startDateIntialVal)
     const [endDate, setEndDate] = useState(endDateIntialVal)
     const [selectDate, setSelectDate] = useState(new Date(Date.now()))
@@ -101,8 +100,8 @@ function CheckinsList() {
         if (checkins.length > 0) {
             checkinsMonth = checkins.filter(
                 (checkin) =>
-                    (new Date(cTime(checkin.date))) >= startDate &&
-                    (new Date(cTime(checkin.date))) <= endDate
+                    new Date(cTime(checkin.date)) >= startDate &&
+                    new Date(cTime(checkin.date)) <= endDate
             )
         }
 
@@ -121,7 +120,10 @@ function CheckinsList() {
         }
 
         for (let i = start; i <= end; i++) {
-            if (!(checkinsMonth[0] === undefined) && i == (new Date(cTime(checkinsMonth[0].date))).getDate()) {
+            if (
+                !(checkinsMonth[0] === undefined) &&
+                i == new Date(cTime(checkinsMonth[0].date)).getDate()
+            ) {
                 cards.push({
                     date: i,
                     type: 'checkin',
@@ -145,9 +147,18 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        console.log('asking if ', startDate.getMonth(), endDate.getMonth(),"start date: ",startDate, "end date", endDate)
-        if (!(checkins === undefined) &&
-        (startDate.getMonth() == endDate.getMonth())
+        console.log(
+            'asking if ',
+            startDate.getMonth(),
+            endDate.getMonth(),
+            'start date: ',
+            startDate,
+            'end date',
+            endDate
+        )
+        if (
+            !(checkins === undefined) &&
+            startDate.getMonth() == endDate.getMonth()
         ) {
             MakeCardList()
         }
@@ -167,8 +178,8 @@ function CheckinsList() {
                 card.data.survey.q3_ans +
                 card.data.survey.q4_ans +
                 card.data.survey.q5_ans
-            const red = 255 - Math.floor(255 * (total / 24))
-            return `rgb(${red}, 255, 255)`
+            const opac = .1 + (.6*total / 24)
+            return `rgba(17, 62, 201, ${opac})`
         }
     }
     const handleNavigation = (card) => {
@@ -176,24 +187,29 @@ function CheckinsList() {
             navigate(`/checkins/${card.data.check_in_id}`)
         }
     }
+
+    useEffect(() => {
+        if (isError && checkins === undefined) {
+            navigate('/error')
+        }
+    }, [isError])
+
     if (isLoading) return <div>Loading...</div>
 
     return (
         <>
-            <div>
-                <div>
-                    <button onClick={toggleDeleteMode}>delete mode</button>
-                </div>
+            {checkins !== undefined && checkins.length >= 0 && (
+<div>
                 <h2> My Mood Calendar </h2>
                 <div className="d-flex bd-highlight justify-content-center mb-3 mt-5">
                     <div className="flex-fill bd-highlight">
-                        <button onClick={handleDecrement}>Decrement</button>
+                        <button onClick={handleDecrement}>Prev</button>
                     </div>
                     <div className="flex-fill bd-highlight">
                         <h3>{getMonthYearName(selectDate)}</h3>
                     </div>
                     <div className="flex-fill bd-highlight">
-                        <button onClick={handleIncrement}>Increment</button>
+                        <button onClick={handleIncrement}>Next</button>
                     </div>
                 </div>
 
@@ -222,7 +238,8 @@ function CheckinsList() {
                 </div>
                 {calendarCards.map((cardRow) => {
                     return (
-                        <div key={`${cardRow[0].date}-${cardRow[0].type}`}
+                        <div
+                            key={`${cardRow[0].date}-${cardRow[0].type}`}
                             className="d-flex bd-highlight card-group"
                         >
                             {cardRow.map((card) => {
@@ -242,7 +259,6 @@ function CheckinsList() {
                                                 {card.date}
                                             </div>
                                             <h6 className="card-title">
-                                                {/* {card.data?.happy_level} */}
                                             </h6>
                                             {card.type === 'checkin' &&
                                                 deleteMode && (
@@ -252,6 +268,7 @@ function CheckinsList() {
                                                                 .check_in_id
                                                         }
                                                         onClick={deleteCard}
+                                                        className="delete-button"
                                                     >
                                                         delete
                                                     </button>
@@ -263,8 +280,17 @@ function CheckinsList() {
                         </div>
                     )
                 })}
+                <div>
+                    <button
+                        className="btn btn-outline-danger"
+                        onClick={toggleDeleteMode}
+                    >
+                        delete mode
+                    </button>
+                </div>
             </div>
-        </>
+            )}
+            </>
     )
 }
 
