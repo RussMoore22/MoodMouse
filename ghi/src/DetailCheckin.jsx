@@ -135,4 +135,4 @@ function DetailCheckin() {
     )
 }
 
-export default DetailCheckin
+export default DetailCheckin;

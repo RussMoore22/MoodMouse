@@ -76,7 +76,6 @@ function CreateCheckinForm() {
     const { data: question5, isLoading: q5_isLoading } = useGetQuestionQuery(5)
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('Submit button clicked')
         const image = rorschachImg.id
         createRorschachTest({ image, response })
         const q1q = +question1.id
@@ -129,7 +128,6 @@ function CreateCheckinForm() {
     useEffect(() => {
         const today = new Date()
         if (!(checkinList === undefined) && !checkinListIsLoading) {
-            console.log(checkinList)
             const checkinToday = checkinList.find(
                 (checkin) =>
                     new Date(cTime(checkin.date)).getFullYear() ===
@@ -137,15 +135,10 @@ function CreateCheckinForm() {
                     new Date(cTime(checkin.date)).getMonth() === today.getMonth() &&
                     new Date(cTime(checkin.date)).getDate() === today.getDate()
             )
-            console.log(
-                'here is the checkin for today if it exsists: checkinToday'
-            )
             if (checkinToday === undefined) {
-                // console.log('no checkin for day')
                 setCheckinExist(0)
             } else if (happyLevel == 0) {
                 setCheckinExist(checkinToday.check_in_id)
-                // navigate(`/checkins/${checkinToday.check_in_id}/edit`)
             }
         }
     }, [checkinList])
@@ -308,4 +301,4 @@ function CreateCheckinForm() {
     )
 }
 
-export default CreateCheckinForm
+export default CreateCheckinForm;

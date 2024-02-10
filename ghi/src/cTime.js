@@ -1,5 +1,3 @@
-// function converting zulutime to timezone of user
-
 const cTime = (date) => {
     if (!(date)){
         return null

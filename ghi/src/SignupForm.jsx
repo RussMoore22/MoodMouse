@@ -29,9 +29,6 @@ function SignupForm() {
             setConfirmError(true)
         }
     }
-    // if (password !== confirmPassword) {
-    //     setError('Password does not match');
-    // }
 
     const handleFirstName = (event) => {
         setFirstName(event.target.value)
@@ -53,12 +50,10 @@ function SignupForm() {
     }
 
     useEffect(() => {
-        console.log(signupStatus)
         if (signupStatus.isSuccess) {
             navigate('/')
         }
         if (signupStatus.isError) {
-            console.log(signupStatus)
             setErrorMessage(signupStatus.error.data.message)
         }
     }, [signupStatus])
@@ -175,4 +170,4 @@ function SignupForm() {
     )
 }
 
-export default SignupForm
+export default SignupForm;

@@ -147,15 +147,6 @@ function CheckinsList() {
         setCalendarCards(cardMatrix)
     }
     useEffect(() => {
-        console.log(
-            'asking if ',
-            startDate.getMonth(),
-            endDate.getMonth(),
-            'start date: ',
-            startDate,
-            'end date',
-            endDate
-        )
         if (
             !(checkins === undefined) &&
             startDate.getMonth() == endDate.getMonth()
@@ -294,4 +285,4 @@ function CheckinsList() {
     )
 }
 
-export default CheckinsList
+export default CheckinsList;

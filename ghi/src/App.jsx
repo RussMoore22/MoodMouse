@@ -9,10 +9,7 @@ import Nav from './nav'
 import LoginForm from './LoginForm'
 import Slider from 'react-slick'
 import Home from './Home'
-// All your environment variables in vite are in this object
 
-// When using environment variables, you should do a check to see if
-// they are defined or not and throw an appropriate error message
 const API_HOST = import.meta.env.VITE_API_HOST
 
 if (!API_HOST) {
@@ -33,7 +30,6 @@ function App() {
             <Nav />
             <div className='mt-5'>
                 <Outlet />
-                {/* changed Outlet tag to Home */}
             </div>
         </div>
     )

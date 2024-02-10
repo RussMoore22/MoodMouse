@@ -25,4 +25,4 @@ function ErrorNotification(props) {
     )
 }
 
-export default ErrorNotification
+export default ErrorNotification;
