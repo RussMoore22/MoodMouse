@@ -59,13 +59,17 @@ def update_checkin(
     return updated_checkin
 
 
-@router.delete("/api/checkins/{check_in_id}", response_model=bool)
+@router.delete("/api/checkins/{check_in_id}", response_model=Union[bool, Error])
 def delete_checkin(
     check_in_id: int,
+    response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: Check_InQueries = Depends(),
-) -> bool:
-    return repo.delete(check_in_id)
+) -> Union[bool, Error]:
+    message = repo.delete(check_in_id, account_data)
+    if isinstance(message, Error):
+        response.status_code = 404
+    return message
 
 
 @router.get(
