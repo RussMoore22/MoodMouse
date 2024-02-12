@@ -41,7 +41,7 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 ## Design
 - [API design](docs/apis.md)
 - [Data Models](docs/data-model.md)
-- [GHI](docs/ghi.md)
+- [GHI](docs/GHI.md)
 - [Integrations](docs/integrations.md)
 
 

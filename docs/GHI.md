@@ -1,4 +1,3 @@
-![Img](/images/MoodMouseLogo.png)
 # User Graphical Human Interface
 
 ## Home Page
