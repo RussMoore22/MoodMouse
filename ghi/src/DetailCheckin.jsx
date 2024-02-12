@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetOneCheckinQuery } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
+import cTime from './cTime'
 
 function DetailCheckin() {
     const params = useParams()
@@ -40,7 +41,7 @@ function DetailCheckin() {
             {checkin && (
                 <div>
                     <div>
-                        {new Date(checkin.date).toLocaleDateString(undefined, {
+                        {cTime(new Date(checkin.date)).toLocaleDateString(undefined, {
                             weekday: 'long',
                             month: 'long',
                             year: 'numeric',

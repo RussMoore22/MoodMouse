@@ -7,6 +7,7 @@ import {
     useGetQuestionQuery,
     useGetAllCheckinsQuery,
 } from './app/apiSlice'
+import cTime from './cTime'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -132,10 +133,10 @@ function CreateCheckinForm() {
         if (!(checkinList === undefined) && !checkinListIsLoading) {
             const checkinToday = checkinList.find(
                 (checkin) =>
-                    new Date(checkin.date).getFullYear() ===
+                    cTime(new Date(checkin.date)).getFullYear() ===
                         today.getFullYear() &&
-                    new Date(checkin.date).getMonth() === today.getMonth() &&
-                    new Date(checkin.date).getDate() === today.getDate()
+                    cTime(new Date(checkin.date)).getMonth() === today.getMonth() &&
+                    cTime(new Date(checkin.date)).getDate() === today.getDate()
             )
             if (checkinToday === undefined) {
                 setCheckinExist(0)
