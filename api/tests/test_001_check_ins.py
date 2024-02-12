@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from queries.check_ins import Check_InQueries
+from queries.check_ins import CheckInQueries
 from models import Check_inOutDetail, Check_inIn, AccountOut
 from authenticator import authenticator
 from main import app
@@ -67,7 +67,7 @@ def test_update_checkin():
     app.dependency_overrides[authenticator.get_current_account_data] = (
         mock_get_current_account
     )
-    app.dependency_overrides[Check_InQueries] = MockCheckinQueries
+    app.dependency_overrides[CheckInQueries] = MockCheckinQueries
     check_in_id = 1
     check_in = {
         "happy_level": 4,
@@ -77,7 +77,7 @@ def test_update_checkin():
     }
 
     # Act
-    response = client.put(f"/api/checkins/{check_in_id}", json=check_in)
+    response = client.put(f"/api/check-ins/{check_in_id}", json=check_in)
 
     # Assert
     assert response.status_code == 200

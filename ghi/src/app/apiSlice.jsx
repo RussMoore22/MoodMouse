@@ -74,7 +74,7 @@ export const moodmouseApi = createApi({
                 data['survey'] = info.survey
                 data['rorschach_test'] = info.rorschachTest
                 return {
-                    url: '/api/checkins',
+                    url: '/api/check-ins',
                     method: 'POST',
                     body: data,
                     credentials: 'include',
@@ -121,7 +121,7 @@ export const moodmouseApi = createApi({
 
         getAllCheckins: builder.query({
             query: () => ({
-                url: '/api/checkins/mine',
+                url: '/api/check-ins/mine',
                 credentials: 'include',
             }),
             providesTags: ['Checkins'],
@@ -130,7 +130,7 @@ export const moodmouseApi = createApi({
         getOneCheckin: builder.query({
             query: (checkin_id) => {
                 return {
-                    url: `/api/checkins/${checkin_id}`,
+                    url: `/api/check-ins/${checkin_id}`,
                     credentials: 'include',
                 }
             },
@@ -145,7 +145,7 @@ export const moodmouseApi = createApi({
                 data['survey'] = info.survey
                 data['rorschach_test'] = info.rorschachTest
                 return {
-                    url: `/api/checkins/${info.checkin_id}`,
+                    url: `/api/check-ins/${info.checkin_id}`,
                     method: 'PUT',
                     body: data,
                     credentials: 'include',
@@ -196,7 +196,7 @@ export const moodmouseApi = createApi({
         deleteCheckin: builder.mutation({
             query: (info) => {
                 return {
-                    url: `/api/checkins/${info.checkin_id}`,
+                    url: `/api/check-ins/${info.checkin_id}`,
                     method: 'DELETE',
                     credentials: 'include',
                 }

@@ -13,7 +13,7 @@ from models import (
 )
 
 
-class Check_InQueries:
+class CheckInQueries:
 
     def get_all_mine(
         self, account: dict
