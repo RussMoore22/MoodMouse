@@ -31,7 +31,7 @@ function CreateCheckinForm() {
     const [createSurvey, surveyStatus] = useCreateSurveyMutation()
     const [createRorschachTest, rorschachStatus] =
         useCreateRorschachTestMutation()
-    const { data: rorschach_imgs, isLoading: r_isLoading } = useGetImagesQuery()
+    const { data: rorschach_imgs, isLoading: r_isLoading, isError: r_isError } = useGetImagesQuery()
     const { data: checkinList, isloading: checkinListIsLoading } =
         useGetAllCheckinsQuery()
     const navigate = useNavigate()
@@ -72,11 +72,11 @@ function CreateCheckinForm() {
             setRorschachImage(rorschach_imgs[randomIndex])
         }
     }
-    const { data: question1, isLoading: q1_isLoading } = useGetQuestionQuery(1)
-    const { data: question2, isLoading: q2_isLoading } = useGetQuestionQuery(2)
-    const { data: question3, isLoading: q3_isLoading } = useGetQuestionQuery(3)
-    const { data: question4, isLoading: q4_isLoading } = useGetQuestionQuery(4)
-    const { data: question5, isLoading: q5_isLoading } = useGetQuestionQuery(5)
+    const { data: question1, isLoading: q1_isLoading, isError: q1_error } = useGetQuestionQuery(1)
+    const { data: question2, isLoading: q2_isLoading, isError: q2_error } = useGetQuestionQuery(2)
+    const { data: question3, isLoading: q3_isLoading, isError: q3_error } = useGetQuestionQuery(3)
+    const { data: question4, isLoading: q4_isLoading, isError: q4_error} = useGetQuestionQuery(4)
+    const { data: question5, isLoading: q5_isLoading, isError: q5_error} = useGetQuestionQuery(5)
     const handleSubmit = (event) => {
         event.preventDefault()
         const image = rorschachImg.id
@@ -151,6 +151,15 @@ function CreateCheckinForm() {
         navigate(`/checkins/${checkinExist}/edit`)
     }
 
+    useEffect(() => {
+        if ((q1_error || q2_error || q3_error || q4_error || q5_error || r_isError)) {
+            navigate('/error')
+        }
+    }, [q1_error, q2_error, q3_error, q4_error, q5_error, r_isError])
+
+    if (q1_error || q2_error || q3_error || q4_error || q5_error || r_isError){
+        return <div>Loading...</div>
+    }
     if (checkinExist) {
         return (
             <div className="alert alert-danger" role="alert">
@@ -166,154 +175,170 @@ function CreateCheckinForm() {
 
     return (
         <>
+        { question1 && question2 && question3 && question4 && question5 && rorschach_imgs &&
             <div>
-                <h2 className="mb-5">Create a Check In</h2>
-            </div>
-            <div className="row">
-                <form id="user-checkin-form" onSubmit={handleSubmit}>
-                    <div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="happyLevel">
-                                <h5>Happy Level </h5>
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                id="happyLevel"
-                                placeholder="0"
-                                onChange={handleHappyLevel}
-                                value={happyLevel}
-                                min="0"
-                                max="4"
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label
-                                className="form-group col-md-6"
-                                htmlFor="question1"
-                            >
-                                {q1_isLoading ? 'loading...' : question1.prompt}{' '}
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                name="question1"
-                                id="question1"
-                                min="0"
-                                max="4"
-                                onChange={handleQ1}
-                                value={q1Ans}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="question2">
-                                {q2_isLoading ? 'loading...' : question2.prompt}{' '}
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                name="question1"
-                                id="question2"
-                                min="0"
-                                max="4"
-                                onChange={handleQ2}
-                                value={q2Ans}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="question3">
-                                {q3_isLoading ? 'loading...' : question3.prompt}{' '}
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                name="question1"
-                                id="question3"
-                                min="0"
-                                max="4"
-                                onChange={handleQ3}
-                                value={q3Ans}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="question4">
-                                {q4_isLoading ? 'loading...' : question4.prompt}{' '}
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                name="question1"
-                                id="question4"
-                                min="0"
-                                max="4"
-                                onChange={handleQ4}
-                                value={q4Ans}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="question5">
-                                {q5_isLoading ? 'loading...' : question5.prompt}{' '}
-                            </label>
-                            <input
-                                type="range"
-                                className="form-range"
-                                name="question1"
-                                id="question5"
-                                min="0"
-                                max="4"
-                                onChange={handleQ5}
-                                value={q5Ans}
-                            />
-                        </div>
+                <div>
+                    <h2 className="mb-5">Create a Check In</h2>
+                </div>
+                <div className="row">
+                    <form id="user-checkin-form" onSubmit={handleSubmit}>
                         <div>
-                            <img
-                                src={rorschachImg.path}
-                                width="300"
-                                height="300"
-                            />
-                        </div>
-                        <button
-                            type="button"
-                            className="m-2"
-                            onClick={getRandomRorschachImg}
-                        >
-                            {' '}
-                            generate new image{' '}
-                        </button>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="response">What do you see?</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="response"
-                                placeholder="Response"
-                                onChange={handleRorschachResponse}
-                                value={response}
-                            />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="journalEntry"></label>
-                            <textarea
-                                type="textarea"
-                                className="form-control"
-                                id="journalEntry"
-                                placeholder="Write your journal entry"
-                                onChange={handleJournalEntry}
-                                value={journalEntry}
-                                rows="10"
-                                cols="200"
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group row mt-2">
-                        <div className="col-md-10">
-                            <button type="submit" className="submit-button">
-                                Submit Check-in
+                            <div className="form-group col-md-6">
+                                <label htmlFor="happyLevel">
+                                    <h5>Happy Level </h5>
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    id="happyLevel"
+                                    placeholder="0"
+                                    onChange={handleHappyLevel}
+                                    value={happyLevel}
+                                    min="0"
+                                    max="4"
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label
+                                    className="form-group col-md-6"
+                                    htmlFor="question1"
+                                >
+                                    {q1_isLoading
+                                        ? 'loading...'
+                                        : question1.prompt}{' '}
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    name="question1"
+                                    id="question1"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ1}
+                                    value={q1Ans}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="question2">
+                                    {q2_isLoading
+                                        ? 'loading...'
+                                        : question2.prompt}{' '}
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    name="question1"
+                                    id="question2"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ2}
+                                    value={q2Ans}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="question3">
+                                    {q3_isLoading
+                                        ? 'loading...'
+                                        : question3.prompt}{' '}
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    name="question1"
+                                    id="question3"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ3}
+                                    value={q3Ans}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="question4">
+                                    {q4_isLoading
+                                        ? 'loading...'
+                                        : question4.prompt}{' '}
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    name="question1"
+                                    id="question4"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ4}
+                                    value={q4Ans}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="question5">
+                                    {q5_isLoading
+                                        ? 'loading...'
+                                        : question5.prompt}{' '}
+                                </label>
+                                <input
+                                    type="range"
+                                    className="form-range"
+                                    name="question1"
+                                    id="question5"
+                                    min="0"
+                                    max="4"
+                                    onChange={handleQ5}
+                                    value={q5Ans}
+                                />
+                            </div>
+                            <div>
+                                <img
+                                    src={rorschachImg.path}
+                                    width="300"
+                                    height="300"
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                className="m-2"
+                                onClick={getRandomRorschachImg}
+                            >
+                                {' '}
+                                generate new image{' '}
                             </button>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="response">
+                                    What do you see?
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="response"
+                                    placeholder="Response"
+                                    onChange={handleRorschachResponse}
+                                    value={response}
+                                />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="journalEntry"></label>
+                                <textarea
+                                    type="textarea"
+                                    className="form-control"
+                                    id="journalEntry"
+                                    placeholder="Write your journal entry"
+                                    onChange={handleJournalEntry}
+                                    value={journalEntry}
+                                    rows="10"
+                                    cols="200"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <div className="form-group row mt-2">
+                            <div className="col-md-10">
+                                <button type="submit" className="submit-button">
+                                    Submit Check-in
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+            }
         </>
     )
 }
