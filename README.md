@@ -41,7 +41,7 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 ## Design
 - [API design](docs/apis.md)
 - [Data Models](docs/data-model.md)
-- [GHI](docs/ghi.md)
+- [GHI](docs/GHI.md)
 - [Integrations](docs/integrations.md)
 
 
@@ -52,10 +52,17 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 ```
 1. Fork and clone the repository down to your local machine
 2. 'cd' into the new project directory
-3. Run docker volume create postgres-data
-4. Run docker volume create pg-admin
-5. Run docker-compose build
-6. Run docker-compose up
+3. Create a .env file in the top level of the project and store a
+   random signing key:
+   SIGNING_KEY_ENV_VAR=<put-random-signing-key-here>
+4. in the ghi directory create a .env file and store
+   the path to the api host:
+   VITE_API_HOST=http://<host-name-here>:8000
+5. Run docker volume create postgres-data
+6. Run docker volume create pg-admin
+7. Run docker-compose build
+8. Run docker-compose up
+9. access project using http://localhost:5173
 ```
 
 
@@ -72,7 +79,7 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 
 - Jennifer Perera
 - Russ Moore
-- Luna Sun 
+- Luna Sun
 - Ramesh Beharry
 
 
@@ -83,7 +90,7 @@ Designed for individuals seeking to prioritize their mental well-being as it off
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-jenn]: https://www.linkedin.com/in/jenn1ferperera/
 [linkedin-russ]: https://www.linkedin.com/in/russell-c-moore/
-[linkedin-luna]: https://www.linkedin.com/in/luna-sun-19952322b/ 
+[linkedin-luna]: https://www.linkedin.com/in/luna-sun-19952322b/
 [linkedin-ramesh]: https://www.linkedin.com/in/ramesh-beharry-95619823a
 
 

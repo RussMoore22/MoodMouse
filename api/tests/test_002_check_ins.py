@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from queries.check_ins import Check_InQueries
+from queries.check_ins import CheckInQueries
 from models import Check_inOutDetail, Check_inIn, AccountOut, Error
 from authenticator import authenticator
 from main import app
@@ -72,7 +72,7 @@ def test_create_check_ins():
     app.dependency_overrides[authenticator.get_current_account_data] = (
         mock_get_current_account
     )
-    app.dependency_overrides[Check_InQueries] = MockCheckinQuery
+    app.dependency_overrides[CheckInQueries] = MockCheckinQuery
     request_body = {
         "happy_level": 1,
         "journal_entry": "writing",
@@ -80,7 +80,7 @@ def test_create_check_ins():
         "rorschach_test": 1,
     }
     # Act
-    response = client.post("/api/checkins", json=request_body)
+    response = client.post("/api/check-ins", json=request_body)
 
     # Assert
     assert response.status_code == 200

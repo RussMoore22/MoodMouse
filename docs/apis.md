@@ -1,14 +1,14 @@
-
 # Api Design
 
 ## Auth
+
 (Authorization)
 
 **Method**: `"GET", "POST", "DELETE"`
 **Path**: `'/api/token`, `/api/accounts`, /api/login', '/api/create'
 
-
 ### Get a authentication token
+
 output:
 
 ```
@@ -55,6 +55,7 @@ input:
 ```
 
 output:
+
 ```
 {
   "access_token": "string",
@@ -72,13 +73,14 @@ output:
 ```
 
 ## Default
+
 (Check-ins)
 
 **Method**: `"GET", "POST", "PUT", "DELETE"`
-**Path**: ` '/api/checkins', '/api/checkins/mine', '/api/checkins/{check_in_id}',`
-
+**Path**: ` '/api/check-ins', '/api/checkins/mine', '/api/checkins/{check_in_id}',`
 
 ### Create a checkin
+
 input:
 
 ```
@@ -161,9 +163,7 @@ input:
 
 ```
 
-
 output:
-
 
 ```
 {
@@ -221,14 +221,13 @@ output:
 
 ### Delete a checkin
 
-
 output when deleted:
 '''
 true
 '''
 
-
 ## Rorschach
+
 (Rorschach Test and images)
 
 **Method**: `"GET, "POST", "PUT",`
@@ -246,7 +245,9 @@ rorschach image output:
 
 
 ```
+
 ### Get a Rorschach Image
+
 rorschach test input:
 
 ```
@@ -292,7 +293,6 @@ update rorschach test input:
 
 update rorschach test output:
 
-
 ```
 {
   "detail": [
@@ -309,19 +309,14 @@ update rorschach test output:
 
 ```
 
-
-
-
-
 ## Survey
+
 (Survey test and questions)
 
 **Method**: `"GET", "POST", "PUT`
 **Path**: `'/api/questions/{question_id}, '/api/surveys', '/api/surveys/{survey_id}'`
 
-
 ### Get one survey question
-
 
 output:
 

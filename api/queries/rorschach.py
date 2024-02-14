@@ -83,7 +83,7 @@ class RorschachTestQueries:
             return Error(message="could not create the rorschach test")
 
     def update(
-        self, rorschach_id: int, info: RorschachTestIn
+        self, rorschach_id: int, info: RorschachTestIn, account_data: dict
     ) -> Union[RorschachTestOut, Error]:
         try:
             rorschachimg = RorschachImageQueries()
@@ -94,12 +94,18 @@ class RorschachTestQueries:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE rorschach_tests
-                        SET image=%s, response=%s
-                        WHERE rorschach_id=%s;
+                        UPDATE rorschach_tests AS r
+                        SET image = %s ,response = %s
+                        FROM check_ins as c
+                        WHERE c.rorschach_test = r.rorschach_id AND c.account = %s AND r.rorschach_id = %s
+                        RETURNING r.rorschach_id;
                         """,
-                        [info.image, info.response, rorschach_id],
+                        [info.image, info.response,
+                            account_data["id"], rorschach_id],
                     )
+                    id = db.fetchone()
+                    if id is None:
+                        return Error(message="no rorschach id exists")
                     rorschach_image = RorschachImageQueries()
                     return RorschachTestOut(
                         id=rorschach_id,
