@@ -59,7 +59,9 @@ def update_checkin(
     return updated_checkin
 
 
-@router.delete("/api/check-ins/{check_in_id}", response_model=Union[bool, Error])
+@router.delete(
+    "/api/check-ins/{check_in_id}", response_model=Union[bool, Error]
+)
 def delete_checkin(
     check_in_id: int,
     response: Response,

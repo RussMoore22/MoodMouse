@@ -287,10 +287,11 @@ class CheckInQueries:
         except Exception:
             return Error(message="Could not update check-in!")
 
-    def delete(self, check_in_id: int, account_data: dict) -> Union[bool, Error]:
+    def delete(
+        self, check_in_id: int, account_data: dict
+    ) -> Union[bool, Error]:
         check_in = self.get_one_check_in(
-            check_in_id=check_in_id,
-            account_data=account_data
+            check_in_id=check_in_id, account_data=account_data
         )
         if isinstance(check_in, Error):
             return check_in
@@ -302,7 +303,7 @@ class CheckInQueries:
                         DELETE FROM check_ins
                         WHERE check_in_id = %s AND account = %s;
                         """,
-                        [check_in_id, account_data['id']],
+                        [check_in_id, account_data["id"]],
                     )
                     return True
         except Exception:

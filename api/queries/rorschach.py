@@ -97,11 +97,17 @@ class RorschachTestQueries:
                         UPDATE rorschach_tests AS r
                         SET image = %s ,response = %s
                         FROM check_ins as c
-                        WHERE c.rorschach_test = r.rorschach_id AND c.account = %s AND r.rorschach_id = %s
+                        WHERE c.rorschach_test = r.rorschach_id
+                        AND c.account = %s
+                        AND r.rorschach_id = %s
                         RETURNING r.rorschach_id;
                         """,
-                        [info.image, info.response,
-                            account_data["id"], rorschach_id],
+                        [
+                            info.image,
+                            info.response,
+                            account_data["id"],
+                            rorschach_id,
+                        ],
                     )
                     id = db.fetchone()
                     if id is None:
