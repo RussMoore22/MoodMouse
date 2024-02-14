@@ -17,6 +17,10 @@ lint-test-job:
         - flake8 api
 
 api-unit-tests-job:
+    variables:
+            CORS_HOST: http://localhost:5173
+            DATABASE_URL: postgresql://example_user:secret@postgres/example_db
+            SIGNING_KEY: ${SIGNING_KEY_ENV_VAR}
     image: python:3-bullseye
     stage: test
     needs:
