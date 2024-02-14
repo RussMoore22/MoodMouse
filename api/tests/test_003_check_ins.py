@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from models import Check_inOutList
-from queries.check_ins import Check_InQueries
+from queries.check_ins import CheckInQueries
 from authenticator import authenticator
 from main import app
 
@@ -111,9 +111,9 @@ def test_get_all_mine():
     app.dependency_overrides[authenticator.get_current_account_data] = (
         mock_get_current_account
     )
-    app.dependency_overrides[Check_InQueries] = MockCheckinQueries
+    app.dependency_overrides[CheckInQueries] = MockCheckinQueries
     # Act
-    response = client.get("/api/checkins/mine")
+    response = client.get("/api/check-ins/mine")
 
     # Assert to make sure its status code is 200
     assert response.status_code == 200

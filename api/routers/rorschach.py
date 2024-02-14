@@ -53,7 +53,7 @@ async def update_rorschach_test(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: RorschachTestQueries = Depends(),
 ) -> Union[RorschachTestOut, Error]:
-    rorschach_test = repo.update(rorschach_id, info)
+    rorschach_test = repo.update(rorschach_id, info, account_data)
     if isinstance(rorschach_test, Error):
         response.status_code = 404
     else:
