@@ -73,7 +73,7 @@ class RorschachTestQueries:
                         """,
                         [info.image, info.response],
                     )
-                    rorschach_id = data.fetchone()
+                    rorschach_id = data.fetchone()[0]
                     return RorschachTestOut(
                         id=rorschach_id,
                         image=rorschachimg.get_one(info.image),
