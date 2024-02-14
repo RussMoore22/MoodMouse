@@ -20,7 +20,10 @@ api-unit-tests-job:
     variables:
             CORS_HOST: http://localhost:5173
             DATABASE_URL: postgresql://example_user:secret@postgres/example_db
-            SIGNING_KEY: ${SIGNING_KEY_ENV_VAR}
+            SIGNING_KEY: 'does-not-matter!'
+            #
+            # make sure this sign-in key is protected
+            # password should be a hashed password.
     image: python:3-bullseye
     stage: test
     needs:
