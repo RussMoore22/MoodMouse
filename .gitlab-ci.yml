@@ -41,7 +41,7 @@ build-api-image:
   stage: build
   image: docker:git
   needs:
-    - tests
+    - api-unit-tests-job
   variables:
     GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/api
   before_script:
