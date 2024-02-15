@@ -67,7 +67,7 @@ build-front-end-job:
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     # Don't forget to also replace PROJECT NAME in the npm run build line as well
     VITE_API_HOST: https://oct-2023-4-et-api.mod3projects.com
-    PUBLIC_URL: https://cyber-mavericks.gitlab.io
+    PUBLIC_URL: https://module3-project-gamma-cyber-mavericks-b6fbaa4a5b5a2d05654e913a9.gitlab.io/
   script:
     - cd ghi
     - npm install
