@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
     useCreateCheckinMutation,
     useCreateRorschachTestMutation,
@@ -115,17 +115,20 @@ function CreateCheckinForm() {
                 rorschachTest,
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [survey, rorschachTest])
     useEffect(() => {
         if (checkinStatus.isSuccess) {
             navigate('/calendar')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkinStatus])
 
     useEffect(() => {
         if (!(rorschach_imgs === undefined)) {
             getRandomRorschachImg(null)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rorschach_imgs])
 
     useEffect(() => {
@@ -135,7 +138,8 @@ function CreateCheckinForm() {
                 (checkin) =>
                     cTime(new Date(checkin.date)).getFullYear() ===
                         today.getFullYear() &&
-                    cTime(new Date(checkin.date)).getMonth() === today.getMonth() &&
+                    cTime(new Date(checkin.date)).getMonth() ===
+                        today.getMonth() &&
                     cTime(new Date(checkin.date)).getDate() === today.getDate()
             )
             if (checkinToday === undefined) {
@@ -144,6 +148,7 @@ function CreateCheckinForm() {
                 setCheckinExist(checkinToday.check_in_id)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkinList])
 
     const handleEdit = (event) => {
@@ -152,9 +157,17 @@ function CreateCheckinForm() {
     }
 
     useEffect(() => {
-        if ((q1_error || q2_error || q3_error || q4_error || q5_error || r_isError)) {
+        if (
+            q1_error ||
+            q2_error ||
+            q3_error ||
+            q4_error ||
+            q5_error ||
+            r_isError
+        ) {
             navigate('/error')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [q1_error, q2_error, q3_error, q4_error, q5_error, r_isError])
 
     if (q1_error || q2_error || q3_error || q4_error || q5_error || r_isError){
@@ -167,7 +180,7 @@ function CreateCheckinForm() {
                     new Date().getMonth() + 1
                 } / ${new Date().getDate()} / ${new Date().getFullYear()} Do you want to edit it? `}
                 <button className="submit-button" onClick={handleEdit}>
-                    Edit Today's check-in
+                    Edit check-in
                 </button>
             </div>
         )

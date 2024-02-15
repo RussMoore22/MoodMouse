@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
     useGetAllCheckinsQuery,
     useDeleteCheckinMutation,
@@ -28,7 +28,7 @@ function CheckinsList() {
     const [calendarCards, setCalendarCards] = useState([])
     const navigate = useNavigate()
     const [deleteMode, setDeleteMode] = useState(false)
-    const [deleteCheckin, deleteCheckinStatus] = useDeleteCheckinMutation()
+    const [deleteCheckin] = useDeleteCheckinMutation()
 
     const toggleDeleteMode = () => {
         setDeleteMode(!deleteMode)
@@ -37,7 +37,7 @@ function CheckinsList() {
         deleteCheckin({ checkin_id: event.target.value })
     }
 
-    const handleIncrement = (event) => {
+    const handleIncrement = () => {
         if (selectDate.getMonth() === 11) {
             setSelectDate(
                 new Date(
@@ -52,7 +52,7 @@ function CheckinsList() {
             )
         }
     }
-    const handleDecrement = (event) => {
+    const handleDecrement = () => {
         if (selectDate.getMonth() === 0) {
             setSelectDate(
                 new Date(
@@ -80,17 +80,6 @@ function CheckinsList() {
         setStartDate(new Date(currentYear, currentMonth, 1))
         setEndDate(new Date(currentYear, currentMonth + 1, 0))
     }, [selectDate])
-
-    const score = (checkin) => {
-        return (
-            checkin.happy_level +
-            checkin.survey.q1_ans +
-            checkin.survey.q2_ans +
-            checkin.survey.q3_ans +
-            checkin.survey.q4_ans +
-            checkin.survey.q5_ans
-        )
-    }
 
     const MakeCardList = () => {
         const start = startDate.getDate()
@@ -153,6 +142,7 @@ function CheckinsList() {
         ) {
             MakeCardList()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkins, startDate, endDate])
 
     const dateColor = (card) => {
@@ -183,6 +173,7 @@ function CheckinsList() {
         if (isError && checkins === undefined) {
             navigate('/error')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isError])
 
     if (isLoading) return <div>Loading...</div>

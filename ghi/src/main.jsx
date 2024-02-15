@@ -14,10 +14,6 @@ import DetailCheckin from './DetailCheckin'
 import EditCheckinForm from './EditCheckinForm'
 import ErrorNotification from './ErrorNotification'
 
-
-
-const domain = /https:\/\/[^/]+/;
-
 const router = createBrowserRouter([
     {
         path: '/',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './CarouselComponent.css'
 import { Link } from "react-router-dom"
 
@@ -26,6 +26,7 @@ function Home() {
 
     useEffect(() => {
         fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -34,6 +35,7 @@ function Home() {
             setCurrentIndex(updatedIndex)
         }, 10000)
         return () => clearInterval(indexInterval)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
 
     if (Object.keys(data).length === 0) {

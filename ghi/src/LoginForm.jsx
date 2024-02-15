@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLoginMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,12 +27,14 @@ function LoginForm() {
         if (loginStatus.isError) {
             setErrorMessage(loginStatus.error.data.detail)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginStatus])
 
     useEffect(() => {
         if (loginStatus.isError) {
             setErrorMessage('')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [username, password])
 
     return (
