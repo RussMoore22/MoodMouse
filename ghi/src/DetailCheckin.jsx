@@ -17,7 +17,7 @@ function DetailCheckin() {
         if (checkinError) {
             navigate('/error')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinError])
 
     if (checkinIsLoading) return <div>Loading....</div>

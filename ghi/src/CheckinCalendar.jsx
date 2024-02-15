@@ -142,7 +142,7 @@ function CheckinsList() {
         ) {
             MakeCardList()
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkins, startDate, endDate])
 
     const dateColor = (card) => {
@@ -173,7 +173,7 @@ function CheckinsList() {
         if (isError && checkins === undefined) {
             navigate('/error')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [isError])
 
     if (isLoading) return <div>Loading...</div>

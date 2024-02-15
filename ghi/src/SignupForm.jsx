@@ -56,21 +56,21 @@ function SignupForm() {
         if (signupStatus.isError) {
             setErrorMessage(signupStatus.error.data.message)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [signupStatus])
 
     useEffect(() => {
         if (confirmError) {
             setErrorMessage('Passwords do not match')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [confirmError])
 
     useEffect(() => {
         if (signupStatus.isError) {
             setErrorMessage('')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [username, email])
 
     useEffect(() => {
@@ -78,7 +78,7 @@ function SignupForm() {
             setConfirmError(false)
             setErrorMessage('')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [password, confirmPassword])
 
     return (

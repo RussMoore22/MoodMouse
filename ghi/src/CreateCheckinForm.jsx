@@ -115,20 +115,20 @@ function CreateCheckinForm() {
                 rorschachTest,
             })
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [survey, rorschachTest])
     useEffect(() => {
         if (checkinStatus.isSuccess) {
             navigate('/calendar')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinStatus])
 
     useEffect(() => {
         if (!(rorschach_imgs === undefined)) {
             getRandomRorschachImg(null)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [rorschach_imgs])
 
     useEffect(() => {
@@ -148,7 +148,7 @@ function CreateCheckinForm() {
                 setCheckinExist(checkinToday.check_in_id)
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinList])
 
     const handleEdit = (event) => {
@@ -167,7 +167,7 @@ function CreateCheckinForm() {
         ) {
             navigate('/error')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [q1_error, q2_error, q3_error, q4_error, q5_error, r_isError])
 
     if (q1_error || q2_error || q3_error || q4_error || q5_error || r_isError){

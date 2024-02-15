@@ -26,7 +26,7 @@ function Home() {
 
     useEffect(() => {
         fetchData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [])
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function Home() {
             setCurrentIndex(updatedIndex)
         }, 10000)
         return () => clearInterval(indexInterval)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [currentIndex])
 
     if (Object.keys(data).length === 0) {

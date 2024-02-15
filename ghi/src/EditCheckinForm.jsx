@@ -46,7 +46,7 @@ function EditCheckinForm() {
             setQ5Ans(checkinData.survey.q5_ans)
             setResponse(checkinData.rorschach_test.response)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinLoading])
 
     const handleHappyLevel = (event) => {
@@ -140,7 +140,7 @@ function EditCheckinForm() {
                 navigate('/calendar')
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinStatus, surveyStatus, rorschachStatus])
 
     useEffect(() => {
@@ -149,14 +149,14 @@ function EditCheckinForm() {
         } else {
             setEdit(false)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
     useEffect(() => {
         if (checkinError) {
             navigate('/error')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [checkinError])
 
     if (checkinLoading) return <div>Loading....</div>

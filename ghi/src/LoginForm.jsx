@@ -27,14 +27,14 @@ function LoginForm() {
         if (loginStatus.isError) {
             setErrorMessage(loginStatus.error.data.detail)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [loginStatus])
 
     useEffect(() => {
         if (loginStatus.isError) {
             setErrorMessage('')
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [username, password])
 
     return (

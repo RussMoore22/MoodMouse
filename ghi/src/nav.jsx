@@ -12,7 +12,7 @@ function Nav() {
         if (logoutStatus.isSuccess) {
             navigate('/')
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [logoutStatus])
 
     return (
