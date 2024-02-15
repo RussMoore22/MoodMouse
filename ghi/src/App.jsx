@@ -1,14 +1,7 @@
-// This makes VSCode check types as if you are using TypeScript
-//@ts-check
-import { useState, useEffect } from 'react'
-import ErrorNotification from './ErrorNotification'
-import Construct from './Construct'
 import './App.css'
 import { Outlet } from 'react-router-dom'
 import Nav from './nav'
-import LoginForm from './LoginForm'
-import Slider from 'react-slick'
-import Home from './Home'
+
 
 const API_HOST = import.meta.env.VITE_API_HOST
 

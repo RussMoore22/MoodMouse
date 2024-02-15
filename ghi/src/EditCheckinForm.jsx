@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import {
     useEditOneCheckinMutation,
@@ -46,6 +46,7 @@ function EditCheckinForm() {
             setQ5Ans(checkinData.survey.q5_ans)
             setResponse(checkinData.rorschach_test.response)
         }
+
     }, [checkinLoading])
 
     const handleHappyLevel = (event) => {
@@ -139,6 +140,7 @@ function EditCheckinForm() {
                 navigate('/calendar')
             }
         }
+
     }, [checkinStatus, surveyStatus, rorschachStatus])
 
     useEffect(() => {
@@ -147,12 +149,14 @@ function EditCheckinForm() {
         } else {
             setEdit(false)
         }
+
     }, [checkinDeploy, surveyDeploy, rorschachDeploy])
 
     useEffect(() => {
         if (checkinError) {
             navigate('/error')
         }
+
     }, [checkinError])
 
     if (checkinLoading) return <div>Loading....</div>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './CarouselComponent.css'
+import { Link } from "react-router-dom"
 
 function Home() {
     const [data, setData] = useState({})
@@ -25,6 +26,7 @@ function Home() {
 
     useEffect(() => {
         fetchData()
+
     }, [])
 
     useEffect(() => {
@@ -33,6 +35,7 @@ function Home() {
             setCurrentIndex(updatedIndex)
         }, 10000)
         return () => clearInterval(indexInterval)
+
     }, [currentIndex])
 
     if (Object.keys(data).length === 0) {
@@ -76,7 +79,7 @@ function Home() {
                         </div>
                     ))}
                 </div>
-                <a
+                <Link
                     className="carousel-control-prev"
                     role="button"
                     data-slide="prev"
@@ -86,8 +89,8 @@ function Home() {
                         className="carousel-control-prev-icon"
                         aria-hidden="true"
                     ></span>
-                </a>
-                <a
+                </Link>
+                <Link
                     className="carousel-control-next"
                     role="button"
                     data-slide="next"
@@ -97,7 +100,7 @@ function Home() {
                         className="carousel-control-next-icon"
                         aria-hidden="true"
                     ></span>
-                </a>
+                </Link>
             </div>
         </>
     )

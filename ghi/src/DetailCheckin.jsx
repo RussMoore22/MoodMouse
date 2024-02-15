@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetOneCheckinQuery } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +17,7 @@ function DetailCheckin() {
         if (checkinError) {
             navigate('/error')
         }
+
     }, [checkinError])
 
     if (checkinIsLoading) return <div>Loading....</div>

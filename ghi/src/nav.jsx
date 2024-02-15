@@ -1,4 +1,4 @@
-import { NavLink, Navigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useGetTokenQuery, useLogoutMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -12,6 +12,7 @@ function Nav() {
         if (logoutStatus.isSuccess) {
             navigate('/')
         }
+
     }, [logoutStatus])
 
     return (
