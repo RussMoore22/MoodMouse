@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './CarouselComponent.css'
+import { Link } from "react-router-dom"
 
 function Home() {
     const [data, setData] = useState({})
@@ -76,7 +77,7 @@ function Home() {
                         </div>
                     ))}
                 </div>
-                <a
+                <Link
                     className="carousel-control-prev"
                     role="button"
                     data-slide="prev"
@@ -86,8 +87,8 @@ function Home() {
                         className="carousel-control-prev-icon"
                         aria-hidden="true"
                     ></span>
-                </a>
-                <a
+                </Link>
+                <Link
                     className="carousel-control-next"
                     role="button"
                     data-slide="next"
@@ -97,7 +98,7 @@ function Home() {
                         className="carousel-control-next-icon"
                         aria-hidden="true"
                     ></span>
-                </a>
+                </Link>
             </div>
         </>
     )
