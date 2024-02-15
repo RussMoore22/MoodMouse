@@ -140,6 +140,7 @@ function EditCheckinForm() {
                 navigate('/calendar')
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkinStatus, surveyStatus, rorschachStatus])
 
     useEffect(() => {
